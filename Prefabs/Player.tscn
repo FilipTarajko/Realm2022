@@ -25,7 +25,7 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.1, 0.1 )
+zoom = Vector2( 0.15, 0.15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/archerGreen = SubResource( 2 )
