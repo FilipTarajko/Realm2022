@@ -9,10 +9,10 @@ func _physics_process(delta):
 func _process(delta):
 	HandleAnimation()
 
-var textureDown = preload("res://archerGreen.png")
-var textureUp = preload("res://archerGreenBack.png")
-var textureLeft = preload("res://archerGreenLeft.png")
-var textureRight = preload("res://archerGreenRight.png")
+var textureDown = preload("res://assets/playerSprites/archerGreen.png")
+var textureUp = preload("res://assets/playerSprites/archerGreenBack.png")
+var textureLeft = preload("res://assets/playerSprites/archerGreenLeft.png")
+var textureRight = preload("res://assets/playerSprites/archerGreenRight.png")
 
 onready var sprite_node = get_node("Sprite")
 

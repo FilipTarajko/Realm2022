@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/archerGreen.png-76f17b1f235e6f59eb822cffec81a86f.stex"
+path="res://.import/archerGreenLeft.png-27da235ef9ab02acf5dbe2beccd587f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://archerGreen.png"
-dest_files=[ "res://.import/archerGreen.png-76f17b1f235e6f59eb822cffec81a86f.stex" ]
+source_file="res://Assets/playerSprites/archerGreenLeft.png"
+dest_files=[ "res://.import/archerGreenLeft.png-27da235ef9ab02acf5dbe2beccd587f9.stex" ]
 
 [params]
 

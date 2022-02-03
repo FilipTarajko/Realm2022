@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://PlayerMovement.gd" type="Script" id=1]
-[ext_resource path="res://archerGreen.png" type="Texture" id=2]
-[ext_resource path="res://shadowRound.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
+[ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
+[ext_resource path="res://Assets/playerSprites/shadowRound.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
@@ -23,7 +23,7 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.1, 0.1 )
+zoom = Vector2( 0.2, 0.2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/archerGreen = SubResource( 2 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shadowRound.png-986b595ac82fb8959265abb076f8b802.stex"
+path="res://.import/mytiles.png-d2e923bce65dc704a5f561f4b7ebbe62.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://shadowRound.png"
-dest_files=[ "res://.import/shadowRound.png-986b595ac82fb8959265abb076f8b802.stex" ]
+source_file="res://Assets/mytiles.png"
+dest_files=[ "res://.import/mytiles.png-d2e923bce65dc704a5f561f4b7ebbe62.stex" ]
 
 [params]
 
