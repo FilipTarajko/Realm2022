@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/bulletSprites/greenArrow.png" type="Texture" id=1]
+[ext_resource path="res://Assets/bulletSprites/swords/0.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/PlayerArrow.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 2.5
-height = 9.0
+radius = 1.5
+height = 8.0
 
 [node name="Arrow" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
@@ -17,5 +17,5 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.5, 0 )
+rotation = -0.785398
 texture = ExtResource( 1 )

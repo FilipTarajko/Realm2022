@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/swordBullet.png-8afa2a0e85d3acd0d78cefb1ffa38585.stex"
+path="res://.import/3.png-d1b7de2593cce8d0505e472a0d6274e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/bulletSprites/swordBullet.png"
-dest_files=[ "res://.import/swordBullet.png-8afa2a0e85d3acd0d78cefb1ffa38585.stex" ]
+source_file="res://Assets/bulletSprites/swords/3.png"
+dest_files=[ "res://.import/3.png-d1b7de2593cce8d0505e472a0d6274e5.stex" ]
 
 [params]
 
