@@ -18,7 +18,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = -0.785398
-scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 
 [connection signal="body_entered" from="." to="." method="_on_Arrow_body_entered"]
