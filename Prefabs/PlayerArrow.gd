@@ -26,5 +26,5 @@ func handleMovement(delta):
 func _on_Arrow_body_entered(body):
 	#print(str(body," entered"))
 	if("hp" in body):
-		body.hp -= damage
+		body.takeDamage(damage)
 		print(str(body, " was dealt ",damage," damage!"))
