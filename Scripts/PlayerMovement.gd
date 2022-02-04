@@ -41,19 +41,20 @@ var tieredWeaponsData = {
 		"scalex": 0.5,
 		"scaley": 0.5,
 		"collisionShapeRadius": 2.5,
-		"collisionShapeHeight": 10,
-		# TO ADD
+		#"collisionShapeHeight": 10,
+		# fix?
+		"collisionShapeHeight": 14,
 		"spriteRotation": 0,
 		"spriteOffsetX": 0.5,
 		"spriteOffsetY": 0.5,
 	},
 	"sword": {
 		"att_spd": 3.0,
-		"att_spd_gain": 2.0,
-		"dmg_min": 50,
-		"dmg_min_gain": 25,
-		"dmg_max": 100,
-		"dmg_max_gain": 50,
+		"att_spd_gain": 1.0,
+		"dmg_min": 30,
+		"dmg_min_gain": 15,
+		"dmg_max": 50,
+		"dmg_max_gain": 30,
 		"projectile_speed": 150,
 		"lifetime": 0.2,
 		"shots": 1,
@@ -61,7 +62,9 @@ var tieredWeaponsData = {
 		"scalex": 0.8,
 		"scaley": 0.8,
 		"collisionShapeRadius": 1.5,
-		"collisionShapeHeight": 8,
+		#"collisionShapeHeight": 8,
+		# fix?
+		"collisionShapeHeight": 16,
 		"spriteRotation": -45.0,
 		"spriteOffsetX": 0.0,
 		"spriteOffsetY": 0.0,
@@ -102,23 +105,9 @@ var weapons = {
 var usedWeapon = weapons["def"]
 
 func _ready():
+	randomize()
 	for weapon in ["bow", "sword"]:
 		for i in range(6):
-			if false:
-				weapons["bow_t%s" % i]={
-					# balancing
-					"att_spd": tieredWeaponsData["bow"].att_spd + tieredWeaponsData["bow"].att_spd_gain*i, "dmg_min": tieredWeaponsData["bow"].dmg_min + tieredWeaponsData["bow"].dmg_min_gain*i, "dmg_max": tieredWeaponsData["bow"].dmg_max + tieredWeaponsData["bow"].dmg_max_gain*i,
-					# path
-					"projectile_speed": tieredWeaponsData["bow"].projectile_speed, "lifetime": tieredWeaponsData["bow"].lifetime, "shots": tieredWeaponsData["bow"].shots, "angle": tieredWeaponsData["bow"].angle,
-					# size & hitbox
-					"scalex": tieredWeaponsData["bow"].scalex, "scaley": tieredWeaponsData["bow"].scaley, "collisionShapeRadius": tieredWeaponsData["bow"].collisionShapeRadius, "collisionShapeHeight": tieredWeaponsData["bow"].collisionShapeHeight, 
-					# cosmetic
-					"sprite": bulletSprites["bows"][i], "modulate": Color(1, 1, 1),
-					# properties
-					"multihit": false, "armorPierce": false, "ignoreWalls": false,
-					# data
-					"type": "bow", "tier": i, "name": 'bow t%s' % i
-				}
 			weapons[str(weapon,"_t",i)]={
 				# balancing
 				"att_spd": tieredWeaponsData[weapon].att_spd + tieredWeaponsData[weapon].att_spd_gain*i, "dmg_min": tieredWeaponsData[weapon].dmg_min + tieredWeaponsData[weapon].dmg_min_gain*i, "dmg_max": tieredWeaponsData[weapon].dmg_max + tieredWeaponsData[weapon].dmg_max_gain*i,
@@ -139,9 +128,15 @@ func _physics_process(delta):
 	handleMovement()
 
 func _process(delta):
+	handleRestarting()
 	handleWeaponChange()
 	handleAnimation()
 	handleShooting()
+
+func handleRestarting():
+	if Input.is_key_pressed(KEY_R):
+		print("\nRestarted!")
+		get_tree().reload_current_scene()
 
 var type = "bow"
 var tier = 0
@@ -206,6 +201,7 @@ func handleShooting():
 			new_arrow.position = get_global_position()
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
+			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
 			new_arrow.rotation = get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots)))
 			new_arrow.get_child(1).texture = usedWeapon["sprite"]
 			new_arrow.modulate = usedWeapon.modulate
