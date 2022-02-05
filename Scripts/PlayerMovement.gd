@@ -38,8 +38,8 @@ var tieredWeaponsData = {
 		"dmg_max_gain": 15,
 		"projectile_speed": 100,
 		"lifetime": 0.5,
-		"shots": 1,
-		"angle": 0,
+		"shots": 3,
+		"angle": 30,
 		"scalex": 0.5,
 		"scaley": 0.5,
 		"collisionShapeRadius": 2.5,
@@ -49,6 +49,7 @@ var tieredWeaponsData = {
 		"spriteRotation": 0,
 		"spriteOffsetX": 0.5,
 		"spriteOffsetY": 0.5,
+		"multihit": true,
 	},
 	"sword": {
 		"att_spd": 3.0,
@@ -70,6 +71,7 @@ var tieredWeaponsData = {
 		"spriteRotation": -45.0,
 		"spriteOffsetX": 0.0,
 		"spriteOffsetY": 0.0,
+		"multihit": false,
 	}
 }
 
@@ -78,7 +80,7 @@ var weapons = {
 		# balancing
 		"att_spd": tieredWeaponsData["bow"].att_spd + tieredWeaponsData["bow"].att_spd_gain*0, "dmg_min": tieredWeaponsData["bow"].dmg_min + tieredWeaponsData["bow"].dmg_min_gain*0, "dmg_max": tieredWeaponsData["bow"].dmg_max + tieredWeaponsData["bow"].dmg_max_gain*0,
 		# path
-		"projectile_speed": tieredWeaponsData["bow"].projectile_speed, "lifetime": tieredWeaponsData["bow"].lifetime, "shots": 1, "angle": tieredWeaponsData["bow"].angle,
+		"projectile_speed": tieredWeaponsData["bow"].projectile_speed, "lifetime": tieredWeaponsData["bow"].lifetime, "shots": tieredWeaponsData["bow"].shots, "angle": tieredWeaponsData["bow"].angle,
 		# size & hitbox
 		"scalex": tieredWeaponsData["bow"].scalex, "scaley": tieredWeaponsData["bow"].scaley, "collisionShapeRadius": tieredWeaponsData["bow"].collisionShapeRadius, "collisionShapeHeight": tieredWeaponsData["bow"].collisionShapeHeight, 
 		# cosmetic
@@ -120,11 +122,11 @@ func _ready():
 				# cosmetic
 				"sprite": bulletSprites[str(weapon,"s")][i], "modulate": Color(1, 1, 1), "spriteRotation": tieredWeaponsData[weapon].spriteRotation, "spriteOffsetX": tieredWeaponsData[weapon].spriteOffsetX, "spriteOffsetY": tieredWeaponsData[weapon].spriteOffsetY,
 				# properties
-				"multihit": false, "armorPierce": false, "ignoreWalls": false,
+				"multihit": tieredWeaponsData[weapon].multihit, "armorPierce": false, "ignoreWalls": false,
 				# data
 				"type": weapon, "tier": i, "name": str(weapon,' t',i),
 			}
-	usedWeapon = weapons["bow_t3"]
+	usedWeapon = weapons["bow_t0"]
 
 func _physics_process(delta):
 	handleMovement()
@@ -221,6 +223,7 @@ func handleShooting():
 			new_arrow.modulate = usedWeapon.modulate
 			new_arrow.scale.x = usedWeapon.scalex
 			new_arrow.scale.y = usedWeapon.scaley
+			new_arrow.multihit = usedWeapon.multihit
 			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
 			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
 			new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation

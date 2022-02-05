@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://testEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://EnemyGenerator.gd" type="Script" id=3]
 [ext_resource path="res://Assets/mytiles.png" type="Texture" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -116,6 +116,6 @@ collision_layer = 2
 collision_mask = 0
 format = 1
 
-[node name="TestEnemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 38, 6 )
-z_index = 2
+[node name="EnemyGenerator" type="Node2D" parent="."]
+position = Vector2( 32, -36 )
+script = ExtResource( 3 )

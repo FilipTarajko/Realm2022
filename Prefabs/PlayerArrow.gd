@@ -4,6 +4,7 @@ var projectile_speed = 100
 var lifetime = 0.1
 var damage = 0
 var movement = Vector2(projectile_speed, 0)
+var multihit = false
 
 func _ready():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
@@ -27,6 +28,8 @@ func _on_Arrow_body_entered(body):
 	#print(str(body," entered"))
 	if("hp" in body):
 		body.takeDamage(damage)
+		if not multihit:
+			queue_free()
 	else:
 		#$Sprite.visible=false;
 		queue_free()
