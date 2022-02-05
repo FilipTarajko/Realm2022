@@ -1,16 +1,12 @@
-extends KinematicBody2D
-
-var maxhp = 500.0
-var hp = maxhp
+extends "res://Enemy.gd"
 
 func _ready():
-	$EnemyHealthbar.value = 100*hp/maxhp
+	maxhp = 300
+	enemyName = "testEnemy3434"
+	setStartingHealth()
 
 func _process(delta):
-	if hp<=0:
-		print("Enemy defeated!")
-		queue_free()
+	enemyProcess()
 
 func takeDamage(damage):
-	hp -= damage
-	$EnemyHealthbar.value = 100*hp/maxhp
+	takeDamageSuper(damage)

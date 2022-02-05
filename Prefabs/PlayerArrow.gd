@@ -27,6 +27,6 @@ func _on_Arrow_body_entered(body):
 	#print(str(body," entered"))
 	if("hp" in body):
 		body.takeDamage(damage)
-		print(str(body, " was dealt ",damage," damage!"))
 	else:
+		#$Sprite.visible=false;
 		queue_free()
