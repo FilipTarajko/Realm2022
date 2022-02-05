@@ -10,7 +10,6 @@ var weapons = []
 
 func _ready():
 	maxHp = defaultMaxHp
-	enemyName = "testEnemy3434"
 	setStartingHealth()
 	for weapon in weapons:
 		weapon.can_fire = true

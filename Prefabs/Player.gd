@@ -7,7 +7,7 @@ var can_fire = true
 var invisibility = 0
 var rotationSpeed = 90
 
-var maxHp = 500
+var maxHp = 100
 var hp
 var hpRegen = 20
 
