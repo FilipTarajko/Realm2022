@@ -21,6 +21,7 @@ var enemiesData = {
 		"visionRange": 100,
 		"followRange": 0,
 		"doesDodge": false,
+		"chaseRandomMaxAngle": 30,
 		"modulate": Color(1, 1, 0),
 		"scalex": 0.8,
 		"scaley": 0.8,
@@ -57,6 +58,7 @@ var enemiesData = {
 		"visionRange": 300,
 		"followRange": 30,
 		"doesDodge": true,
+		"chaseRandomMaxAngle": 15,
 		"modulate": Color(0, 1, 1),
 		"scalex": 1.0,
 		"scaley": 1.0,
@@ -65,12 +67,13 @@ var enemiesData = {
 		"weapons": [
 			{
 				"att_spd": 1.0,
-				"dmg_min": 20,
-				"dmg_max": 30,
+				"dmg_min": 2,
+				"dmg_max": 3,
 				"projectile_speed": 100,
 				"lifetime": 0.5,
 				"shots": 3,
 				"angle": 30,
+				"randomAngle": 15,
 				"scalex": 0.5,
 				"scaley": 0.5,
 				"collisionShapeRadius": 2.5,
@@ -148,6 +151,7 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 		new_enemy.visionRange = enemyData.visionRange
 		new_enemy.followRange = enemyData.followRange
 		new_enemy.doesDodge = enemyData.doesDodge
+		new_enemy.chaseRandomMaxAngle = enemyData.chaseRandomMaxAngle
 		new_enemy.scale.x = enemyData.scalex
 		new_enemy.scale.y = enemyData.scaley
 		new_enemy.defaultMaxHp = enemyData.maxHp
@@ -171,6 +175,7 @@ func _process(delta):
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
 	spawnEnemyCluster(enemiesData["scorpion_1"], 20, 24, 120, 40)
+	#spawnEnemyCluster(enemiesData["enemy1"], 2, 24, 120, -80)
 	#spawnEnemy(enemiesData["enemy1"], 20, -80)
 	#spawnEnemy(enemiesData["enemy2"], 60, -80)
 	#spawnEnemy(enemiesData["enemy2"], 80, -80)

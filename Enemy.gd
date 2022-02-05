@@ -8,7 +8,9 @@ var hpRegen
 onready var player = get_parent().get_node("Player")
 
 var moveReset = true
-var randomAngle = rand_range(0,6.28)
+var randomRunningAngle = rand_range(0,6.28)
+var chaseRunningAngle = rand_range(-1,1)
+var chaseRandomMaxAngle = 0
 var moveTimer = Timer.new()
 
 func _ready():
@@ -36,8 +38,8 @@ func takeDamageSuper(damage):
 
 func move_timeout():
 #	print("movetimeout")
-	randomAngle = rand_range(0,6.28)
-	#print(randomAngle)
+	randomRunningAngle = rand_range(0,6.28)
+	chaseRunningAngle = rand_range(-1,1)
 	moveTimer.set_wait_time(rand_range(0.1,0.8))
 	moveReset = true
 
@@ -46,7 +48,7 @@ var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 func basicEnemyShooting(delta, usedWeapon, visionRange):
 	if global_position.distance_to(player.global_position)<visionRange and usedWeapon.can_fire == true:
 		usedWeapon.can_fire = false
-		var randomAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
+		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
 		for i in range(usedWeapon.shots):
 			var new_arrow = arrowPrefab.instance()
 			new_arrow.position = get_global_position()
@@ -54,7 +56,7 @@ func basicEnemyShooting(delta, usedWeapon, visionRange):
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
 			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
-			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)+deg2rad(randomAngle)
+			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)+deg2rad(randomShootingAngle)
 			new_arrow.get_child(1).texture = usedWeapon["sprite"]
 			new_arrow.modulate = usedWeapon.modulate
 			new_arrow.scale.x = usedWeapon.scalex
@@ -74,16 +76,16 @@ func basicEnemyMovement(delta, moveSpeed, escapeRange, visionRange, followRange,
 	vec_to_player = vec_to_player.normalized()
 	if(global_position.distance_to(player.global_position)<visionRange):
 		if(global_position.distance_to(player.global_position)<escapeRange&&player.invisibility==0):
-			move_and_collide(-vec_to_player * moveSpeed * delta)
-			randomAngle = rand_range(0,6.28)
+			move_and_collide(-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			randomRunningAngle = rand_range(0,6.28)
 			#moveReset=false
 		elif(global_position.distance_to(player.global_position)>followRange&&player.invisibility==0):
-			move_and_collide(vec_to_player * moveSpeed * delta)
-			randomAngle = rand_range(0,6.28)
+			move_and_collide(vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			randomRunningAngle = rand_range(0,6.28)
 			#moveReset=false
 		else:
 			if(doesDodge):
-				move_and_collide((vec_to_player.rotated(randomAngle)* moveSpeed * delta))
+				move_and_collide((vec_to_player.rotated(randomRunningAngle)* moveSpeed * delta))
 		if(moveReset==true):
 			moveReset=false
 			moveTimer.start()
