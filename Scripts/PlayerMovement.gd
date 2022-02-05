@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
-var speed = 40
+var speed = 60
 var move_directon = Vector2(0, 0)
 
 var can_fire = true
+var invisibility = 0
+var rotationSpeed = 90
 
 var bulletSprites = {
 	"arrow": preload("res://assets/bulletSprites/greenArrow.png"),
@@ -126,6 +128,7 @@ func _ready():
 
 func _physics_process(delta):
 	handleMovement()
+	handleRotation(delta)
 
 func _process(delta):
 	handleRestarting()
@@ -180,7 +183,18 @@ func handleMovement():
 	move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
 	var movement = move_directon.normalized()*speed
 	# move_and_slide has delta built-in
-	move_and_slide(movement)
+	move_and_slide(movement.rotated(rotation))
+
+
+func handleRotation(delta):
+	if Input.is_action_pressed("rotateLeft"):
+		rotation_degrees-=rotationSpeed*delta
+		#$EnemyHealthbar.rotation_degrees=player.rotationSpeed*delta
+	if Input.is_action_pressed("rotateRight"):
+		rotation_degrees+=rotationSpeed*delta
+		#$EnemyHealthbar.rotation_degrees=-player.rotationSpeed*delta
+	if Input.is_action_just_pressed("resetRotation"):
+		rotation_degrees=0
 
 
 func handleAnimation():
@@ -202,7 +216,7 @@ func handleShooting():
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
 			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
-			new_arrow.rotation = get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots)))
+			new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
 			new_arrow.get_child(1).texture = usedWeapon["sprite"]
 			new_arrow.modulate = usedWeapon.modulate
 			new_arrow.scale.x = usedWeapon.scalex
