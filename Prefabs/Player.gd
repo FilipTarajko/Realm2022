@@ -9,7 +9,7 @@ var rotationSpeed = 90
 
 var maxHp = 100
 var hp
-var hpRegen = 20
+var hpRegen = 5
 
 var bulletSprites = {
 	"arrow": preload("res://assets/bulletSprites/greenArrow.png"),

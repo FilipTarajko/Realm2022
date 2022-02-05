@@ -16,6 +16,7 @@ shader_param/outline_color = null
 radius = 4.0
 
 [node name="TestEnemy" type="KinematicBody2D"]
+z_index = 2
 collision_layer = 16
 collision_mask = 3
 script = ExtResource( 2 )
@@ -23,6 +24,7 @@ script = ExtResource( 2 )
 [node name="Shadow" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 0.392157 )
 scale = Vector2( 0.12, 0.12 )
+z_index = -1
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]

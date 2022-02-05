@@ -16,10 +16,10 @@ var enemiesData = {
 	"scorpion_1": {
 		"enemyName": "tiny scorpion",
 		"sprite": scorpionSprite,
-		"moveSpeed": 20,
+		"moveSpeed": 10,
 		"escapeRange": 0,
 		"visionRange": 100,
-		"followRange": 20,
+		"followRange": 0,
 		"doesDodge": false,
 		"modulate": Color(1, 1, 0),
 		"scalex": 0.8,
@@ -28,13 +28,14 @@ var enemiesData = {
 		"hpRegen": 1,
 		"weapons": [
 			{
-				"att_spd": 0.5,
-				"dmg_min": 5,
-				"dmg_max": 10,
+				"att_spd": 0.3,
+				"dmg_min": 3,
+				"dmg_max": 5,
 				"projectile_speed": 60,
 				"lifetime": 0.5,
 				"shots": 1,
 				"angle": 0,
+				"randomAngle": 30,
 				"scalex": 0.4,
 				"scaley": 0.4,
 				"collisionShapeRadius": 2.5,
@@ -169,7 +170,7 @@ func _process(delta):
 
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
-	spawnEnemyCluster(enemiesData["scorpion_1"], 40, 16, 120, 40)
+	spawnEnemyCluster(enemiesData["scorpion_1"], 20, 24, 120, 40)
 	#spawnEnemy(enemiesData["enemy1"], 20, -80)
 	#spawnEnemy(enemiesData["enemy2"], 60, -80)
 	#spawnEnemy(enemiesData["enemy2"], 80, -80)

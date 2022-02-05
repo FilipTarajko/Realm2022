@@ -8,7 +8,7 @@ var multihit = false
 
 func _ready():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
-	position += movement.normalized()*8
+	position += movement.normalized()*4
 	yield(get_tree().create_timer(lifetime), "timeout")
 	queue_free()
 

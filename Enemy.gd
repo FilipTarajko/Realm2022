@@ -46,6 +46,7 @@ var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 func basicEnemyShooting(delta, usedWeapon, visionRange):
 	if global_position.distance_to(player.global_position)<visionRange and usedWeapon.can_fire == true:
 		usedWeapon.can_fire = false
+		var randomAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
 		for i in range(usedWeapon.shots):
 			var new_arrow = arrowPrefab.instance()
 			new_arrow.position = get_global_position()
@@ -53,7 +54,7 @@ func basicEnemyShooting(delta, usedWeapon, visionRange):
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
 			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
-			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
+			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)+deg2rad(randomAngle)
 			new_arrow.get_child(1).texture = usedWeapon["sprite"]
 			new_arrow.modulate = usedWeapon.modulate
 			new_arrow.scale.x = usedWeapon.scalex
