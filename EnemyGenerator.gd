@@ -5,11 +5,6 @@ var enemyPrefab = preload("res://prefabs/testEnemy.tscn")
 var i = 0
 var enemyCount = 0
 
-#func _ready():
-#	maxhp = 300
-#	enemyName = "testEnemy3434"
-#	setStartingHealth()
-
 var enemiesData = {
 	"enemy1": {
 		"moveSpeed": 40,
@@ -63,7 +58,6 @@ func spawnEnemy(enemyData):
 		new_enemy.defaultMaxHp = enemyData.maxHp
 		new_enemy.hpRegen = enemyData.hpRegen
 		new_enemy.get_node("Sprite").modulate = enemyData.modulate
-		#new_enemy.get_node("Sprite").modulate = Color(rand_range(0, 1), rand_range(0, 1), rand_range(0, 1))
 		get_parent().add_child(new_enemy)
 		enemyCount+=1
 
@@ -73,13 +67,12 @@ func _process(delta):
 
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
-	for i in range(100):
+	for i in range(10):
 		i+=1
 		spawnEnemy(enemiesData[str("enemy",i%3+1)])
 		
 	while false:
 		i+=1
 		spawnEnemy(enemiesData[str("enemy",i%3+1)])
-		#spawnEnemy(enemiesData["enemy1"])
 		print(str("spawned enemy ",enemyCount,"! FPS: ",Engine.get_frames_per_second()))
 		yield(get_tree().create_timer(10*i/5000.0), "timeout")

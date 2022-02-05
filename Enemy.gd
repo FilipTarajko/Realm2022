@@ -29,12 +29,12 @@ func enemyProcess(delta):
 	else:
 		if hp<maxHp:
 			hp=min(maxHp, hp+hpRegen*delta)
+		$EnemyHealthbar.value = 100*hp/maxHp
 
 func takeDamageSuper(damage):
 	print(str(enemyName, ": takeDamage"))
 	print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
-	$EnemyHealthbar.value = 100*hp/maxHp
 
 func move_timeout():
 #	print("movetimeout")

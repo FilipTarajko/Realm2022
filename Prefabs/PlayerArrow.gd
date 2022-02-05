@@ -29,6 +29,7 @@ func _on_Arrow_body_entered(body):
 	if("hp" in body):
 		body.takeDamage(damage)
 		if not multihit:
+			damage = 0
 			queue_free()
 	else:
 		#$Sprite.visible=false;
