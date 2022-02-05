@@ -5,6 +5,9 @@ var enemyPrefab = preload("res://prefabs/testEnemy.tscn")
 var i = 0
 var enemyCount = 0
 
+
+var enemyBullet = preload("res://assets/bulletSprites/enemyBullets/0.png")
+
 var enemiesData = {
 	"enemy1": {
 		"moveSpeed": 40,
@@ -17,6 +20,27 @@ var enemiesData = {
 		"scaley": 1.0,
 		"maxHp": 100,
 		"hpRegen": 10,
+		"weapons": [
+			{
+				"att_spd": 1.0,
+				"dmg_min": 20,
+				"dmg_max": 30,
+				"projectile_speed": 100,
+				"lifetime": 0.5,
+				"shots": 3,
+				"angle": 30,
+				"scalex": 0.5,
+				"scaley": 0.5,
+				"collisionShapeRadius": 2.5,
+				"collisionShapeHeight": 14,
+				"spriteRotation": 0,
+				"spriteOffsetX": 0.5,
+				"spriteOffsetY": 0.5,
+				"multihit": false,
+				"sprite": enemyBullet,
+				"modulate": Color(1, 0, 0),
+			}
+		]
 	},
 	"enemy2": {
 		"moveSpeed": 40,
@@ -29,6 +53,7 @@ var enemiesData = {
 		"scaley": 1.3,
 		"maxHp": 300,
 		"hpRegen": 30,
+		"weapons": [],
 	},
 	"enemy3": {
 		"moveSpeed": 20,
@@ -41,12 +66,14 @@ var enemiesData = {
 		"scaley": 1.5,
 		"maxHp": 500,
 		"hpRegen": 100,
+		"weapons": [],
 	},
 }
 
 func spawnEnemy(enemyData):
 	for i in range(1):
 		var new_enemy = enemyPrefab.instance()
+		new_enemy.rotation = get_parent().get_node("Player").rotation
 		new_enemy.position = get_global_position()
 		new_enemy.moveSpeed = enemyData.moveSpeed
 		new_enemy.escapeRange = enemyData.escapeRange
@@ -57,22 +84,25 @@ func spawnEnemy(enemyData):
 		new_enemy.scale.y = enemyData.scaley
 		new_enemy.defaultMaxHp = enemyData.maxHp
 		new_enemy.hpRegen = enemyData.hpRegen
+		new_enemy.weapons = enemyData.weapons.duplicate(true)
 		new_enemy.get_node("Sprite").modulate = enemyData.modulate
 		get_parent().add_child(new_enemy)
 		enemyCount+=1
 
 func _process(delta):
 	if(Input.is_key_pressed(KEY_7)):
+		i+=1
 		spawnEnemy(enemiesData["enemy1"])
 
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
-	for i in range(10):
-		i+=1
-		spawnEnemy(enemiesData[str("enemy",i%3+1)])
+	spawnEnemy(enemiesData["enemy1"])
+	#for i in range(1):
+	#	i+=1
+	#	spawnEnemy(enemiesData[str("enemy",i%3+1)])
 		
-	while false:
-		i+=1
-		spawnEnemy(enemiesData[str("enemy",i%3+1)])
+	while true:
+	#	i+=1
+	#	spawnEnemy(enemiesData[str("enemy",i%3+1)])
 		print(str("spawned enemy ",enemyCount,"! FPS: ",Engine.get_frames_per_second()))
-		yield(get_tree().create_timer(10*i/5000.0), "timeout")
+		yield(get_tree().create_timer(3.0), "timeout")

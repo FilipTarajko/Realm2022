@@ -5,7 +5,6 @@ var hp
 var enemyName
 var hpRegen
 
-
 onready var player = get_parent().get_node("Player")
 
 var moveReset = true
@@ -20,7 +19,6 @@ func _ready():
 
 func setStartingHealth():
 	hp = maxHp
-	$EnemyHealthbar.value = 100*hp/maxHp
 
 func enemyProcess(delta):
 	if hp<=0:
@@ -32,8 +30,8 @@ func enemyProcess(delta):
 		$EnemyHealthbar.value = 100*hp/maxHp
 
 func takeDamageSuper(damage):
-	print(str(enemyName, ": takeDamage"))
-	print(str(enemyName, " was dealt ",damage," damage!"))
+	#print(str(enemyName, ": takeDamage"))
+	#print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
 
 func move_timeout():
@@ -42,7 +40,33 @@ func move_timeout():
 	#print(randomAngle)
 	moveTimer.set_wait_time(rand_range(0.1,0.8))
 	moveReset = true
-	
+
+var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
+
+func basicEnemyShooting(delta, usedWeapon, visionRange):
+	if global_position.distance_to(player.global_position)<visionRange and usedWeapon.can_fire == true:
+		usedWeapon.can_fire = false
+		for i in range(usedWeapon.shots):
+			var new_arrow = arrowPrefab.instance()
+			new_arrow.position = get_global_position()
+			new_arrow.collision_mask -= 12
+			new_arrow.projectile_speed = usedWeapon.projectile_speed
+			new_arrow.lifetime = usedWeapon.lifetime
+			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
+			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
+			new_arrow.get_child(1).texture = usedWeapon["sprite"]
+			new_arrow.modulate = usedWeapon.modulate
+			new_arrow.scale.x = usedWeapon.scalex
+			new_arrow.scale.y = usedWeapon.scaley
+			new_arrow.multihit = usedWeapon.multihit
+			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
+			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
+			new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
+			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
+			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
+			get_parent().add_child(new_arrow)
+		yield(get_tree().create_timer(1/usedWeapon.att_spd), "timeout")
+		usedWeapon.can_fire = true
 
 func basicEnemyMovement(delta, moveSpeed, escapeRange, visionRange, followRange, doesDodge):
 	var vec_to_player = player.global_position - global_position
@@ -61,7 +85,6 @@ func basicEnemyMovement(delta, moveSpeed, escapeRange, visionRange, followRange,
 				move_and_collide((vec_to_player.rotated(randomAngle)* moveSpeed * delta))
 		if(moveReset==true):
 			moveReset=false
-			#print(randomAngle)
 			moveTimer.start()
 	if Input.is_action_pressed("rotateLeft"):
 		rotation_degrees-=player.rotationSpeed*delta

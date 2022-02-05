@@ -117,5 +117,5 @@ collision_mask = 0
 format = 1
 
 [node name="EnemyGenerator" type="Node2D" parent="."]
-position = Vector2( 32, -36 )
+position = Vector2( 35, -2 )
 script = ExtResource( 3 )
