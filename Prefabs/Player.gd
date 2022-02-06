@@ -1,15 +1,33 @@
 extends KinematicBody2D
 
-var speed = 60
 var move_directon = Vector2(0, 0)
 
 var can_fire = true
 var invisibility = 0
 var rotationSpeed = 90
 
-var maxHp = 100
 var hp
-var hpRegen = 5
+var mana
+
+# maxHp sets maxHp to maxHp
+var maxHp = 200.0
+# maxMana sets maxMana to maxMana
+# NOT IMPLEMENTED
+var maxMana = 100.0
+# att multiplies damage by att/100
+var att = 100.0
+# dex multiplies RoF by dex/100
+var dex = 100.0
+# spd moves spd/10 tiles/s
+var spd = 75.0
+# vit regenerates vit/10 hp/s
+var vit = 0.0
+# wis regenerates wis/10 mana/s
+# NOT IMPLEMENTED
+var wis = 50.0
+# def reduces damage from hit by def
+var def = 40.0
+var minimalTakenDamageMultiplier = 0.1
 
 var bulletSprites = {
 	"arrow": preload("res://assets/bulletSprites/greenArrow.png"),
@@ -34,8 +52,8 @@ var bulletSprites = {
 
 var tieredWeaponsData = {
 	"bow": {
-		"att_spd": 3.0,
-		"att_spd_gain": 2.0,
+		"att_spd": 5.0,
+		"att_spd_gain": 0.0,
 		"dmg_min": 20,
 		"dmg_min_gain": 10,
 		"dmg_max": 30,
@@ -47,8 +65,6 @@ var tieredWeaponsData = {
 		"scalex": 0.5,
 		"scaley": 0.5,
 		"collisionShapeRadius": 2.5,
-		#"collisionShapeHeight": 10,
-		# fix?
 		"collisionShapeHeight": 14,
 		"spriteRotation": 0,
 		"spriteOffsetX": 0.5,
@@ -56,8 +72,8 @@ var tieredWeaponsData = {
 		"multihit": true,
 	},
 	"sword": {
-		"att_spd": 3.0,
-		"att_spd_gain": 1.0,
+		"att_spd": 5.0,
+		"att_spd_gain": 0.0,
 		"dmg_min": 30,
 		"dmg_min_gain": 15,
 		"dmg_max": 50,
@@ -69,8 +85,6 @@ var tieredWeaponsData = {
 		"scalex": 0.8,
 		"scaley": 0.8,
 		"collisionShapeRadius": 1.5,
-		#"collisionShapeHeight": 8,
-		# fix?
 		"collisionShapeHeight": 16,
 		"spriteRotation": -45.0,
 		"spriteOffsetX": 0.0,
@@ -143,7 +157,7 @@ func _process(delta):
 		get_tree().reload_current_scene()
 	else:
 		if hp<maxHp:
-			hp=min(maxHp, hp+hpRegen*delta)
+			hp=min(maxHp, hp+(vit/10)*delta)
 	$Healthbar.value = 100*hp/maxHp
 	handleRestarting()
 	handleWeaponChange()
@@ -151,8 +165,9 @@ func _process(delta):
 	handleShooting()
 
 func takeDamage(damage, enemyName):
-	print(str("Took ",damage," damage from ", enemyName, "!"))
-	hp-=damage
+	var damageToDeal = max(damage-def, damage*minimalTakenDamageMultiplier)
+	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "!"))
+	hp-=damageToDeal
 
 func handleRestarting():
 	if Input.is_key_pressed(KEY_R):
@@ -199,7 +214,7 @@ onready var sprite_node = get_node("Sprite")
 func handleMovement():
 	move_directon.x = int(Input.is_action_pressed("Right")) - int (Input.is_action_pressed("Left"))
 	move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
-	var movement = move_directon.normalized()*speed
+	var movement = move_directon.normalized()*spd*0.8
 	# move_and_slide has delta built-in
 	move_and_slide(movement.rotated(rotation))
 
@@ -233,7 +248,7 @@ func handleShooting():
 			new_arrow.position = get_global_position()
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
-			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
+			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*att/100.0
 			new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
 			new_arrow.get_child(1).texture = usedWeapon["sprite"]
 			new_arrow.modulate = usedWeapon.modulate
@@ -246,5 +261,5 @@ func handleShooting():
 			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
 			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
 			get_parent().add_child(new_arrow)
-		yield(get_tree().create_timer(1/usedWeapon.att_spd), "timeout")
+		yield(get_tree().create_timer(100.0/usedWeapon.att_spd/dex), "timeout")
 		can_fire = true
