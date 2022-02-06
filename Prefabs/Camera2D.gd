@@ -1,6 +1,7 @@
 extends Camera2D
 
 var zoomspeed=1
+onready var InventoryParent = get_parent().get_node("InventoryParent")
 
 func _process(delta):
 	align()

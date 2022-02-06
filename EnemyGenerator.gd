@@ -257,7 +257,7 @@ func spawnEnemyCluster(enemyData, amount, spawnRange, x=get_global_position().x,
 func _process(delta):
 	if(Input.is_key_pressed(KEY_7)):
 		i+=1
-		spawnEnemy(enemiesData["enemy1"])
+		spawnEnemy(enemiesData["scorpion_1"])
 
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")

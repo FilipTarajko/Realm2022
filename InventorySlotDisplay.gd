@@ -1,14 +1,14 @@
 extends CenterContainer
 
-var inventory = preload("res://Assets/Items/Inventory.tres")
+var inventory = preload("res://Inventory.tres")
 
 onready var itemTextureRect = $ItemTextureRect
 
 func display_item(item):
 	if item is Item:
-		itemTextureRect.texture = item.texture
+		itemTextureRect.texture = item.itemSprite
 	else:
-		itemTextureRect.texture = load("res://Assets/Items/emptyInventorySlot.png")
+		itemTextureRect.texture = load("res://Assets/ItemSprites/emptyInventorySlot.png")
 
 onready var Cursor = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
 onready var player = get_parent().get_parent().get_parent().get_parent().get_parent()
@@ -20,11 +20,15 @@ func get_drag_data(_position):
 		var data = {}
 		data.item = item
 		data.item_index = item_index
-		Cursor.texture = item.texture
+		Cursor.texture = item.itemSprite
 		return data
 
 func can_drop_data(_position, data):
 	return data is Dictionary and data.has("item")
+
+func _ready():
+	inventory.set_item(4, load("res://Assets/Items/bow_t0.tres"))
+	player.setWeapon(inventory.items[4])
 
 func drop_data(_position, data):
 	var item_index = get_index()
@@ -37,8 +41,7 @@ func drop_data(_position, data):
 		if inventory.items[i]:
 			napis = inventory.items[i].name
 		print(str("[",i,"] ", stuff[i],": ",napis))
-	if(inventory.items[4]):
-		player.setWeaponByName(inventory.items[4].codeName)
-	else:
-		player.setWeaponByName("bow_t0")
+	if not inventory.items[4]:
+		inventory.set_item(4, load("res://Assets/Items/bow_t0.tres"))
+	player.setWeapon(inventory.items[4])
 	Cursor.texture = null

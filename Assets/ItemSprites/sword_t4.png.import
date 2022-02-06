@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/emptyInventorySlot.png-e2bf0e70526217178d9adc4639e88bde.stex"
+path="res://.import/sword_t4.png-2a6712a93ffb1f2045b47abcf0070572.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/emptyInventorySlot.png"
-dest_files=[ "res://.import/emptyInventorySlot.png-e2bf0e70526217178d9adc4639e88bde.stex" ]
+source_file="res://Assets/ItemSprites/sword_t4.png"
+dest_files=[ "res://.import/sword_t4.png-2a6712a93ffb1f2045b47abcf0070572.stex" ]
 
 [params]
 

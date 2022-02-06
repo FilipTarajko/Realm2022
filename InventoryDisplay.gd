@@ -1,6 +1,6 @@
 extends GridContainer
 
-var inventory = preload("res://Assets/Items/Inventory.tres")
+var inventory = preload("res://Inventory.tres")
 
 func _ready():
 	inventory.connect("items_changed", self, "_on_items_changed")

@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Healthbars/green160.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Healthbars/black160.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Healthbars/red160.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Items/InventoryDisplay.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/ItemSprites/InventoryDisplay.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Prefabs/InventoryParent.gd" type="Script" id=10]
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -67,12 +67,16 @@ z_index = -1
 texture = ExtResource( 3 )
 
 [node name="InventoryParent" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -5000.0
 margin_top = -5000.0
 margin_right = 5000.0
 margin_bottom = 5000.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color( 1, 1, 1, 0 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -91,7 +95,7 @@ margin_bottom = 68.0
 mouse_filter = 2
 color = Color( 0.392157, 0.392157, 0.392157, 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="InventoryParent/InventoryContainer"]

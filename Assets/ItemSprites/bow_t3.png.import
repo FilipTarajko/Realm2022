@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bow_t0.png-c397e967674473522a978ff9b07026bc.stex"
+path="res://.import/bow_t3.png-f305c5faa475f63e5b47b4056489f65a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/bow_t0.png"
-dest_files=[ "res://.import/bow_t0.png-c397e967674473522a978ff9b07026bc.stex" ]
+source_file="res://Assets/ItemSprites/bow_t3.png"
+dest_files=[ "res://.import/bow_t3.png-f305c5faa475f63e5b47b4056489f65a.stex" ]
 
 [params]
 
