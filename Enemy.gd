@@ -71,17 +71,28 @@ func basicEnemyShooting(delta, usedWeapon):
 		yield(get_tree().create_timer(1/usedWeapon.att_spd), "timeout")
 		usedWeapon.can_fire = true
 
+func setSpriteSide(x):
+	if(x>0):
+		$Sprite.flip_h = false;
+	elif(x<0):
+		$Sprite.flip_h = true;
+
 func basicEnemyMovement(delta, moveSpeed, escapeRange, visionRange, followRange, doesDodge):
 	var vec_to_player = player.global_position - global_position
+	var vec_to_move
 	vec_to_player = vec_to_player.normalized()
 	if(global_position.distance_to(player.global_position)<visionRange):
 		if(global_position.distance_to(player.global_position)<escapeRange&&player.invisibility==0):
-			move_and_collide(-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			vec_to_move = (-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
+			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		elif(global_position.distance_to(player.global_position)>followRange&&player.invisibility==0):
-			move_and_collide(vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			vec_to_move = (vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed * delta)
+			move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
+			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		else:
 			if(doesDodge):
