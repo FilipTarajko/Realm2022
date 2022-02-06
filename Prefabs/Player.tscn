@@ -75,16 +75,11 @@ texture = ExtResource( 3 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InventoryParent" type="ColorRect" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -50960.0
-margin_top = -50540.0
-margin_right = 49040.0
-margin_bottom = 49460.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color( 1, 1, 1, 0 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -93,16 +88,16 @@ __meta__ = {
 
 [node name="InventoryContainer" type="ColorRect" parent="CanvasLayer/InventoryParent"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 320.0
-margin_top = 856.0
-margin_right = 512.0
-margin_bottom = 868.0
+anchor_bottom = 1.0
+margin_left = -565.0
+margin_top = -100.0
+margin_right = -395.0
+margin_bottom = -88.0
 rect_scale = Vector2( 6.666, 6.666 )
 mouse_filter = 2
-color = Color( 0.196078, 0.196078, 0.196078, 0.784314 )
+color = Color( 0.352941, 0.352941, 0.352941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,11 +105,14 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 68.0
+margin_left = 57.0
 margin_top = -2.0
-margin_right = -68.0
+margin_right = -57.0
 margin_bottom = 2.0
 color = Color( 0.392157, 0.392157, 0.392157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InventoryParent/InventoryContainer"]
 anchor_right = 1.0
@@ -127,9 +125,9 @@ __meta__ = {
 [node name="InventoryDisplay" parent="CanvasLayer/InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 14.0
+margin_left = 3.0
 margin_top = 1.0
-margin_right = 178.0
+margin_right = 167.0
 margin_bottom = 11.0
 
 [node name="Cursor" type="Sprite" parent="CanvasLayer"]
