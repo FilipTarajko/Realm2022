@@ -57,12 +57,36 @@ func _process(delta):
 	handleShooting()
 
 var inventory = preload("res://Inventory.tres")
+onready var cursor = get_node("CanvasLayer/Cursor")
+
+func read_data_from_inventory():
+	var stuff = {4: "weapon", 5: "ability", 6: "armor", 7: "ring"}
+	for i in range(4,8):
+		var napis = "empty"
+		if inventory.items[i]:
+			napis = inventory.items[i].name
+		print(str("[",i,"] ", stuff[i],": ",napis))
+	if not inventory.items[4]:
+		inventory.set_item(4, load("res://Assets/Items/bow_t0.tres"))
+	setWeapon(inventory.items[4])
+	cursor.texture = null
 
 func handleItemUse():
 	for i in range(1, 9):
 		if Input.is_action_just_pressed(str(i)):
-			if inventory.items[i]:
-				print(str("Trying to use item: ", inventory.items[i].name))
+			var slot
+			if i<=4:
+				slot = i-1
+				print(slot)
+			if i>4:
+				slot = i+3
+				print(slot)
+			if inventory.items[slot]:
+				print(str("Trying to use item: ", inventory.items[slot].name))
+				if inventory.items[slot].itemType == "weapon":
+					print("That's a weapon!")
+					inventory.swap_items(slot, 4)
+					read_data_from_inventory()
 			else:
 				print("You are trying to use empty inventory slot!")
 

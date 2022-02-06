@@ -102,10 +102,19 @@ margin_right = 512.0
 margin_bottom = 868.0
 rect_scale = Vector2( 6.666, 6.666 )
 mouse_filter = 2
-color = Color( 0.392157, 0.392157, 0.392157, 1 )
+color = Color( 0.196078, 0.196078, 0.196078, 0.784314 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 68.0
+margin_top = -2.0
+margin_right = -68.0
+margin_bottom = 2.0
+color = Color( 0.392157, 0.392157, 0.392157, 1 )
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InventoryParent/InventoryContainer"]
 anchor_right = 1.0

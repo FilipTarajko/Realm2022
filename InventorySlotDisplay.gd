@@ -35,13 +35,5 @@ func drop_data(_position, data):
 	var item = inventory.items[item_index]
 	inventory.swap_items(item_index, data.item_index)
 	inventory.set_item(item_index, data.item)
-	var stuff = {4: "weapon", 5: "ability", 6: "armor", 7: "ring"}
-	for i in range(4,8):
-		var napis = "empty"
-		if inventory.items[i]:
-			napis = inventory.items[i].name
-		print(str("[",i,"] ", stuff[i],": ",napis))
-	if not inventory.items[4]:
-		inventory.set_item(4, load("res://Assets/Items/bow_t0.tres"))
-	player.setWeapon(inventory.items[4])
-	Cursor.texture = null
+	player.read_data_from_inventory()
+
