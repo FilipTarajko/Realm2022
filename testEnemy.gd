@@ -21,7 +21,7 @@ func _process(delta):
 	enemyProcess(delta)
 	for weapon in weapons:
 		#print(str("trying to shoot ",weapon))
-		basicEnemyShooting(delta, weapon, visionRange)
+		basicEnemyShooting(delta, weapon)
 
 func takeDamage(damage):
 	takeDamageSuper(damage)

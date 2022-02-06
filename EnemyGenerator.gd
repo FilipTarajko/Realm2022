@@ -32,10 +32,11 @@ var enemiesData = {
 				"att_spd": 0.3,
 				"dmg_min": 3,
 				"dmg_max": 5,
-				"projectile_speed": 60,
-				"lifetime": 0.5,
+				"projectile_speed": 50,
+				"lifetime": 0.7,
 				"shots": 1,
 				"angle": 0,
+				"targetingRange": 80,
 				"randomAngle": 30,
 				"scalex": 0.4,
 				"scaley": 0.4,
@@ -73,6 +74,7 @@ var enemiesData = {
 				"lifetime": 0.5,
 				"shots": 3,
 				"angle": 30,
+				"targetingRange": 100,
 				"randomAngle": 15,
 				"scalex": 0.5,
 				"scaley": 0.5,
@@ -175,7 +177,7 @@ func _process(delta):
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
 	spawnEnemyCluster(enemiesData["scorpion_1"], 20, 24, 120, 40)
-	#spawnEnemyCluster(enemiesData["enemy1"], 2, 24, 120, -80)
+	spawnEnemyCluster(enemiesData["enemy1"], 2, 24, 120, -80)
 	#spawnEnemy(enemiesData["enemy1"], 20, -80)
 	#spawnEnemy(enemiesData["enemy2"], 60, -80)
 	#spawnEnemy(enemiesData["enemy2"], 80, -80)

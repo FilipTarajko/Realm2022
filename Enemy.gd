@@ -45,8 +45,8 @@ func move_timeout():
 
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 
-func basicEnemyShooting(delta, usedWeapon, visionRange):
-	if global_position.distance_to(player.global_position)<visionRange and usedWeapon.can_fire == true:
+func basicEnemyShooting(delta, usedWeapon):
+	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange and usedWeapon.can_fire == true:
 		usedWeapon.can_fire = false
 		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
 		for i in range(usedWeapon.shots):
