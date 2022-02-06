@@ -28,6 +28,7 @@ var enemiesData = {
 		"scalex": 0.8,
 		"scaley": 0.8,
 		"maxHp": 40,
+		"shadowSizeMultiplier": 1,
 		"hpRegen": 1,
 		"weapons": [
 			{
@@ -66,6 +67,7 @@ var enemiesData = {
 		"scalex": 1.0,
 		"scaley": 1.0,
 		"maxHp": 500,
+		"shadowSizeMultiplier": 0.7,
 		"hpRegen": 1,
 		"weapons": [
 			{
@@ -104,6 +106,7 @@ var enemiesData = {
 		"scalex": 1.0,
 		"scaley": 1.0,
 		"maxHp": 300,
+		"shadowSizeMultiplier": 0.7,
 		"hpRegen": 1,
 		"weapons": [
 			{
@@ -236,6 +239,10 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 		new_enemy.scale.y = enemyData.scaley
 		new_enemy.defaultMaxHp = enemyData.maxHp
 		new_enemy.hpRegen = enemyData.hpRegen
+		new_enemy.get_node("Shadow").scale.x *= enemyData.shadowSizeMultiplier
+		new_enemy.get_node("Shadow").scale.y *= enemyData.shadowSizeMultiplier
+		new_enemy.get_node("CollisionShape2D").scale.x *= enemyData.shadowSizeMultiplier
+		new_enemy.get_node("CollisionShape2D").scale.y *= enemyData.shadowSizeMultiplier
 		new_enemy.get_node("Sprite").material.set_shader_param("width", 0.15/sqrt(enemyData.scalex*enemyData.scaley))
 		new_enemy.weapons = enemyData.weapons.duplicate(true)
 		new_enemy.get_node("Sprite").modulate = enemyData.modulate
