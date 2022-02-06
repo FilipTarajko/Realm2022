@@ -150,8 +150,8 @@ func _process(delta):
 	handleAnimation()
 	handleShooting()
 
-func takeDamage(damage):
-	print(str("Took ",damage," damage!"))
+func takeDamage(damage, enemyName):
+	print(str("Took ",damage," damage from ", enemyName, "!"))
 	hp-=damage
 
 func handleRestarting():

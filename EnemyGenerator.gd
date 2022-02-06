@@ -1,15 +1,17 @@
 extends Node2D
 
-var enemyPrefab = preload("res://prefabs/testEnemy.tscn")
+var enemyPrefab = preload("res://prefabs/basicEnemy.tscn")
 
 var i = 0
 var enemyCount = 0
 
 var testEnemySprite = preload("res://assets/enemySprites/enemyWhite.png")
 var scorpionSprite = preload("res://assets/enemySprites/scorpion.png")
+var demonSprite = preload("res://assets/enemySprites/demon.png")
 
 var enemyBullet = preload("res://assets/bulletSprites/enemyBullets/0.png")
 var scorpionBullet = preload("res://assets/bulletSprites/enemyBullets/scorpionBullet.png")
+var demonBullet = preload("res://assets/bulletSprites/enemyBullets/demonBullet.png")
 
 
 var enemiesData = {
@@ -48,6 +50,82 @@ var enemiesData = {
 				"multihit": false,
 				"sprite": scorpionBullet,
 				"modulate": Color(0.5, 0.2, 0.2),
+			}
+		]
+	},
+	"demon_red": {
+		"enemyName": "red demon",
+		"sprite": demonSprite,
+		"moveSpeed": 30,
+		"escapeRange": 20,
+		"visionRange": 100,
+		"followRange": 70,
+		"doesDodge": true,
+		"chaseRandomMaxAngle": 90,
+		"modulate": Color(1, 0, 0),
+		"scalex": 1.0,
+		"scaley": 1.0,
+		"maxHp": 500,
+		"hpRegen": 1,
+		"weapons": [
+			{
+				"att_spd": 0.6,
+				"dmg_min": 25,
+				"dmg_max": 30,
+				"projectile_speed": 50,
+				"lifetime": 1.8,
+				"shots": 3,
+				"angle": 60,
+				"targetingRange": 80,
+				"randomAngle": 30,
+				"scalex": 0.7,
+				"scaley": 0.7,
+				"collisionShapeRadius": 2.5,
+				"collisionShapeHeight": 14,
+				"spriteRotation": 0,
+				"spriteOffsetX": 0.5,
+				"spriteOffsetY": 0.5,
+				"multihit": false,
+				"sprite": demonBullet,
+				"modulate": Color(1.0, 0.0, 0.0),
+			}
+		]
+	},
+	"demon_orange": {
+		"enemyName": "orange demon",
+		"sprite": demonSprite,
+		"moveSpeed": 20,
+		"escapeRange": 60,
+		"visionRange": 150,
+		"followRange": 120,
+		"doesDodge": true,
+		"chaseRandomMaxAngle": 90,
+		"modulate": Color(1, 0.3, 0),
+		"scalex": 1.0,
+		"scaley": 1.0,
+		"maxHp": 300,
+		"hpRegen": 1,
+		"weapons": [
+			{
+				"att_spd": 0.4,
+				"dmg_min": 45,
+				"dmg_max": 50,
+				"projectile_speed": 50,
+				"lifetime": 3.0,
+				"shots": 3,
+				"angle": 60,
+				"targetingRange": 135,
+				"randomAngle": 10,
+				"scalex": 0.9,
+				"scaley": 0.9,
+				"collisionShapeRadius": 2.5,
+				"collisionShapeHeight": 14,
+				"spriteRotation": 0,
+				"spriteOffsetX": 0.5,
+				"spriteOffsetY": 0.5,
+				"multihit": false,
+				"sprite": demonBullet,
+				"modulate": Color(1.0, 0.3, 0.0),
 			}
 		]
 	},
@@ -177,7 +255,8 @@ func _process(delta):
 func _ready():
 	yield(get_tree().create_timer(0.1), "timeout")
 	spawnEnemyCluster(enemiesData["scorpion_1"], 20, 24, 120, 40)
-	spawnEnemyCluster(enemiesData["enemy1"], 2, 24, 120, -80)
+	spawnEnemyCluster(enemiesData["demon_red"], 7, 24, 20, -200)
+	spawnEnemyCluster(enemiesData["demon_orange"], 7, 24, -30, -220)
 	#spawnEnemy(enemiesData["enemy1"], 20, -80)
 	#spawnEnemy(enemiesData["enemy2"], 60, -80)
 	#spawnEnemy(enemiesData["enemy2"], 80, -80)

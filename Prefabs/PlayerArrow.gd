@@ -5,6 +5,7 @@ var lifetime = 0.1
 var damage = 0
 var movement = Vector2(projectile_speed, 0)
 var multihit = false
+var enemyName
 
 func _ready():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
@@ -27,7 +28,10 @@ func handleMovement(delta):
 func _on_Arrow_body_entered(body):
 	#print(str(body," entered"))
 	if("hp" in body):
-		body.takeDamage(damage)
+		if enemyName:
+			body.takeDamage(damage, enemyName)
+		else:
+			body.takeDamage(damage)
 		if not multihit:
 			damage = 0
 			queue_free()

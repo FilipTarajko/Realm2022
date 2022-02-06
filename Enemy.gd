@@ -67,6 +67,7 @@ func basicEnemyShooting(delta, usedWeapon):
 		for i in range(usedWeapon.shots):
 			var new_arrow = arrowPrefab.instance()
 			new_arrow.position = get_global_position()
+			new_arrow.enemyName = enemyName
 			new_arrow.collision_mask -= 12
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
