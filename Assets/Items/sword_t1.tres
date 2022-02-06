@@ -1,17 +1,17 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Weapon.gd" type="Script" id=1]
-[ext_resource path="res://Assets/ItemSprites/sword_t5.png" type="Texture" id=2]
-[ext_resource path="res://Assets/bulletSprites/swords/5.png" type="Texture" id=3]
+[ext_resource path="res://Assets/bulletSprites/swords/1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/sword_t1.png" type="Texture" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Sword T5"
-itemSprite = ExtResource( 2 )
-dmg_min = 105.0
-dmg_max = 180.0
-tier = "5"
-bulletSprite = ExtResource( 3 )
+name = "Sword T1"
+itemSprite = ExtResource( 3 )
+dmg_min = 45.0
+dmg_max = 80.0
+tier = "1"
+bulletSprite = ExtResource( 2 )
 att_spd = 5.0
 projectile_speed = 100.0
 lifetime = 0.3
