@@ -1,5 +1,12 @@
 extends KinematicBody2D
 
+var moveSpeed = 40
+var escapeRange = 20
+var visionRange = 300
+var followRange = 50
+var doesDodge = true
+var defaultMaxHp = 1
+var weapons = []
 var maxHp
 var hp
 var enemyName
@@ -13,7 +20,12 @@ var chaseRunningAngle = rand_range(-1,1)
 var chaseRandomMaxAngle = 0
 var moveTimer = Timer.new()
 
+
 func _ready():
+	maxHp = defaultMaxHp
+	setStartingHealth()
+	for weapon in weapons:
+		weapon.can_fire = true
 	moveTimer.set_one_shot(true)
 	moveTimer.set_wait_time((0.2))
 	moveTimer.connect("timeout",self,"move_timeout")
@@ -35,6 +47,9 @@ func takeDamageSuper(damage):
 	#print(str(enemyName, ": takeDamage"))
 	#print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
+
+func takeDamage(damage):
+	takeDamageSuper(damage)
 
 func move_timeout():
 #	print("movetimeout")
@@ -77,7 +92,7 @@ func setSpriteSide(x):
 	elif(x<0):
 		$Sprite.flip_h = true;
 
-func basicEnemyMovement(delta, moveSpeed, escapeRange, visionRange, followRange, doesDodge):
+func basicEnemyMovement(delta):
 	var vec_to_player = player.global_position - global_position
 	var vec_to_move
 	vec_to_player = vec_to_player.normalized()
