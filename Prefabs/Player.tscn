@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Assets/Healthbars/green160.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Healthbars/black160.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Healthbars/red160.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Items/InventoryDisplay.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/InventoryParent.gd" type="Script" id=10]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -63,3 +65,47 @@ modulate = Color( 0, 0, 0, 0.501961 )
 scale = Vector2( 0.092, 0.092 )
 z_index = -1
 texture = ExtResource( 3 )
+
+[node name="InventoryParent" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5000.0
+margin_top = -5000.0
+margin_right = 5000.0
+margin_bottom = 5000.0
+color = Color( 1, 1, 1, 0 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryContainer" type="ColorRect" parent="InventoryParent"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = 56.0
+margin_right = 96.0
+margin_bottom = 68.0
+mouse_filter = 2
+color = Color( 0.392157, 0.392157, 0.392157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryDisplay" parent="InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 14.0
+margin_top = 1.0
+margin_right = 178.0
+margin_bottom = 11.0

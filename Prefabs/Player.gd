@@ -126,6 +126,10 @@ var weapons = {
 
 var usedWeapon = weapons["def"]
 
+func setWeaponByName(weaponName):
+	usedWeapon=weapons[weaponName]
+
+
 func _ready():
 	hp = maxHp
 	randomize()
@@ -160,7 +164,7 @@ func _process(delta):
 			hp=min(maxHp, hp+(vit/10)*delta)
 	$Healthbar.value = 100*hp/maxHp
 	handleRestarting()
-	handleWeaponChange()
+	#handleWeaponChange()
 	handleAnimation()
 	handleShooting()
 

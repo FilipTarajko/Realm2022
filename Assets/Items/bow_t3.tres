@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Items/Item.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Items/bow_t3.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Bow T3"
+codeName = "bow_t3"
+texture = ExtResource( 2 )

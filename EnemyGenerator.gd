@@ -275,5 +275,5 @@ func _ready():
 	while true:
 	#	i+=1
 	#	spawnEnemy(enemiesData[str("enemy",i%3+1)])
-		print(str("spawned enemy ",enemyCount,"! FPS: ",Engine.get_frames_per_second()))
+		#print(str("spawned enemy ",enemyCount,"! FPS: ",Engine.get_frames_per_second()))
 		yield(get_tree().create_timer(3.0), "timeout")
