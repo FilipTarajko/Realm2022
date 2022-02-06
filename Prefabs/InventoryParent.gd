@@ -5,7 +5,7 @@ var inventory = preload("res://Inventory.tres")
 func can_drop_data(_position, data):
 	return data is Dictionary and data.has("item")
 
-onready var cursor = get_parent().get_parent().get_node("Cursor")
+onready var cursor = get_parent().get_node("Cursor")
 #onready var player = get_parent()
 
 func drop_data(_position, data):

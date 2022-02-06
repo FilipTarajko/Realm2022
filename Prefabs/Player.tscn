@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/Healthbars/red160.png" type="Texture" id=8]
 [ext_resource path="res://Assets/ItemSprites/InventoryDisplay.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Prefabs/InventoryParent.gd" type="Script" id=10]
+[ext_resource path="res://Cursor.gd" type="Script" id=11]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -21,6 +22,11 @@ radius = 3.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "archerGreen"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 4 )
+shader_param/width = 0.13
+shader_param/outline_color = null
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
@@ -66,15 +72,17 @@ scale = Vector2( 0.092, 0.092 )
 z_index = -1
 texture = ExtResource( 3 )
 
-[node name="InventoryParent" type="ColorRect" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryParent" type="ColorRect" parent="CanvasLayer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -5000.0
-margin_top = -5000.0
-margin_right = 5000.0
-margin_bottom = 5000.0
+margin_left = -50960.0
+margin_top = -50540.0
+margin_right = 49040.0
+margin_bottom = 49460.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color( 1, 1, 1, 0 )
@@ -83,22 +91,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InventoryContainer" type="ColorRect" parent="InventoryParent"]
+[node name="InventoryContainer" type="ColorRect" parent="CanvasLayer/InventoryParent"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -96.0
-margin_top = 56.0
-margin_right = 96.0
-margin_bottom = 68.0
+margin_left = 320.0
+margin_top = 856.0
+margin_right = 512.0
+margin_bottom = 868.0
+rect_scale = Vector2( 6.666, 6.666 )
 mouse_filter = 2
 color = Color( 0.392157, 0.392157, 0.392157, 1 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="InventoryParent/InventoryContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InventoryParent/InventoryContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -106,10 +115,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InventoryDisplay" parent="InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
+[node name="InventoryDisplay" parent="CanvasLayer/InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 14.0
 margin_top = 1.0
 margin_right = 178.0
 margin_bottom = 11.0
+
+[node name="Cursor" type="Sprite" parent="CanvasLayer"]
+material = SubResource( 4 )
+scale = Vector2( 8, 8 )
+z_index = 333
+z_as_relative = false
+script = ExtResource( 11 )

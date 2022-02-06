@@ -10,8 +10,8 @@ func display_item(item):
 	else:
 		itemTextureRect.texture = load("res://Assets/ItemSprites/emptyInventorySlot.png")
 
-onready var Cursor = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
-onready var player = get_parent().get_parent().get_parent().get_parent().get_parent()
+onready var Cursor = get_parent().get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
+onready var player = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 
 func get_drag_data(_position):
 	var item_index = get_index()
