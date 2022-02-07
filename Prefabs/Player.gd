@@ -204,10 +204,8 @@ func handleMovement():
 func handleRotation(delta):
 	if Input.is_action_pressed("rotateLeft"):
 		rotation_degrees-=rotationSpeed*delta
-		#$EnemyHealthbar.rotation_degrees=player.rotationSpeed*delta
 	if Input.is_action_pressed("rotateRight"):
 		rotation_degrees+=rotationSpeed*delta
-		#$EnemyHealthbar.rotation_degrees=-player.rotationSpeed*delta
 	if Input.is_action_just_pressed("resetRotation"):
 		rotation_degrees=0
 
