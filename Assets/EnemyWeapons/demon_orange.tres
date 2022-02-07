@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-enemyWeaponName = "orange demon's shot"
+enemyWeaponName = "shot"
 att_spd = 0.4
 dmg_min = 45.0
 dmg_max = 50.0

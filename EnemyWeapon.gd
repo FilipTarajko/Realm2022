@@ -1,7 +1,7 @@
 extends Resource
 class_name EnemyWeapon
 
-export(String) var enemyWeaponName
+export(String) var enemyWeaponName = "shot"
 export(float) var att_spd
 export(float) var dmg_min
 export(float) var dmg_max

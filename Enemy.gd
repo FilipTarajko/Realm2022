@@ -50,6 +50,7 @@ func takeDamageSuper(damage):
 	hp -= damage
 
 func takeDamage(damage):
+	print(str(enemyName, "took ",damage," damage!"))
 	takeDamageSuper(damage)
 
 func move_timeout():
@@ -69,6 +70,7 @@ func basicEnemyShooting(_delta, usedWeapon, i):
 			var new_arrow = arrowPrefab.instance()
 			new_arrow.position = get_global_position()
 			new_arrow.enemyName = enemyName
+			new_arrow.enemyAttackName = usedWeapon.enemyWeaponName
 			new_arrow.collision_mask -= 12
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime

@@ -127,19 +127,18 @@ func _process(delta):
 var inventory = preload("res://Inventory.tres")
 onready var cursor = get_node("CanvasLayer/Cursor")
 
-func read_data_from_inventory():
+func show_equipment_in_console():
 	var stuff = {4: "weapon", 5: "ability", 6: "armor", 7: "ring"}
 	for i in range(4,8):
 		var napis = "empty"
 		if inventory.items[i]:
 			napis = inventory.items[i].name
 		print(str("[",i,"] ", stuff[i],": ",napis))
-	#if not inventory.items[4]:
-		pass
+
+func read_data_from_inventory():
+	#show_equipment_in_console()
 	setWeapon(inventory.items[4])
-	#if not inventory.items[6]:
 	setArmor(inventory.items[6])
-	#if not inventory.items[7]:
 	setRing(inventory.items[7])
 	cursor.texture = null
 	readItemStatBonuses()
@@ -150,12 +149,12 @@ func handleItemUse():
 			var slot
 			if i<=4:
 				slot = i-1
-				print(slot)
-			if i>4:
+				#print(slot)
+			if i>4 and i<12:
 				slot = i+3
-				print(slot)
+				#print(slot)
 			if inventory.items[slot]:
-				print(str("Trying to use item: ", inventory.items[slot].name))
+				#print(str("Trying to use item: ", inventory.items[slot].name))
 				if inventory.items[slot].itemType == "weapon":
 					print("That's a weapon!")
 					inventory.swap_items(slot, 4)
@@ -171,9 +170,9 @@ func handleItemUse():
 			else:
 				print("You are trying to use empty inventory slot!")
 
-func takeDamage(damage, enemyName):
+func takeDamage(damage, enemyName, enemyAttackName):
 	var damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
-	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "!"))
+	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 	hp-=damageToDeal
 
 func handleRestarting():

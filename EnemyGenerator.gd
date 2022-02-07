@@ -36,10 +36,18 @@ func spawnEnemyCluster(enemyData, amount, spawnRange, x=get_global_position().x,
 		spawnEnemy(enemyData, x+spawnVector.x, y+spawnVector.y)
 
 func _ready():
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(get_tree(), "idle_frame")
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_1.tres"), 20, 24, 120, 40)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
-	while true:
+
+var frames = 0
+
+func _show_data_each_x_seconds(seconds):
+	frames+=1
+	if not (frames % (144*seconds)):
 		print(str("spawned enemies: ",enemiesSpawned,", FPS: ",Engine.get_frames_per_second()))
-		yield(get_tree().create_timer(6.0), "timeout")
+
+func _physics_process(_delta):
+	pass
+	#_show_data_each_x_seconds(5)
