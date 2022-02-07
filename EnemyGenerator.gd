@@ -2,7 +2,7 @@ extends Node2D
 
 var enemyPrefab = preload("res://prefabs/basicEnemy.tscn")
 
-var i = 0
+#var enemiesSpawned = 0
 var enemyCount = 0
 
 var testEnemySprite = preload("res://assets/enemySprites/enemyWhite.png")
@@ -223,7 +223,7 @@ var enemiesData = {
 }
 
 func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y):
-	for i in range(1):
+	#for i in range(1):
 		var new_enemy = enemyPrefab.instance()
 		new_enemy.get_node("Sprite").texture = enemyData.sprite
 		new_enemy.rotation = get_parent().get_node("Player").rotation
@@ -250,7 +250,7 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 		enemyCount+=1
 
 func spawnEnemyCluster(enemyData, amount, spawnRange, x=get_global_position().x, y=get_global_position().y):
-	for i in range(amount):
+	for _i in range(amount):
 		var spawnVector = Vector2(rand_range(0, spawnRange), 0).rotated(rand_range(0, 2*PI))
 		spawnEnemy(enemyData, x+spawnVector.x, y+spawnVector.y)
 

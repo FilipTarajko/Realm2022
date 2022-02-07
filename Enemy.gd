@@ -60,7 +60,7 @@ func move_timeout():
 
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 
-func basicEnemyShooting(delta, usedWeapon):
+func basicEnemyShooting(_delta, usedWeapon):
 	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and usedWeapon.can_fire == true:
 		usedWeapon.can_fire = false
 		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
@@ -100,19 +100,19 @@ func basicEnemyMovement(delta):
 	if(global_position.distance_to(player.global_position)<visionRange*8.0):
 		if(global_position.distance_to(player.global_position)<escapeRange*8.0&&player.invisibility==0):
 			vec_to_move = (-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed*8.0 * delta)
-			move_and_collide(vec_to_move)
+			var _ignore = move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
 			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		elif(global_position.distance_to(player.global_position)>followRange*8.0&&player.invisibility==0):
 			vec_to_move = (vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed*8.0 * delta)
-			move_and_collide(vec_to_move)
+			var _ignore = move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
 			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		else:
 			if(doesDodge):
-				move_and_collide((vec_to_player.rotated(randomRunningAngle)* moveSpeed*8.0 * delta))
+				var _ignore = move_and_collide((vec_to_player.rotated(randomRunningAngle)* moveSpeed*8.0 * delta))
 		if(moveReset==true):
 			moveReset=false
 			moveTimer.start()

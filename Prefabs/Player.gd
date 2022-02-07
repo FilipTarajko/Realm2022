@@ -40,7 +40,7 @@ var baseWis = 50.0
 var itemWis = 0.0
 var totalWis
 # def reduces damage from hit by def
-var baseDef = 5.0
+var baseDef = 0.0
 var itemDef = 0.0
 var totalDef
 
@@ -114,7 +114,7 @@ func _physics_process(delta):
 func _process(delta):
 	if hp<=0:
 		print("\nYou were defeated! Game restarted!")
-		get_tree().reload_current_scene()
+		var _ignore = get_tree().reload_current_scene()
 	else:
 		if hp<totalMaxHp:
 			hp=min(totalMaxHp, hp+(totalVit/10)*delta)
@@ -134,14 +134,12 @@ func read_data_from_inventory():
 		if inventory.items[i]:
 			napis = inventory.items[i].name
 		print(str("[",i,"] ", stuff[i],": ",napis))
-	if not inventory.items[4]:
-		inventory.set_item(4, load("res://Assets/Items/Weapons/bow_t0.tres"))
+	#if not inventory.items[4]:
+		pass
 	setWeapon(inventory.items[4])
-	if not inventory.items[6]:
-		inventory.set_item(6, load("res://Assets/Items/Armors/light_t0.tres"))
+	#if not inventory.items[6]:
 	setArmor(inventory.items[6])
-	if not inventory.items[7]:
-		inventory.set_item(7, load("res://Assets/Items/Rings/maxHpRing_t0.tres"))
+	#if not inventory.items[7]:
 	setRing(inventory.items[7])
 	cursor.texture = null
 	readItemStatBonuses()
@@ -162,11 +160,11 @@ func handleItemUse():
 					print("That's a weapon!")
 					inventory.swap_items(slot, 4)
 					read_data_from_inventory()
-				if inventory.items[slot].itemType == "armor":
+				elif inventory.items[slot].itemType == "armor":
 					print("That's an armor!")
 					inventory.swap_items(slot, 6)
 					read_data_from_inventory()
-				if inventory.items[slot].itemType == "ring":
+				elif inventory.items[slot].itemType == "ring":
 					print("That's a ring!")
 					inventory.swap_items(slot, 7)
 					read_data_from_inventory()
@@ -181,7 +179,7 @@ func takeDamage(damage, enemyName):
 func handleRestarting():
 	if Input.is_key_pressed(KEY_R):
 		print("\nRestarted!")
-		get_tree().reload_current_scene()
+		var _ignore = get_tree().reload_current_scene()
 
 
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
@@ -198,7 +196,7 @@ func handleMovement():
 	move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
 	var movement = move_directon.normalized()*totalSpd*0.8
 	# move_and_slide has delta built-in
-	move_and_slide(movement.rotated(rotation))
+	var _ignore = move_and_slide(movement.rotated(rotation))
 
 
 func handleRotation(delta):
@@ -221,28 +219,34 @@ func handleAnimation():
 		sprite_node.texture = textureLeft
 
 func handleShooting():
-	if Input.is_action_pressed("Shoot") and can_fire == true:
-		can_fire = false
-		for i in range(usedWeapon.shots):
-			var new_arrow = arrowPrefab.instance()
-			new_arrow.position = get_global_position()
-			new_arrow.projectile_speed = usedWeapon.projectile_speed
-			new_arrow.lifetime = usedWeapon.lifetime
-			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*totalAtt/100.0
-			new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
-			new_arrow.get_child(1).texture = usedWeapon["bulletSprite"]
-			new_arrow.modulate = usedWeapon.modulate
-			new_arrow.scale.x = usedWeapon.scalex
-			new_arrow.scale.y = usedWeapon.scaley
-			if usedWeapon.ignoreWalls:
-				new_arrow.collision_mask-=2
-				new_arrow.get_node("Sprite").z_index+=2
-			new_arrow.multihit = usedWeapon.multihit
-			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
-			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
-			new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
-			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
-			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
-			get_parent().add_child(new_arrow)
-		yield(get_tree().create_timer(1.0/usedWeapon.rateOfFire*10.0/totalDex), "timeout")
-		can_fire = true
+	if not can_fire:
+		return
+	if not Input.is_action_pressed("Shoot"):
+		return
+	if not inventory.items[4]:
+		#print("You do not have a weapon!")
+		return
+	can_fire = false
+	for i in range(usedWeapon.shots):
+		var new_arrow = arrowPrefab.instance()
+		new_arrow.position = get_global_position()
+		new_arrow.projectile_speed = usedWeapon.projectile_speed
+		new_arrow.lifetime = usedWeapon.lifetime
+		new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*totalAtt/100.0
+		new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
+		new_arrow.get_child(1).texture = usedWeapon["bulletSprite"]
+		new_arrow.modulate = usedWeapon.modulate
+		new_arrow.scale.x = usedWeapon.scalex
+		new_arrow.scale.y = usedWeapon.scaley
+		if usedWeapon.ignoreWalls:
+			new_arrow.collision_mask-=2
+			new_arrow.get_node("Sprite").z_index+=2
+		new_arrow.multihit = usedWeapon.multihit
+		new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
+		new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
+		new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
+		new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
+		new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
+		get_parent().add_child(new_arrow)
+	yield(get_tree().create_timer(1.0/usedWeapon.rateOfFire*10.0/totalDex), "timeout")
+	can_fire = true
