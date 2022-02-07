@@ -1,17 +1,16 @@
-[gd_resource type="Resource" load_steps=12 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Items/Weapons/sword_t5.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/Items/Weapons/bow_t4.tres" type="Resource" id=3]
-[ext_resource path="res://Assets/Items/Weapons/bow_t3.tres" type="Resource" id=4]
-[ext_resource path="res://Assets/Items/Rings/maxHpRing_t3.tres" type="Resource" id=5]
+[ext_resource path="res://Assets/Items/Rings/defRing_t0.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/Items/Weapons/bow_t5.tres" type="Resource" id=5]
 [ext_resource path="res://Assets/Items/Armors/light_t0.tres" type="Resource" id=6]
 [ext_resource path="res://Assets/Items/Weapons/sword_t4.tres" type="Resource" id=7]
 [ext_resource path="res://Assets/Items/Armors/heavy_t0.tres" type="Resource" id=8]
 [ext_resource path="res://Assets/Items/Rings/maxHpRing_t5.tres" type="Resource" id=9]
-[ext_resource path="res://Assets/Items/Rings/defRing_t0.tres" type="Resource" id=10]
+[ext_resource path="res://Assets/Items/Armors/light_t5.tres" type="Resource" id=10]
 [ext_resource path="res://Assets/Items/Armors/heavy_t5.tres" type="Resource" id=11]
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 2 ), ExtResource( 7 ), null, ExtResource( 6 ), null, ExtResource( 11 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 9 ) ]
+items = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), null, ExtResource( 6 ), null, ExtResource( 11 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ) ]
