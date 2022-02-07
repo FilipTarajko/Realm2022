@@ -23,5 +23,7 @@ spriteRotation = 0.0
 spriteOffsetX = 0.5
 spriteOffsetY = 0.5
 multihit = false
+armorPierce = false
+ignoreWalls = false
 sprite = ExtResource( 2 )
 modulate = Color( 1, 0, 0, 1 )

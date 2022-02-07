@@ -19,5 +19,7 @@ export(float) var spriteRotation = 0.0
 export(float) var spriteOffsetX = 0.5
 export(float) var spriteOffsetY = 0.5
 export(bool) var multihit = false
+export(bool) var armorPierce = false
+export(bool) var ignoreWalls = false
 export(Texture) var sprite
 export(Color) var modulate = Color(1, 1, 1)

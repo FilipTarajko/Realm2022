@@ -81,6 +81,10 @@ func basicEnemyShooting(_delta, usedWeapon, i):
 			new_arrow.scale.x = usedWeapon.scalex
 			new_arrow.scale.y = usedWeapon.scaley
 			new_arrow.multihit = usedWeapon.multihit
+			new_arrow.get_node("Sprite").z_index+=1
+			if usedWeapon.ignoreWalls:
+				new_arrow.collision_mask-=2
+				new_arrow.get_node("Sprite").z_index+=2
 			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
 			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
 			new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
