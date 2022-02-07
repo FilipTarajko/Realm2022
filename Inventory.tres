@@ -5,11 +5,11 @@
 [ext_resource path="res://Assets/Items/Rings/defRing_t0.tres" type="Resource" id=3]
 [ext_resource path="res://Assets/Items/Weapons/bow_skeleton.tres" type="Resource" id=4]
 [ext_resource path="res://Assets/Items/Weapons/bow_t5.tres" type="Resource" id=5]
-[ext_resource path="res://Assets/Items/Armors/light_t0.tres" type="Resource" id=6]
+[ext_resource path="res://Assets/Items/Weapons/bow_t0.tres" type="Resource" id=6]
 [ext_resource path="res://Assets/Items/Rings/maxHpRing_t5.tres" type="Resource" id=9]
 [ext_resource path="res://Assets/Items/Armors/light_t5.tres" type="Resource" id=10]
 [ext_resource path="res://Assets/Items/Armors/heavy_t5.tres" type="Resource" id=11]
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), null, null, ExtResource( 6 ), null, ExtResource( 11 ), null, ExtResource( 10 ), ExtResource( 9 ) ]
+items = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ), null, null, null, ExtResource( 11 ), null, ExtResource( 10 ), ExtResource( 9 ) ]

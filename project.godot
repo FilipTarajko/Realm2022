@@ -15,6 +15,16 @@ _global_script_classes=[ {
 "path": "res://Armor.gd"
 }, {
 "base": "Resource",
+"class": "BasicEnemyResource",
+"language": "GDScript",
+"path": "res://BasicEnemyResource.gd"
+}, {
+"base": "Resource",
+"class": "EnemyWeapon",
+"language": "GDScript",
+"path": "res://EnemyWeapon.gd"
+}, {
+"base": "Resource",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://Inventory.gd"
@@ -36,6 +46,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Armor": "",
+"BasicEnemyResource": "",
+"EnemyWeapon": "",
 "Inventory": "",
 "Item": "",
 "Ring": "",

@@ -11,6 +11,7 @@ var maxHp
 var hp
 var enemyName
 var hpRegen
+var can_fire = []
 
 onready var player = get_parent().get_node("Player")
 
@@ -25,7 +26,7 @@ func _ready():
 	maxHp = defaultMaxHp
 	setStartingHealth()
 	for weapon in weapons:
-		weapon.can_fire = true
+		can_fire.append(true)
 	moveTimer.set_one_shot(true)
 	moveTimer.set_wait_time((0.2))
 	moveTimer.connect("timeout",self,"move_timeout")
@@ -60,9 +61,9 @@ func move_timeout():
 
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 
-func basicEnemyShooting(_delta, usedWeapon):
-	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and usedWeapon.can_fire == true:
-		usedWeapon.can_fire = false
+func basicEnemyShooting(_delta, usedWeapon, i):
+	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and can_fire[i] == true:
+		can_fire[i] = false
 		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
 		for i in range(usedWeapon.shots):
 			var new_arrow = arrowPrefab.instance()
@@ -85,7 +86,7 @@ func basicEnemyShooting(_delta, usedWeapon):
 			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
 			get_parent().add_child(new_arrow)
 		yield(get_tree().create_timer(1/usedWeapon.att_spd), "timeout")
-		usedWeapon.can_fire = true
+		can_fire[i] = true
 
 func setSpriteSide(x):
 	if(x>0):
@@ -118,10 +119,7 @@ func basicEnemyMovement(delta):
 			moveTimer.start()
 	if Input.is_action_pressed("rotateLeft"):
 		rotation_degrees-=player.rotationSpeed*delta
-		#$EnemyHealthbar.rotation_degrees=player.rotationSpeed*delta
 	if Input.is_action_pressed("rotateRight"):
 		rotation_degrees+=player.rotationSpeed*delta
-		#$EnemyHealthbar.rotation_degrees=-player.rotationSpeed*delta
 	if Input.is_action_just_pressed("resetRotation"):
 		rotation_degrees=0
-		#$EnemyHealthbar.rotation_degrees=0

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
+[ext_resource path="res://Assets/enemySprites/scorpion.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_1.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+enemyName = "tiny scorpion"
+sprite = ExtResource( 2 )
+moveSpeed = 1.0
+escapeRange = 0.0
+visionRange = 12.5
+followRange = 0.0
+doesDodge = false
+chaseRandomMaxAngle = 30.0
+modulate = Color( 1, 1, 0, 1 )
+scalex = 0.8
+scaley = 0.8
+maxHp = 40.0
+shadowSizeMultiplier = 1.0
+hpRegen = 1.0
+weapons = [ ExtResource( 3 ) ]

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/demonBullet.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "red demon's shot"
+att_spd = 0.6
+dmg_min = 25.0
+dmg_max = 30.0
+projectile_speed = 6.0
+lifetime = 1.8
+shots = 3
+angle = 60.0
+targetingRange = 10.0
+randomAngle = 30.0
+scalex = 0.7
+scaley = 0.7
+collisionShapeRadius = 2.5
+collisionShapeHeight = 14.0
+spriteRotation = 0.0
+spriteOffsetX = 0.5
+spriteOffsetY = 0.5
+multihit = false
+sprite = ExtResource( 2 )
+modulate = Color( 1, 0, 0, 1 )

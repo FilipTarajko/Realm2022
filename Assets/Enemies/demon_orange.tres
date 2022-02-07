@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
+[ext_resource path="res://Assets/enemySprites/demon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/demon_orange.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+enemyName = "orange demon"
+sprite = ExtResource( 2 )
+moveSpeed = 4.0
+escapeRange = 6.0
+visionRange = 18.0
+followRange = 12.0
+doesDodge = true
+chaseRandomMaxAngle = 90.0
+modulate = Color( 1, 0.301961, 0, 1 )
+scalex = 1.0
+scaley = 1.0
+maxHp = 300.0
+shadowSizeMultiplier = 0.7
+hpRegen = 1.0
+weapons = [ ExtResource( 3 ) ]

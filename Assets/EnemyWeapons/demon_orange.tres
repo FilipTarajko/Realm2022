@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/demonBullet.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "orange demon's shot"
+att_spd = 0.4
+dmg_min = 45.0
+dmg_max = 50.0
+projectile_speed = 6.0
+lifetime = 3.0
+shots = 3
+angle = 60.0
+targetingRange = 15.0
+randomAngle = 10.0
+scalex = 0.9
+scaley = 0.9
+collisionShapeRadius = 2.5
+collisionShapeHeight = 14.0
+spriteRotation = 0.0
+spriteOffsetX = 0.5
+spriteOffsetY = 0.5
+multihit = false
+sprite = ExtResource( 2 )
+modulate = Color( 1, 0.301961, 0, 1 )

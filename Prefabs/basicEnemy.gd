@@ -5,5 +5,5 @@ func _physics_process(delta):
 
 func _process(delta):
 	enemyProcess(delta)
-	for weapon in weapons:
-		basicEnemyShooting(delta, weapon)
+	for i in range(weapons.size()):
+		basicEnemyShooting(delta, weapons[i], i)
