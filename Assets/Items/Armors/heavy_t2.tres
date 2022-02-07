@@ -1,20 +1,20 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Armor.gd" type="Script" id=1]
-[ext_resource path="res://Assets/ItemSprites/Armors/light_t2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Armors/heavy_t2.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Light armor T2"
+name = "Heavy armor T2"
 itemSprite = ExtResource( 2 )
-def = 9.0
+def = 15.0
 tier = "2"
-armorType = "light"
+armorType = "heavy"
 itemType = "armor"
 dex = 0.0
 maxHp = 0.0
 maxMana = 0.0
-spd = 6.0
+spd = 0.0
 vit = 0.0
 wis = 0.0
 att = 0.0
