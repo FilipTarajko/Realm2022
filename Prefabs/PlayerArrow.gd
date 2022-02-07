@@ -8,7 +8,7 @@ var multihit = false
 var enemyName
 
 func _ready():
-	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
+	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
 	position += movement.normalized()*4
 	yield(get_tree().create_timer(lifetime), "timeout")
 	queue_free()

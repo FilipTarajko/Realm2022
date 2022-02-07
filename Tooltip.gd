@@ -9,16 +9,33 @@ onready var Container = get_node("NinePatchRect/MarginContainer/VBoxContainer")
 func _process(_delta):
 	rect_position = get_global_mouse_position() - Vector2(250, 350)
 
+func showNameAndTier(itemData):
+	var tier = itemData.tier
+	if tier.length() == 1:
+		tier=str("T",tier)
+	Container.get_node("ItemName").set_text(str(itemData.name, " (", tier,")"))
+
+func showBonusStats(itemData, i):
+	for j in ["def", "maxHp", "maxMana", "att", "dex", "spd", "vit", "wis" ]:
+		if itemData[j]:
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str(j,": ", itemData[j]))
+			i+=1
+
 func _ready():
 	var itemData
 	if inventory.items[slot]:
 		canShowItem = true
 		itemData = inventory.items[slot]
 		if itemData.itemType == "weapon":
-			Container.get_node("ItemName").set_text(str(itemData.name, " (T", itemData.tier,")"))
+			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(str(itemData.itemType," - ", itemData.weaponType))
 			Container.get_node("Stat1/Stat").set_text(str("damage: ",itemData.dmg_min," - ",itemData.dmg_max))
 			var i = 2
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str("range: ", itemData.lifetime*itemData.projectile_speed))
+			i+=1
+			if itemData.rateOfFire != 1:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("rate of fire: ", itemData.rateOfFire))
+				i+=1
 			if itemData.shots != 1:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("shots: ", itemData.shots))
 				i+=1
@@ -34,7 +51,12 @@ func _ready():
 			if itemData.ignoreWalls:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
 				i+=1
-			for j in ["maxHp", "maxMana", "att", "dex", "spd", "vit", "wis", "def"]:
-				if itemData[j]:
-					Container.get_node(str("Stat",i,"/Stat")).set_text(str(j,": ", itemData.j))
-					i+=1
+			showBonusStats(itemData, i)
+		if itemData.itemType == "armor":
+			showNameAndTier(itemData)
+			Container.get_node("ItemType").set_text(str(itemData.itemType," - ", itemData.armorType))
+			showBonusStats(itemData, 1)
+		if itemData.itemType == "ring":
+			showNameAndTier(itemData)
+			Container.get_node("ItemType").set_text(itemData.itemType)
+			showBonusStats(itemData, 1)

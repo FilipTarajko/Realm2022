@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Life ring T1"
+name = "simple health ring"
 itemSprite = ExtResource( 2 )
 tier = "1"
 itemType = "ring"

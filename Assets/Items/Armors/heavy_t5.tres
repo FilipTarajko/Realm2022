@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Heavy armor T5"
+name = "heaven's armor"
 itemSprite = ExtResource( 2 )
 def = 30.0
 tier = "5"
