@@ -79,19 +79,27 @@ func readItemStatBonuses():
 	totalVit = baseVit + itemVit
 	totalWis = baseWis + itemWis
 	totalDef = baseDef + itemDef
+	if hp:
+		if hp>totalMaxHp:
+			hp = totalMaxHp
+	if mana:
+		if mana>totalMaxMana:
+			mana = totalMaxMana
 
 var minimalTakenDamageMultiplier = 0.1
 
 var usedWeapon
 var usedArmor
+var usedRing
 
 func setWeapon(weapon):
 	usedWeapon = weapon
-	
+
 func setArmor(armor):
 	usedArmor = armor
-	itemDef = armor.def
 
+func setRing(ring):
+	usedRing = ring
 
 func _ready():
 	read_data_from_inventory()
@@ -132,6 +140,9 @@ func read_data_from_inventory():
 	if not inventory.items[6]:
 		inventory.set_item(6, load("res://Assets/Items/Armors/light_t0.tres"))
 	setArmor(inventory.items[6])
+	if not inventory.items[7]:
+		inventory.set_item(7, load("res://Assets/Items/Rings/maxHpRing_t0.tres"))
+	setRing(inventory.items[7])
 	cursor.texture = null
 	readItemStatBonuses()
 
@@ -154,6 +165,10 @@ func handleItemUse():
 				if inventory.items[slot].itemType == "armor":
 					print("That's an armor!")
 					inventory.swap_items(slot, 6)
+					read_data_from_inventory()
+				if inventory.items[slot].itemType == "ring":
+					print("That's a ring!")
+					inventory.swap_items(slot, 7)
 					read_data_from_inventory()
 			else:
 				print("You are trying to use empty inventory slot!")

@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://Item.gd"
 }, {
 "base": "Item",
+"class": "Ring",
+"language": "GDScript",
+"path": "res://Ring.gd"
+}, {
+"base": "Item",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://Weapon.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Armor": "",
 "Inventory": "",
 "Item": "",
+"Ring": "",
 "Weapon": ""
 }
 

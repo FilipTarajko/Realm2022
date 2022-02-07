@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Ring.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ItemSprites/Rings/defRing_t4.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Defense ring T4"
+itemSprite = ExtResource( 2 )
+tier = "4"
+itemType = "ring"
+maxHp = 0.0
+maxMana = 0.0
+att = 0.0
+dex = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+def = 10.0
