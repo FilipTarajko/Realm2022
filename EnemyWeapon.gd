@@ -23,3 +23,5 @@ export(bool) var armorPierce = false
 export(bool) var ignoreWalls = false
 export(Texture) var sprite
 export(Color) var modulate = Color(1, 1, 1)
+export(float) var slowDuration = 0
+export(float) var paralyzeDuration = 0

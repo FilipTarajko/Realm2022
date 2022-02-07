@@ -7,6 +7,8 @@ var movement = Vector2(projectile_speed, 0)
 var multihit = false
 var enemyName
 var enemyAttackName
+var slowDuration = 0
+var paralyzeDuration = 0
 
 func _ready():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
@@ -32,6 +34,10 @@ func _on_Arrow_body_entered(body):
 		if damage:
 			if enemyName:
 				body.takeDamage(damage, enemyName, enemyAttackName)
+				if slowDuration:
+					body.applySlow(slowDuration)
+				if paralyzeDuration:
+					body.applyParalyze(paralyzeDuration)
 			else:
 				body.takeDamage(damage)
 		if not multihit:

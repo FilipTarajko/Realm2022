@@ -27,3 +27,5 @@ armorPierce = false
 ignoreWalls = true
 sprite = ExtResource( 2 )
 modulate = Color( 1, 0.301961, 0, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0

@@ -9,6 +9,26 @@ var rotationSpeed = 90
 var hp
 var mana
 
+### NEGATIVE EFFECTS ###
+
+var slowed = 0.0
+var slowMultiplier = 3.0
+var paralyzed = 1.0
+
+func applySlow(slowDuration):
+	slowed = max(slowed, slowDuration)
+	
+func applyParalyze(paralyzeDuration):
+	paralyzed = max(paralyzed, paralyzeDuration)
+
+func handleNegativeEffects(delta):
+	if slowed:
+		slowed = max(slowed-delta, 0)
+	if paralyzed:
+		paralyzed = max(paralyzed-delta, 0)
+
+### STATS ###
+
 # maxHp sets maxHp to maxHp
 var baseMaxHp = 200.0
 var itemMaxHp = 0.0
@@ -111,6 +131,7 @@ func _ready():
 func _physics_process(delta):
 	handleMovement()
 	handleRotation(delta)
+	handleNegativeEffects(delta)
 
 func update_bars():
 	# hp
@@ -223,11 +244,14 @@ var textureRight = preload("res://assets/playerSprites/archerGreenRight.png")
 onready var sprite_node = get_node("Sprite")
 
 func handleMovement():
-	move_directon.x = int(Input.is_action_pressed("Right")) - int (Input.is_action_pressed("Left"))
-	move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
-	var movement = move_directon.normalized()*totalSpd*0.8
-	# move_and_slide has delta built-in
-	var _ignore = move_and_slide(movement.rotated(rotation))
+	if not paralyzed:
+		move_directon.x = int(Input.is_action_pressed("Right")) - int (Input.is_action_pressed("Left"))
+		move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
+		var movement = move_directon.normalized()*totalSpd*0.8
+		if slowed:
+			movement/=slowMultiplier
+		# move_and_slide has delta built-in
+		var _ignore = move_and_slide(movement.rotated(rotation))
 
 
 func handleRotation(delta):

@@ -9,7 +9,7 @@
 script = ExtResource( 1 )
 enemyName = "big scorpion"
 sprite = ExtResource( 2 )
-moveSpeed = 3.0
+moveSpeed = 2.0
 escapeRange = -1.0
 visionRange = 12.5
 followRange = 1.0
