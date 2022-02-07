@@ -10,7 +10,7 @@ var enemyAttackName
 
 func _ready():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
-	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)
+	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
 	yield(get_tree().create_timer(lifetime), "timeout")
 	queue_free()
 

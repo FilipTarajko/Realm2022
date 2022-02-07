@@ -105,24 +105,33 @@ func _ready():
 	read_data_from_inventory()
 	readItemStatBonuses()
 	hp = totalMaxHp
+	mana = totalMaxMana
 	randomize()
 
 func _physics_process(delta):
 	handleMovement()
 	handleRotation(delta)
 
+func update_bars():
+	# hp
+	$Healthbar.value = 100*hp/totalMaxHp
+	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/totalMaxHp
+	# mana
+	$Manabar.value = 100*mana/totalMaxMana
+	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mana/totalMaxMana
+
 func _process(delta):
 	if hp<=0:
 		print("\nYou were defeated! Game restarted!")
 		var _ignore = get_tree().reload_current_scene()
 	else:
-		if hp<totalMaxHp:
-			hp=min(totalMaxHp, hp+(totalVit/10)*delta)
-	$Healthbar.value = 100*hp/totalMaxHp
+		hp=min(totalMaxHp, hp+(totalVit/10)*delta)
+		mana=min(totalMaxMana, mana+(totalWis/10)*delta)
 	handleRestarting()
 	handleItemUse()
 	handleAnimation()
 	handleShooting()
+	update_bars()
 
 var inventory = preload("res://Inventory.tres")
 onready var cursor = get_node("CanvasLayer/Cursor")
