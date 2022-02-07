@@ -41,7 +41,7 @@ func setStartingHealth():
 func enemyProcess(delta):
 	if hp<=0:
 		print(str(enemyName, " defeated!"))
-		moveFloatingDamagesToParent()
+		#moveFloatingDamagesToParent()
 		queue_free()
 	else:
 		if hp<maxHp:
@@ -57,6 +57,19 @@ func moveFloatingDamagesToParent():
 			floatingDamages[i].rect_position = global_position
 			floatingDamages[i].rect_position += Vector2(((-12.5 + floatingDamages[i].random_offsets.x)*scale.x), (-7.25 - 9 *scale.y + floatingDamages[i].random_offsets.y)*scale.y)
 			floatingDamages[i].rect_scale = previousScale
+
+
+var floatingDamage2 = load("res://FloatingText.tscn")
+
+func spawnFloatingText2(damage):
+	var newFloatingDamage = floatingDamage2.instance()
+	newFloatingDamage.get_node("DamageLabel").text=str(round(damage))
+	newFloatingDamage.startColor = Color(1, rand_range(0.6, 1.0), rand_range(0.0, 0.6), 1)
+	newFloatingDamage.position = position + Vector2(rand_range(-3, 3), rand_range(-5, 5)) #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
+	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
+	get_parent().add_child(newFloatingDamage)
+	#floatingDamages.append(newFloatingDamage)
+	#floatingDamagesWeakrefs.append(weakref(newFloatingDamage))
 
 
 func spawnFloatingText(damage):
@@ -78,7 +91,7 @@ func takeDamageSuper(damage):
 	#print(str(enemyName, ": takeDamage"))
 	#print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
-	spawnFloatingText(damage)
+	spawnFloatingText2(damage)
 
 func takeDamage(damage):
 	print(str(enemyName, "took ",damage," damage!"))
