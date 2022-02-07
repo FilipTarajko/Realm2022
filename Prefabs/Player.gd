@@ -10,27 +10,75 @@ var hp
 var mana
 
 # maxHp sets maxHp to maxHp
-var maxHp = 200.0
+var baseMaxHp = 200.0
+var itemMaxHp = 0.0
+var totalMaxHp
 # maxMana sets maxMana to maxMana
 # NOT IMPLEMENTED
-var maxMana = 100.0
+var baseMaxMana = 100.0
+var itemMaxMana = 0.0
+var totalMaxMana
 # att multiplies damage by att/100
-var att = 100.0
+var baseAtt = 100.0
+var itemAtt = 0.0
+var totalAtt
 # dex multiplies RoF by dex/100
-var dex = 100.0
+var baseDex = 100.0
+var itemDex = 0.0
+var totalDex
 # spd moves spd/10 tiles/s
-var spd = 75.0
+var baseSpd = 75.0
+var itemSpd = 0.0
+var totalSpd
 # vit regenerates vit/10 hp/s
-var vit = 0.0
+var baseVit = 0.0
+var itemVit = 0.0
+var totalVit
 # wis regenerates wis/10 mana/s
 # NOT IMPLEMENTED
-var wis = 50.0
+var baseWis = 50.0
+var itemWis = 0.0
+var totalWis
 # def reduces damage from hit by def
 var baseDef = 5.0
 var itemDef = 0.0
-func def():
-	# TEST
-	return baseDef+itemDef
+var totalDef
+
+func readItemStatBonuses():
+	var calculatedItemMaxHp = 0
+	var calculatedItemMaxMana = 0
+	var calculatedItemAtt = 0
+	var calculatedItemDex = 0
+	var calculatedItemSpd = 0
+	var calculatedItemVit = 0
+	var calculatedItemWis = 0
+	var calculatedItemDef = 0
+	for i in range(4,8):
+		if inventory.items[i]:
+			calculatedItemMaxHp+=inventory.items[i].maxHp
+			calculatedItemMaxMana+=inventory.items[i].maxMana
+			calculatedItemAtt+=inventory.items[i].att
+			calculatedItemDex+=inventory.items[i].dex
+			calculatedItemSpd+=inventory.items[i].spd
+			calculatedItemVit+=inventory.items[i].vit
+			calculatedItemWis+=inventory.items[i].wis
+			calculatedItemDef+=inventory.items[i].def
+	itemMaxHp = calculatedItemMaxHp
+	itemMaxMana = calculatedItemMaxMana
+	itemAtt = calculatedItemAtt
+	itemDex = calculatedItemDex
+	itemSpd = calculatedItemSpd
+	itemVit = calculatedItemVit
+	itemWis = calculatedItemWis
+	itemDef = calculatedItemDef
+	totalMaxHp = baseMaxHp + itemMaxHp
+	totalMaxMana = baseMaxMana + itemMaxMana
+	totalAtt = baseAtt + itemAtt
+	totalDex = baseDex + itemDex
+	totalSpd = baseSpd + itemSpd
+	totalVit = baseVit + itemVit
+	totalWis = baseWis + itemWis
+	totalDef = baseDef + itemDef
 
 var minimalTakenDamageMultiplier = 0.1
 
@@ -46,9 +94,10 @@ func setArmor(armor):
 
 
 func _ready():
-	hp = maxHp
-	randomize()
 	read_data_from_inventory()
+	readItemStatBonuses()
+	hp = totalMaxHp
+	randomize()
 
 func _physics_process(delta):
 	handleMovement()
@@ -59,9 +108,9 @@ func _process(delta):
 		print("\nYou were defeated! Game restarted!")
 		get_tree().reload_current_scene()
 	else:
-		if hp<maxHp:
-			hp=min(maxHp, hp+(vit/10)*delta)
-	$Healthbar.value = 100*hp/maxHp
+		if hp<totalMaxHp:
+			hp=min(totalMaxHp, hp+(totalVit/10)*delta)
+	$Healthbar.value = 100*hp/totalMaxHp
 	handleRestarting()
 	handleItemUse()
 	handleAnimation()
@@ -84,6 +133,7 @@ func read_data_from_inventory():
 		inventory.set_item(6, load("res://Assets/Items/Armors/light_t0.tres"))
 	setArmor(inventory.items[6])
 	cursor.texture = null
+	readItemStatBonuses()
 
 func handleItemUse():
 	for i in range(1, 9):
@@ -109,7 +159,7 @@ func handleItemUse():
 				print("You are trying to use empty inventory slot!")
 
 func takeDamage(damage, enemyName):
-	var damageToDeal = max(damage-def(), damage*minimalTakenDamageMultiplier)
+	var damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
 	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "!"))
 	hp-=damageToDeal
 
@@ -131,7 +181,7 @@ onready var sprite_node = get_node("Sprite")
 func handleMovement():
 	move_directon.x = int(Input.is_action_pressed("Right")) - int (Input.is_action_pressed("Left"))
 	move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
-	var movement = move_directon.normalized()*spd*0.8
+	var movement = move_directon.normalized()*totalSpd*0.8
 	# move_and_slide has delta built-in
 	move_and_slide(movement.rotated(rotation))
 
@@ -165,7 +215,7 @@ func handleShooting():
 			new_arrow.position = get_global_position()
 			new_arrow.projectile_speed = usedWeapon.projectile_speed
 			new_arrow.lifetime = usedWeapon.lifetime
-			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*att/100.0
+			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*totalAtt/100.0
 			new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
 			new_arrow.get_child(1).texture = usedWeapon["bulletSprite"]
 			new_arrow.modulate = usedWeapon.modulate
@@ -178,5 +228,5 @@ func handleShooting():
 			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
 			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
 			get_parent().add_child(new_arrow)
-		yield(get_tree().create_timer(100.0/usedWeapon.att_spd/dex), "timeout")
+		yield(get_tree().create_timer(100.0/usedWeapon.att_spd/totalDex), "timeout")
 		can_fire = true

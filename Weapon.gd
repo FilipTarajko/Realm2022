@@ -23,3 +23,11 @@ export(bool) var armorPierce
 export(bool) var ignoreWalls
 export(String) var weaponType
 export(String) var itemType = "weapon"
+export(float) var def = 0
+export(float) var dex = 0
+export(float) var maxHp = 0
+export(float) var maxMana = 0
+export(float) var spd = 0
+export(float) var vit = 0
+export(float) var wis = 0
+export(float) var att = 0
