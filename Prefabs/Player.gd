@@ -26,18 +26,29 @@ var vit = 0.0
 # NOT IMPLEMENTED
 var wis = 50.0
 # def reduces damage from hit by def
-var def = 40.0
+var baseDef = 5.0
+var itemDef = 0.0
+func def():
+	# TEST
+	return baseDef+itemDef
+
 var minimalTakenDamageMultiplier = 0.1
 
 var usedWeapon
+var usedArmor
 
 func setWeapon(weapon):
-	usedWeapon=weapon
+	usedWeapon = weapon
+	
+func setArmor(armor):
+	usedArmor = armor
+	itemDef = armor.def
 
 
 func _ready():
 	hp = maxHp
 	randomize()
+	read_data_from_inventory()
 
 func _physics_process(delta):
 	handleMovement()
@@ -67,8 +78,11 @@ func read_data_from_inventory():
 			napis = inventory.items[i].name
 		print(str("[",i,"] ", stuff[i],": ",napis))
 	if not inventory.items[4]:
-		inventory.set_item(4, load("res://Assets/Items/bow_t0.tres"))
+		inventory.set_item(4, load("res://Assets/Items/Weapons/bow_t0.tres"))
 	setWeapon(inventory.items[4])
+	if not inventory.items[6]:
+		inventory.set_item(6, load("res://Assets/Items/Armors/light_t0.tres"))
+	setArmor(inventory.items[6])
 	cursor.texture = null
 
 func handleItemUse():
@@ -87,11 +101,15 @@ func handleItemUse():
 					print("That's a weapon!")
 					inventory.swap_items(slot, 4)
 					read_data_from_inventory()
+				if inventory.items[slot].itemType == "armor":
+					print("That's an armor!")
+					inventory.swap_items(slot, 6)
+					read_data_from_inventory()
 			else:
 				print("You are trying to use empty inventory slot!")
 
 func takeDamage(damage, enemyName):
-	var damageToDeal = max(damage-def, damage*minimalTakenDamageMultiplier)
+	var damageToDeal = max(damage-def(), damage*minimalTakenDamageMultiplier)
 	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "!"))
 	hp-=damageToDeal
 

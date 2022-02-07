@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Assets/ItemSprites/Weapons/bow_t2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/bulletSprites/bows/2.png" type="Texture" id=2]
+[ext_resource path="res://Weapon.gd" type="Script" id=3]
+
+[resource]
+script = ExtResource( 3 )
+name = "Bow T2"
+itemSprite = ExtResource( 1 )
+dmg_min = 40.0
+dmg_max = 60.0
+tier = "2"
+bulletSprite = ExtResource( 2 )
+att_spd = 5.0
+projectile_speed = 100.0
+lifetime = 0.5
+shots = 3
+angle = 30.0
+scalex = 0.5
+scaley = 0.5
+collisionShapeRadius = 2.5
+collisionShapeHeight = 14.0
+modulate = Color( 1, 1, 1, 1 )
+spriteRotation = 0.0
+spriteOffsetX = 0.5
+spriteOffsetY = 0.5
+multihit = true
+armorPierce = false
+ignoreWalls = false
+weaponType = "bow"
+itemType = "weapon"

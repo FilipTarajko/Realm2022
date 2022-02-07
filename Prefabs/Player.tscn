@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Healthbars/green160.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Healthbars/black160.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Healthbars/red160.png" type="Texture" id=8]
-[ext_resource path="res://Assets/ItemSprites/InventoryDisplay.tscn" type="PackedScene" id=9]
+[ext_resource path="res://InventoryDisplay.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Prefabs/InventoryParent.gd" type="Script" id=10]
 [ext_resource path="res://Cursor.gd" type="Script" id=11]
 

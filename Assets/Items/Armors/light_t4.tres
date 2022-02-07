@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Armor.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ItemSprites/Armors/light_t4.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Light armor T4"
+itemSprite = ExtResource( 2 )
+def = 15.0
+tier = "4"
+armorType = "light"
+itemType = "armor"

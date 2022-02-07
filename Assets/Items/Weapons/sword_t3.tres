@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Assets/bulletSprites/swords/3.png" type="Texture" id=1]
+[ext_resource path="res://Assets/ItemSprites/Weapons/sword_t3.png" type="Texture" id=2]
+[ext_resource path="res://Weapon.gd" type="Script" id=3]
+
+[resource]
+script = ExtResource( 3 )
+name = "Sword T3"
+itemSprite = ExtResource( 2 )
+dmg_min = 75.0
+dmg_max = 130.0
+tier = "3"
+bulletSprite = ExtResource( 1 )
+att_spd = 5.0
+projectile_speed = 100.0
+lifetime = 0.3
+shots = 1
+angle = 0.0
+scalex = 0.8
+scaley = 0.8
+collisionShapeRadius = 1.5
+collisionShapeHeight = 16.0
+modulate = Color( 1, 1, 1, 1 )
+spriteRotation = -45.0
+spriteOffsetX = 0.0
+spriteOffsetY = 0.0
+multihit = false
+armorPierce = false
+ignoreWalls = false
+weaponType = "sword"
+itemType = "weapon"
