@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/scorpionBullet.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "shot"
+att_spd = 0.3
+dmg_min = 30.0
+dmg_max = 50.0
+projectile_speed = 2.0
+lifetime = 5.0
+shots = 4
+angle = 90.0
+targetingRange = 8.0
+randomAngle = 10.0
+scalex = 1.0
+scaley = 1.0
+collisionShapeRadius = 2.5
+collisionShapeHeight = 14.0
+spriteRotation = 0.0
+spriteOffsetX = 0.5
+spriteOffsetY = 0.5
+multihit = false
+armorPierce = false
+ignoreWalls = false
+sprite = ExtResource( 2 )
+modulate = Color( 0.584314, 0.152941, 0, 1 )

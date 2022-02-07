@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://EnemyFloatingDamage.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Roboto.tres" type="DynamicFont" id=2]
+
+[node name="EnemyFloatingDamage" type="Label"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 14 )
+rect_scale = Vector2( 0.25, 0.25 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "damage"
+align = 1
+valign = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

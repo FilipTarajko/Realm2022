@@ -12,8 +12,11 @@ var hp
 var enemyName
 var hpRegen
 var can_fire = []
+var floatingDamages = []
+var floatingDamagesWeakrefs = []
 
 onready var player = get_parent().get_node("Player")
+var floatingDamage = load("res://EnemyFloatingDamage.tscn")
 
 var moveReset = true
 var randomRunningAngle = rand_range(0,6.28)
@@ -38,16 +41,44 @@ func setStartingHealth():
 func enemyProcess(delta):
 	if hp<=0:
 		print(str(enemyName, " defeated!"))
+		moveFloatingDamagesToParent()
 		queue_free()
 	else:
 		if hp<maxHp:
 			hp=min(maxHp, hp+hpRegen*delta)
 		$EnemyHealthbar.value = 100*hp/maxHp
 
+func moveFloatingDamagesToParent():
+	for i in floatingDamagesWeakrefs.size():
+		if(floatingDamagesWeakrefs[i].get_ref()):
+			var previousScale = Vector2(floatingDamages[i].rect_scale.x*scale.x, floatingDamages[i].rect_scale.y*scale.y)
+			remove_child(floatingDamages[i])
+			get_parent().add_child(floatingDamages[i])
+			floatingDamages[i].rect_position = global_position
+			floatingDamages[i].rect_position += Vector2(((-12.5 + floatingDamages[i].random_offsets.x)*scale.x), (-7.25 - 9 *scale.y + floatingDamages[i].random_offsets.y)*scale.y)
+			floatingDamages[i].rect_scale = previousScale
+
+
+func spawnFloatingText(damage):
+	var newFloatingDamage = floatingDamage.instance()
+	newFloatingDamage.text=str(round(damage))
+	#newFloatingDamage.offset = Vector2(-12.5 + rand_range(-2, 2), -7.25 - 9 *scale.y + rand_range(-2, 2))
+	newFloatingDamage.random_offsets = Vector2(rand_range(-2, 2), rand_range(-2, 2))
+	newFloatingDamage.rect_position += Vector2(-12.5 + newFloatingDamage.random_offsets.x, -7.25 - 9 *scale.y + newFloatingDamage.random_offsets.y)
+	newFloatingDamage.targetModulateR = 1.0
+	newFloatingDamage.targetModulateG = 0.5
+	newFloatingDamage.targetModulateB = 0.0
+	#newFloatingDamage.following = self
+	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
+	add_child(newFloatingDamage)
+	floatingDamages.append(newFloatingDamage)
+	floatingDamagesWeakrefs.append(weakref(newFloatingDamage))
+
 func takeDamageSuper(damage):
 	#print(str(enemyName, ": takeDamage"))
 	#print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
+	spawnFloatingText(damage)
 
 func takeDamage(damage):
 	print(str(enemyName, "took ",damage," damage!"))

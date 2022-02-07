@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
+[ext_resource path="res://Assets/enemySprites/scorpion.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_big_1.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_big_2.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+enemyName = "big scorpion"
+sprite = ExtResource( 2 )
+moveSpeed = 3.0
+escapeRange = -1.0
+visionRange = 12.5
+followRange = 1.0
+doesDodge = true
+chaseRandomMaxAngle = 60.0
+modulate = Color( 1, 0.423529, 0, 1 )
+scalex = 1.6
+scaley = 1.6
+maxHp = 500.0
+shadowSizeMultiplier = 1.0
+hpRegen = 1.0
+weapons = [ ExtResource( 3 ), ExtResource( 4 ) ]

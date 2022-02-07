@@ -38,6 +38,7 @@ func spawnEnemyCluster(enemyData, amount, spawnRange, x=get_global_position().x,
 func _ready():
 	yield(get_tree(), "idle_frame")
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_1.tres"), 20, 24, 120, 40)
+	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_big.tres"), 1, 24, 120, 40)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
 

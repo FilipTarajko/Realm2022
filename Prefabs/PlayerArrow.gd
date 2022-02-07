@@ -29,10 +29,11 @@ func handleMovement(delta):
 func _on_Arrow_body_entered(body):
 	#print(str(body," entered"))
 	if("hp" in body):
-		if enemyName:
-			body.takeDamage(damage, enemyName, enemyAttackName)
-		else:
-			body.takeDamage(damage)
+		if damage:
+			if enemyName:
+				body.takeDamage(damage, enemyName, enemyAttackName)
+			else:
+				body.takeDamage(damage)
 		if not multihit:
 			damage = 0
 			queue_free()

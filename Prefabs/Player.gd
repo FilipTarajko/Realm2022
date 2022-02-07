@@ -179,10 +179,23 @@ func handleItemUse():
 			else:
 				print("You are trying to use empty inventory slot!")
 
+var floatingDamage = load("res://PlayerFloatingDamage.tscn")
+
+func spawnFloatingText(damage):
+	var newFloatingDamage = floatingDamage.instance()
+	newFloatingDamage.text=str(round(damage))
+	newFloatingDamage.rect_position = - Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
+	newFloatingDamage.targetModulateR = 1.0
+	newFloatingDamage.targetModulateG = 0.0
+	newFloatingDamage.targetModulateB = 0.0
+	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
+	add_child(newFloatingDamage)
+
 func takeDamage(damage, enemyName, enemyAttackName):
 	var damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
 	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 	hp-=damageToDeal
+	spawnFloatingText(damage)
 
 func handleRestarting():
 	if Input.is_key_pressed(KEY_R):
