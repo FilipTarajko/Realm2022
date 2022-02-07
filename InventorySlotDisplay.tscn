@@ -29,3 +29,6 @@ margin_bottom = 545.0
 rect_min_size = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 stretch_mode = 4
+
+[connection signal="mouse_entered" from="ItemTextureRect" to="." method="_on_ItemTextureRect_mouse_entered"]
+[connection signal="mouse_exited" from="ItemTextureRect" to="." method="_on_ItemTextureRect_mouse_exited"]

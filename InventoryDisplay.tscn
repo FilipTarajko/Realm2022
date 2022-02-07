@@ -15,83 +15,83 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InventorySlotDisplay1" parent="." instance=ExtResource( 1 )]
+[node name="0" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 156.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay2" parent="." instance=ExtResource( 1 )]
+[node name="1" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 160.0
 margin_right = 316.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay3" parent="." instance=ExtResource( 1 )]
+[node name="2" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 320.0
 margin_right = 476.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay4" parent="." instance=ExtResource( 1 )]
+[node name="3" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 480.0
 margin_right = 636.0
 margin_bottom = 1080.0
 
-[node name="WeaponSlot" parent="." instance=ExtResource( 1 )]
+[node name="4" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 640.0
 margin_right = 796.0
 margin_bottom = 1080.0
 
-[node name="AbilitySlot" parent="." instance=ExtResource( 1 )]
+[node name="5" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 800.0
 margin_right = 956.0
 margin_bottom = 1080.0
 
-[node name="ArmorSlot" parent="." instance=ExtResource( 1 )]
+[node name="6" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 960.0
 margin_right = 1116.0
 margin_bottom = 1080.0
 
-[node name="RingSlot" parent="." instance=ExtResource( 1 )]
+[node name="7" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1120.0
 margin_right = 1276.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay5" parent="." instance=ExtResource( 1 )]
+[node name="8" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1280.0
 margin_right = 1436.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay6" parent="." instance=ExtResource( 1 )]
+[node name="9" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1440.0
 margin_right = 1596.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay7" parent="." instance=ExtResource( 1 )]
+[node name="10" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1600.0
 margin_right = 1756.0
 margin_bottom = 1080.0
 
-[node name="InventorySlotDisplay8" parent="." instance=ExtResource( 1 )]
+[node name="11" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1760.0

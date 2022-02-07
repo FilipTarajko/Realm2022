@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Sword T4"
+name = "Demonic sword"
 itemSprite = ExtResource( 2 )
 dmg_min = 90.0
 dmg_max = 155.0
 tier = "4"
 bulletSprite = ExtResource( 1 )
-att_spd = 5.0
+rateOfFire = 1.0
 projectile_speed = 100.0
 lifetime = 0.3
 shots = 1

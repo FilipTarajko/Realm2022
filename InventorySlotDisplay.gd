@@ -2,6 +2,7 @@ extends CenterContainer
 
 var inventory = preload("res://Inventory.tres")
 
+onready var toolTip = preload("res://Tooltip.tscn")
 onready var itemTextureRect = $ItemTextureRect
 
 func display_item(item):
@@ -40,16 +41,16 @@ func drop_data(_position, data):
 	#print(name)
 	var item_index = get_index()
 	var canBePutThere = true
-	if "Weapon" in name:
+	if name=="4":
 		#print("This is the weapon slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="weapon"
-	elif "Ability" in name:
+	elif name=="5":
 		#print("This is the ability slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="ability"
-	elif "Armor" in name:
+	elif name=="6":
 		#print("This is the armor slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="armor"
-	elif "Ring" in name:
+	elif name=="7":
 		#print("This is the ring slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="ring"
 	#print(str("Taking item from slot ",item_index))
@@ -76,3 +77,14 @@ func drop_data(_position, data):
 	inventory.set_item(item_index, data.item)
 	player.read_data_from_inventory()
 
+
+
+func _on_ItemTextureRect_mouse_entered():
+	var newToolTip = toolTip.instance()
+	newToolTip.slot = int(name)
+	add_child(newToolTip)
+	if has_node("Tooltip") and get_node("Tooltip").canShowItem:
+		get_node("Tooltip").show()
+
+func _on_ItemTextureRect_mouse_exited():
+	get_node("Tooltip").free()

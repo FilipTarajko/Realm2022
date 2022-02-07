@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Sword T3"
+name = "Golden sword"
 itemSprite = ExtResource( 2 )
 dmg_min = 75.0
 dmg_max = 130.0
 tier = "3"
 bulletSprite = ExtResource( 1 )
-att_spd = 5.0
+rateOfFire = 1.0
 projectile_speed = 100.0
 lifetime = 0.3
 shots = 1
@@ -30,3 +30,11 @@ armorPierce = false
 ignoreWalls = false
 weaponType = "sword"
 itemType = "weapon"
+def = 0.0
+dex = 0.0
+maxHp = 0.0
+maxMana = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+att = 0.0

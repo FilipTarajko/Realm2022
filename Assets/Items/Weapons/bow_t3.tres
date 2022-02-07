@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Bow T3"
+name = "Golden bow"
 itemSprite = ExtResource( 2 )
 dmg_min = 50.0
 dmg_max = 75.0
 tier = "3"
 bulletSprite = ExtResource( 1 )
-att_spd = 5.0
+rateOfFire = 1.0
 projectile_speed = 100.0
 lifetime = 0.5
 shots = 3

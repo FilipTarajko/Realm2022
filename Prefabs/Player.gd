@@ -22,8 +22,8 @@ var totalMaxMana
 var baseAtt = 100.0
 var itemAtt = 0.0
 var totalAtt
-# dex multiplies RoF by dex/100
-var baseDex = 100.0
+# dex multiplies RoF by dex/10
+var baseDex = 50.0
 var itemDex = 0.0
 var totalDex
 # spd moves spd/10 tiles/s
@@ -234,6 +234,9 @@ func handleShooting():
 			new_arrow.modulate = usedWeapon.modulate
 			new_arrow.scale.x = usedWeapon.scalex
 			new_arrow.scale.y = usedWeapon.scaley
+			if usedWeapon.ignoreWalls:
+				new_arrow.collision_mask-=2
+				new_arrow.get_node("Sprite").z_index+=2
 			new_arrow.multihit = usedWeapon.multihit
 			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
 			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
@@ -241,5 +244,5 @@ func handleShooting():
 			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
 			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
 			get_parent().add_child(new_arrow)
-		yield(get_tree().create_timer(100.0/usedWeapon.att_spd/totalDex), "timeout")
+		yield(get_tree().create_timer(1.0/usedWeapon.rateOfFire*10.0/totalDex), "timeout")
 		can_fire = true

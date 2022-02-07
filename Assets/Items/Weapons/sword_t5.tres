@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Sword T5"
+name = "Heaven's sword"
 itemSprite = ExtResource( 1 )
 dmg_min = 105.0
 dmg_max = 180.0
 tier = "5"
 bulletSprite = ExtResource( 2 )
-att_spd = 5.0
+rateOfFire = 1.0
 projectile_speed = 100.0
 lifetime = 0.3
 shots = 1

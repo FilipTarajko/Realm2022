@@ -6,13 +6,13 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Bow T0"
+name = "Wooden bow"
 itemSprite = ExtResource( 2 )
 dmg_min = 20.0
 dmg_max = 30.0
 tier = "0"
 bulletSprite = ExtResource( 1 )
-att_spd = 5.0
+rateOfFire = 1.0
 projectile_speed = 100.0
 lifetime = 0.5
 shots = 3
@@ -30,3 +30,11 @@ armorPierce = false
 ignoreWalls = false
 weaponType = "bow"
 itemType = "weapon"
+def = 0.0
+dex = 0.0
+maxHp = 0.0
+maxMana = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+att = 0.0

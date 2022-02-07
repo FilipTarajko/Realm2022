@@ -5,7 +5,7 @@ export(float) var dmg_min
 export(float) var dmg_max
 export(String) var tier
 export(Texture) var bulletSprite 
-export(float) var att_spd
+export(float) var rateOfFire = 1.0
 export(float) var projectile_speed
 export(float) var lifetime
 export(int) var shots
