@@ -1,6 +1,7 @@
 extends Area2D
 
 var projectile_speed = 100
+var projectile_acceleration = 0
 var lifetime = 0.1
 var damage = 0
 var movement = Vector2(projectile_speed, 0)
@@ -11,13 +12,19 @@ var slowDuration = 0
 var paralyzeDuration = 0
 var timeLeft
 
+func calculateMovement():
+	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
+
 func _ready():
 	timeLeft = lifetime
-	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
+	calculateMovement()
 	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
 
 func _physics_process(delta):
 	handleMovement(delta)
+	if projectile_acceleration:
+		projectile_speed += delta*projectile_acceleration
+		calculateMovement()
 	timeLeft -= delta
 	if timeLeft <= 0:
 		queue_free()

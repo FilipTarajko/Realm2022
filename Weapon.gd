@@ -7,6 +7,7 @@ export(String) var tier
 export(Texture) var bulletSprite 
 export(float) var rateOfFire = 1.0
 export(float) var projectile_speed
+export(float) var projectile_acceleration = 0.0
 export(float) var lifetime
 export(int) var shots
 export(float) var angle 

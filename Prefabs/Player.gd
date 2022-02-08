@@ -217,16 +217,26 @@ func handleItemUse():
 var floatingDamage = load("res://PlayerFloatingDamage.tscn")
 var floatingDamage2 = load("res://FloatingText.tscn")
 
-func spawnFloatingText2(damage):
+func spawnFloatingTextMessage(message, startColor = Color(0.8, 0.7, 0.2, 1.0), addedPosition = Vector2(0, -3)):
+	var newFloatingDamage = floatingDamage2.instance()
+	newFloatingDamage.get_node("DamageLabel").text = message
+	newFloatingDamage.startColor = startColor
+	newFloatingDamage.position += addedPosition
+	newFloatingDamage.alphaStartTime = 0.8
+	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
+	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
+	add_child(newFloatingDamage)
+
+func spawnDamageFloatingText2(damage):
 	var newFloatingDamage = floatingDamage2.instance()
 	newFloatingDamage.get_node("DamageLabel").text=str(round(damage))
 	newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.0, 0.2), 1)
-	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-5, 5))
+	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-5, 3))
 	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)
 	
-func spawnFloatingText(damage):
+func spawnDamageFloatingText(damage):
 	var newFloatingDamage = floatingDamage.instance()
 	newFloatingDamage.text=str(round(damage))
 	newFloatingDamage.rect_position = - Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
@@ -240,7 +250,7 @@ func takeDamage(damage, enemyName, enemyAttackName):
 	var damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
 	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 	hp-=damageToDeal
-	spawnFloatingText2(damage)
+	spawnDamageFloatingText2(damage)
 
 func handleRestarting():
 	if Input.is_key_pressed(KEY_R):
@@ -292,6 +302,7 @@ func generateBullets(shootingWeapon, position):
 		var new_arrow = arrowPrefab.instance()
 		new_arrow.position = position
 		new_arrow.projectile_speed = shootingWeapon.projectile_speed
+		new_arrow.projectile_acceleration = shootingWeapon.projectile_acceleration
 		new_arrow.lifetime = shootingWeapon.lifetime
 		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)*totalAtt/100.0
 		new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)
@@ -318,13 +329,13 @@ func handleAbilityUse(delta):
 	if remaining_ability_cooldown > 0:
 		remaining_ability_cooldown -= delta
 		return
-	if not Input.is_action_pressed("Ability"):
-		return
-	if mana < usedAbility.manaCost:
-		print("no mana!")
+	if not Input.is_action_just_pressed("Ability"):
 		return
 	if not inventory.items[5]:
-		print("You do not have an ability!")
+		spawnFloatingTextMessage("no ability equipped!")
+		return
+	if mana < usedAbility.manaCost:
+		spawnFloatingTextMessage("no mana!", Color(0.5, 0.6, 0.9, 1.0))
 		return
 	remaining_ability_cooldown = usedAbility.cooldown
 	mana -= usedAbility.manaCost
@@ -342,7 +353,7 @@ func handleWeaponShooting(delta):
 	if (not autofire and not Input.is_action_pressed("Shoot")):
 		return
 	if not inventory.items[4]:
-		#print("You do not have a weapon!")
+		spawnFloatingTextMessage("no weapon equipped!")
 		return
 	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/totalDex
 	generateBullets(usedWeapon, get_global_position())

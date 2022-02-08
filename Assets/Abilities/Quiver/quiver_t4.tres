@@ -25,6 +25,7 @@ dmg_min = 150.0
 dmg_max = 200.0
 bulletSprite = ExtResource( 3 )
 projectile_speed = 20.0
+projectile_acceleration = 0.0
 lifetime = 0.4
 shots = 5
 angle = 40.0

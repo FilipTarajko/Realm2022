@@ -6,6 +6,7 @@ export(float) var dmg_min
 export(float) var dmg_max
 export(Texture) var bulletSprite
 export(float) var projectile_speed = 12
+export(float) var projectile_acceleration = -18.0
 export(float) var lifetime = 0.5
 export(int) var shots
 export(float) var angle
