@@ -10,6 +10,9 @@ var rotationSpeed = 90
 var hp
 var mana
 
+### SETTINGS ? ###
+var autofire = false
+
 ### NEGATIVE EFFECTS ###
 
 var slowed = 0.0
@@ -300,6 +303,10 @@ func generateBullets(shootingWeapon, position):
 			new_arrow.collision_mask-=2
 			new_arrow.get_node("Sprite").z_index+=2
 		new_arrow.multihit = shootingWeapon.multihit
+		if "slowDuration" in shootingWeapon:
+			new_arrow.slowDuration = shootingWeapon.slowDuration
+		if "paralyzeDuration" in shootingWeapon:
+			new_arrow.paralyzeDuration = shootingWeapon.paralyzeDuration
 		new_arrow.get_child(0).shape.radius = shootingWeapon.collisionShapeRadius
 		new_arrow.get_child(0).shape.height = shootingWeapon.collisionShapeHeight
 		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
@@ -327,10 +334,12 @@ func handleAbilityUse(delta):
 		generateBullets(usedAbility, get_global_position())
 
 func handleWeaponShooting(delta):
+	if Input.is_action_just_pressed("i"):
+		autofire = !autofire
 	if remaining_weapon_cooldown > 0:
 		remaining_weapon_cooldown -= delta
 		return
-	if not Input.is_action_pressed("Shoot"):
+	if (not autofire and not Input.is_action_pressed("Shoot")):
 		return
 	if not inventory.items[4]:
 		#print("You do not have a weapon!")

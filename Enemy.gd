@@ -24,6 +24,27 @@ var chaseRunningAngle = rand_range(-1,1)
 var chaseRandomMaxAngle = 0
 var moveTimer = Timer.new()
 
+### NEGATIVE EFFECTS ###
+
+var slowed = 0.0
+var slowMultiplier = 2.0
+var paralyzed = 0.0
+
+func applySlow(slowDuration):
+	print("enemy slowed!")
+	slowed = max(slowed, slowDuration)
+	
+func applyParalyze(paralyzeDuration):
+	print("enemy paralyzed!")
+	paralyzed = max(paralyzed, paralyzeDuration)
+
+func handleNegativeEffects(delta):
+	if slowed:
+		slowed = max(slowed-delta, 0)
+	if paralyzed:
+		paralyzed = max(paralyzed-delta, 0)
+
+###
 
 func _ready():
 	maxHp = defaultMaxHp
@@ -42,6 +63,7 @@ func enemyProcess(delta):
 	if hp<maxHp:
 		hp=min(maxHp, hp+hpRegen*delta)
 	$EnemyHealthbar.value = 100*hp/maxHp
+	handleNegativeEffects(delta)
 
 func moveFloatingDamagesToParent():
 	for i in floatingDamagesWeakrefs.size():
@@ -150,23 +172,28 @@ func setSpriteSide(x):
 func basicEnemyMovement(delta):
 	var vec_to_player = player.global_position - global_position
 	var vec_to_move
+	var currentSpeed = moveSpeed
+	if paralyzed:
+		currentSpeed = 0
+	elif slowed:
+		currentSpeed /= slowMultiplier
 	vec_to_player = vec_to_player.normalized()
 	if(global_position.distance_to(player.global_position)<visionRange*8.0):
 		if(global_position.distance_to(player.global_position)<escapeRange*8.0&&player.invisibility==0):
-			vec_to_move = (-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed*8.0 * delta)
+			vec_to_move = (-vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * currentSpeed*8.0 * delta)
 			var _ignore = move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
 			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		elif(global_position.distance_to(player.global_position)>followRange*8.0&&player.invisibility==0):
-			vec_to_move = (vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * moveSpeed*8.0 * delta)
+			vec_to_move = (vec_to_player.rotated(chaseRunningAngle*deg2rad(chaseRandomMaxAngle)/2.0) * currentSpeed*8.0 * delta)
 			var _ignore = move_and_collide(vec_to_move)
 			randomRunningAngle = rand_range(0,6.28)
 			setSpriteSide(vec_to_move.x)
 			#moveReset=false
 		else:
 			if(doesDodge):
-				var _ignore = move_and_collide((vec_to_player.rotated(randomRunningAngle)* moveSpeed*8.0 * delta))
+				var _ignore = move_and_collide((vec_to_player.rotated(randomRunningAngle)* currentSpeed*8.0 * delta))
 		if(moveReset==true):
 			moveReset=false
 			moveTimer.start()

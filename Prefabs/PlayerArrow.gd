@@ -40,6 +40,10 @@ func _on_Arrow_body_entered(body):
 					body.applyParalyze(paralyzeDuration)
 			else:
 				body.takeDamage(damage)
+				if slowDuration:
+					body.applySlow(slowDuration)
+				if paralyzeDuration:
+					body.applyParalyze(paralyzeDuration)
 		if not multihit:
 			collision_layer = 0
 			collision_mask = 0

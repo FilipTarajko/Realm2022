@@ -20,3 +20,5 @@ export(float) var spriteOffsetY = 0.5
 export(bool) var multihit = true
 export(bool) var armorPierce
 export(bool) var ignoreWalls
+export(float) var slowDuration = 1.0
+export(float) var paralyzeDuration = 0.5
