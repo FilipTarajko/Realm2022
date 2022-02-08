@@ -39,5 +39,5 @@ spriteOffsetY = 0.5
 multihit = true
 armorPierce = false
 ignoreWalls = false
-slowDuration = 1.0
-paralyzeDuration = 0.5
+slowDuration = 0.4
+paralyzeDuration = 0.2

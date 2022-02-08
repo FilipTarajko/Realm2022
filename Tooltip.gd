@@ -87,6 +87,12 @@ func _ready():
 			if itemData.ignoreWalls:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
 				i+=1
+			if itemData.paralyzeDuration:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("paralyzes enemies for ", itemData.paralyzeDuration, "s"))
+				i+=1
+			if itemData.slowDuration:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("slows enemies for ", itemData.slowDuration, "s"))
+				i+=1
 			if "additionalUsageInfo" in itemData:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
 				i+=1

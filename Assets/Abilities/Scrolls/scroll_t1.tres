@@ -40,3 +40,5 @@ multihit = false
 armorPierce = false
 ignoreWalls = false
 additionalUsageInfo = "bullets appear on mouse"
+slowDuration = 0.0
+paralyzeDuration = 0.0

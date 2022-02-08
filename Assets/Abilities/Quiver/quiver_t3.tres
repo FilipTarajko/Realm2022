@@ -40,4 +40,4 @@ multihit = true
 armorPierce = false
 ignoreWalls = false
 slowDuration = 1.0
-paralyzeDuration = 0.5
+paralyzeDuration = 0.8

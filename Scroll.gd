@@ -21,3 +21,5 @@ export(bool) var multihit
 export(bool) var armorPierce
 export(bool) var ignoreWalls
 export(String) var additionalUsageInfo = "bullets appear on mouse"
+export(float) var slowDuration = 0.0
+export(float) var paralyzeDuration = 0.0
