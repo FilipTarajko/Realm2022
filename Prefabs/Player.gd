@@ -2,7 +2,8 @@ extends KinematicBody2D
 
 var move_directon = Vector2(0, 0)
 
-var can_fire = true
+var remaining_weapon_cooldown = 0
+var remaining_ability_cooldown = 0
 var invisibility = 0
 var rotationSpeed = 90
 
@@ -12,8 +13,8 @@ var mana
 ### NEGATIVE EFFECTS ###
 
 var slowed = 0.0
-var slowMultiplier = 3.0
-var paralyzed = 1.0
+var slowMultiplier = 2.0
+var paralyzed = 0.0
 
 func applySlow(slowDuration):
 	slowed = max(slowed, slowDuration)
@@ -35,7 +36,7 @@ var itemMaxHp = 0.0
 var totalMaxHp
 # maxMana sets maxMana to maxMana
 # NOT IMPLEMENTED
-var baseMaxMana = 100.0
+var baseMaxMana = 250.0
 var itemMaxMana = 0.0
 var totalMaxMana
 # att multiplies damage by att/100
@@ -109,11 +110,15 @@ func readItemStatBonuses():
 var minimalTakenDamageMultiplier = 0.1
 
 var usedWeapon
+var usedAbility
 var usedArmor
 var usedRing
 
 func setWeapon(weapon):
 	usedWeapon = weapon
+	
+func setAbility(ability):
+	usedAbility = ability
 
 func setArmor(armor):
 	usedArmor = armor
@@ -151,7 +156,8 @@ func _process(delta):
 	handleRestarting()
 	handleItemUse()
 	handleAnimation()
-	handleShooting()
+	handleAbilityUse(delta)
+	handleWeaponShooting(delta)
 	update_bars()
 
 var inventory = preload("res://Inventory.tres")
@@ -168,6 +174,7 @@ func show_equipment_in_console():
 func read_data_from_inventory():
 	#show_equipment_in_console()
 	setWeapon(inventory.items[4])
+	setAbility(inventory.items[5])
 	setArmor(inventory.items[6])
 	setRing(inventory.items[7])
 	cursor.texture = null
@@ -188,6 +195,10 @@ func handleItemUse():
 				if inventory.items[slot].itemType == "weapon":
 					print("That's a weapon!")
 					inventory.swap_items(slot, 4)
+					read_data_from_inventory()
+				elif inventory.items[slot].itemType == "ability":
+					print("That's an ability!")
+					inventory.swap_items(slot, 5)
 					read_data_from_inventory()
 				elif inventory.items[slot].itemType == "armor":
 					print("That's an armor!")
@@ -273,35 +284,56 @@ func handleAnimation():
 	elif Input.is_action_pressed("Left"):
 		sprite_node.texture = textureLeft
 
-func handleShooting():
-	if not can_fire:
+func generateBullets(shootingWeapon, position):
+	for i in range(shootingWeapon.shots):
+		var new_arrow = arrowPrefab.instance()
+		new_arrow.position = position
+		new_arrow.projectile_speed = shootingWeapon.projectile_speed
+		new_arrow.lifetime = shootingWeapon.lifetime
+		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)*totalAtt/100.0
+		new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)
+		new_arrow.get_child(1).texture = shootingWeapon["bulletSprite"]
+		new_arrow.modulate = shootingWeapon.modulate
+		new_arrow.scale.x = shootingWeapon.scalex
+		new_arrow.scale.y = shootingWeapon.scaley
+		if shootingWeapon.ignoreWalls:
+			new_arrow.collision_mask-=2
+			new_arrow.get_node("Sprite").z_index+=2
+		new_arrow.multihit = shootingWeapon.multihit
+		new_arrow.get_child(0).shape.radius = shootingWeapon.collisionShapeRadius
+		new_arrow.get_child(0).shape.height = shootingWeapon.collisionShapeHeight
+		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
+		new_arrow.get_child(1).position.x = shootingWeapon.spriteOffsetX
+		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
+		get_parent().add_child(new_arrow)
+
+func handleAbilityUse(delta):
+	if remaining_ability_cooldown > 0:
+		remaining_ability_cooldown -= delta
+		return
+	if not Input.is_action_pressed("Ability"):
+		return
+	if mana < usedAbility.manaCost:
+		print("no mana!")
+		return
+	if not inventory.items[5]:
+		print("You do not have an ability!")
+		return
+	remaining_ability_cooldown = usedAbility.cooldown
+	mana -= usedAbility.manaCost
+	if usedAbility.abilityType == "scroll":
+		generateBullets(usedAbility, get_global_mouse_position())
+	if usedAbility.abilityType == "quiver":
+		generateBullets(usedAbility, get_global_position())
+
+func handleWeaponShooting(delta):
+	if remaining_weapon_cooldown > 0:
+		remaining_weapon_cooldown -= delta
 		return
 	if not Input.is_action_pressed("Shoot"):
 		return
 	if not inventory.items[4]:
 		#print("You do not have a weapon!")
 		return
-	can_fire = false
-	for i in range(usedWeapon.shots):
-		var new_arrow = arrowPrefab.instance()
-		new_arrow.position = get_global_position()
-		new_arrow.projectile_speed = usedWeapon.projectile_speed
-		new_arrow.lifetime = usedWeapon.lifetime
-		new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)*totalAtt/100.0
-		new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)
-		new_arrow.get_child(1).texture = usedWeapon["bulletSprite"]
-		new_arrow.modulate = usedWeapon.modulate
-		new_arrow.scale.x = usedWeapon.scalex
-		new_arrow.scale.y = usedWeapon.scaley
-		if usedWeapon.ignoreWalls:
-			new_arrow.collision_mask-=2
-			new_arrow.get_node("Sprite").z_index+=2
-		new_arrow.multihit = usedWeapon.multihit
-		new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
-		new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
-		new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
-		new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
-		new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
-		get_parent().add_child(new_arrow)
-	yield(get_tree().create_timer(1.0/usedWeapon.rateOfFire*10.0/totalDex), "timeout")
-	can_fire = true
+	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/totalDex
+	generateBullets(usedWeapon, get_global_position())

@@ -41,7 +41,9 @@ func _on_Arrow_body_entered(body):
 			else:
 				body.takeDamage(damage)
 		if not multihit:
-			damage = 0
+			collision_layer = 0
+			collision_mask = 0
+			#damage = 0
 			queue_free()
 	else:
 		#$Sprite.visible=false;

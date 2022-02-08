@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Quiver.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ItemSprites/Abilities/Quivers/0.png" type="Texture" id=2]
+[ext_resource path="res://Assets/bulletSprites/Quivers/0.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "novice's quiver"
+itemSprite = ExtResource( 2 )
+tier = "0"
+cooldown = 0.5
+itemType = "ability"
+manaCost = 50.0
+def = 0.0
+dex = 2.0
+maxHp = 0.0
+maxMana = 0.0
+spd = 2.0
+vit = 0.0
+wis = 0.0
+att = 0.0
+abilityType = "quiver"
+dmg_min = 50.0
+dmg_max = 100.0
+bulletSprite = ExtResource( 3 )
+projectile_speed = 20.0
+lifetime = 0.4
+shots = 1
+angle = 0.0
+scalex = 0.8
+scaley = 0.8
+collisionShapeRadius = 0.0
+collisionShapeHeight = 0.0
+modulate = Color( 1, 1, 1, 1 )
+spriteRotation = 0.0
+spriteOffsetX = 0.5
+spriteOffsetY = 0.5
+multihit = true
+armorPierce = false
+ignoreWalls = false

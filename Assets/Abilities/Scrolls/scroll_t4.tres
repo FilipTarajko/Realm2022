@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Scroll.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/Scrolls/4.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Abilities/Spells/4.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "demon's scroll"
+itemSprite = ExtResource( 3 )
+tier = "4"
+cooldown = 0.5
+itemType = "ability"
+manaCost = 90.0
+def = 0.0
+dex = 0.0
+maxHp = 0.0
+maxMana = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+att = 0.0
+abilityType = "scroll"
+dmg_min = 40.0
+dmg_max = 60.0
+bulletSprite = ExtResource( 2 )
+projectile_speed = 12.0
+lifetime = 0.5
+shots = 16
+angle = 360.0
+scalex = 1.0
+scaley = 1.0
+collisionShapeRadius = 2.0
+collisionShapeHeight = 2.0
+modulate = Color( 1, 1, 1, 1 )
+spriteRotation = 0.0
+spriteOffsetX = 0.0
+spriteOffsetY = 0.0
+multihit = false
+armorPierce = false
+ignoreWalls = false

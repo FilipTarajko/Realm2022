@@ -60,3 +60,31 @@ func _ready():
 			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(itemData.itemType)
 			showBonusStats(itemData, 1)
+		if itemData.itemType == "ability":
+			showNameAndTier(itemData)
+			Container.get_node("ItemType").set_text(itemData.itemType)
+			showBonusStats(itemData, 1)
+			var i = 1
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str("mana cost: ",itemData.manaCost))
+			i+=1
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str("damage: ",itemData.dmg_min," - ",itemData.dmg_max))
+			i+=1
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str("bullet's range: ", itemData.lifetime*itemData.projectile_speed))
+			i+=1
+			Container.get_node(str("Stat",i,"/Stat")).set_text(str("cooldown: ", itemData.cooldown, "s"))
+			i+=1
+			if itemData.shots != 1:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("shots: ", itemData.shots))
+				i+=1
+			if itemData.angle:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("angle: ", itemData.angle))
+				i+=1
+			if itemData.multihit:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces enemies"))
+				i+=1
+			if itemData.armorPierce:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces armor"))
+				i+=1
+			if itemData.ignoreWalls:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
+				i+=1
