@@ -39,14 +39,9 @@ func setStartingHealth():
 	hp = maxHp
 
 func enemyProcess(delta):
-	if hp<=0:
-		print(str(enemyName, " defeated!"))
-		#moveFloatingDamagesToParent()
-		queue_free()
-	else:
-		if hp<maxHp:
-			hp=min(maxHp, hp+hpRegen*delta)
-		$EnemyHealthbar.value = 100*hp/maxHp
+	if hp<maxHp:
+		hp=min(maxHp, hp+hpRegen*delta)
+	$EnemyHealthbar.value = 100*hp/maxHp
 
 func moveFloatingDamagesToParent():
 	for i in floatingDamagesWeakrefs.size():
@@ -91,6 +86,12 @@ func takeDamageSuper(damage):
 	#print(str(enemyName, ": takeDamage"))
 	#print(str(enemyName, " was dealt ",damage," damage!"))
 	hp -= damage
+	if hp<=0:
+		print(str(enemyName, " defeated!"))
+		#moveFloatingDamagesToParent()
+		collision_layer = 0
+		collision_mask = 0
+		queue_free()
 	spawnFloatingText2(damage)
 
 func takeDamage(damage):

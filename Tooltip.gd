@@ -63,7 +63,6 @@ func _ready():
 		if itemData.itemType == "ability":
 			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(itemData.itemType)
-			showBonusStats(itemData, 1)
 			var i = 1
 			Container.get_node(str("Stat",i,"/Stat")).set_text(str("mana cost: ",itemData.manaCost))
 			i+=1
@@ -88,3 +87,7 @@ func _ready():
 			if itemData.ignoreWalls:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
 				i+=1
+			if "additionalUsageInfo" in itemData:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
+				i+=1
+			showBonusStats(itemData, i)

@@ -39,3 +39,4 @@ spriteOffsetY = 0.0
 multihit = false
 armorPierce = false
 ignoreWalls = false
+additionalUsageInfo = "bullets appear on mouse"

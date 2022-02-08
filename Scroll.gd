@@ -20,3 +20,4 @@ export(float) var spriteOffsetY
 export(bool) var multihit
 export(bool) var armorPierce
 export(bool) var ignoreWalls
+export(String) var additionalUsageInfo = "bullets appear on mouse"
