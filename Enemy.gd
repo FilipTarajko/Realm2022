@@ -14,6 +14,7 @@ var hpRegen
 var remaining_weapon_cooldown = []
 var floatingDamages = []
 var floatingDamagesWeakrefs = []
+var isUsing16pxSprite = false
 
 onready var player = get_parent().get_node("Player")
 var floatingDamage = load("res://EnemyFloatingDamage.tscn")
@@ -55,6 +56,9 @@ func _ready():
 	moveTimer.set_wait_time((0.2))
 	moveTimer.connect("timeout",self,"move_timeout")
 	add_child(moveTimer)
+	if isUsing16pxSprite:
+		$Sprite.position.y -= 4
+		print("przesunalem o 4")
 
 func setStartingHealth():
 	hp = maxHp
@@ -139,6 +143,7 @@ func generateBullets(shootingWeapon, position, isSpawnedByEnemy, randomShootingA
 			new_arrow.enemyName = enemyName
 			new_arrow.enemyAttackName = shootingWeapon.enemyWeaponName
 		new_arrow.projectile_speed = shootingWeapon.projectile_speed
+		new_arrow.projectile_acceleration = shootingWeapon.projectile_acceleration
 		new_arrow.lifetime = shootingWeapon.lifetime
 		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)
 		new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)+deg2rad(randomShootingAngle)

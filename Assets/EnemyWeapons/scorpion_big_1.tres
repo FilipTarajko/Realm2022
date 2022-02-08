@@ -10,6 +10,7 @@ att_spd = 0.6
 dmg_min = 10.0
 dmg_max = 20.0
 projectile_speed = 8.0
+projectile_acceleration = 0.0
 lifetime = 1.0
 shots = 2
 angle = 30.0

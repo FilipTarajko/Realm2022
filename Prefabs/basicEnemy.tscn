@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/enemySprites/enemyWhite.png" type="Texture" id=1]
+[ext_resource path="res://Assets/enemySprites/scorpion_god.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Healthbars/red.png" type="Texture" id=2]
 [ext_resource path="res://Assets/enemySprites/shadowRound.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Healthbars/white.png" type="Texture" id=4]

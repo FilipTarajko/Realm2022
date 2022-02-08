@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
+[ext_resource path="res://Assets/enemySprites/scorpion_god.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_god_stinger_back.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_god_stinger_center.tres" type="Resource" id=4]
+[ext_resource path="res://Assets/EnemyWeapons/scorpion_god_stinger_front.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 1 )
+enemyName = "scorpion god"
+sprite = ExtResource( 2 )
+moveSpeed = 2.0
+escapeRange = 0.2
+visionRange = 14.0
+followRange = 1.0
+doesDodge = true
+chaseRandomMaxAngle = 60.0
+modulate = Color( 0.415686, 0.415686, 0.0235294, 1 )
+scalex = 1.0
+scaley = 1.0
+maxHp = 1000.0
+shadowSizeMultiplier = 0.8
+hpRegen = 1.0
+weapons = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+isUsing16pxSprite = true

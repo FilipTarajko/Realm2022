@@ -22,3 +22,4 @@ maxHp = 500.0
 shadowSizeMultiplier = 1.0
 hpRegen = 1.0
 weapons = [ ExtResource( 3 ), ExtResource( 4 ) ]
+isUsing16pxSprite = false

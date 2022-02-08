@@ -20,8 +20,12 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 	new_enemy.scale.y = enemyData.scaley
 	new_enemy.defaultMaxHp = enemyData.maxHp
 	new_enemy.hpRegen = enemyData.hpRegen
+	new_enemy.isUsing16pxSprite = enemyData.isUsing16pxSprite
 	new_enemy.get_node("Shadow").scale.x *= enemyData.shadowSizeMultiplier
 	new_enemy.get_node("Shadow").scale.y *= enemyData.shadowSizeMultiplier
+	if enemyData.isUsing16pxSprite:
+		new_enemy.get_node("Shadow").scale.x *= 2
+		new_enemy.get_node("Shadow").scale.y *= 2
 	new_enemy.get_node("CollisionShape2D").scale.x *= enemyData.shadowSizeMultiplier
 	new_enemy.get_node("CollisionShape2D").scale.y *= enemyData.shadowSizeMultiplier
 	new_enemy.get_node("Sprite").material.set_shader_param("width", 0.15/sqrt(enemyData.scalex*enemyData.scaley))
@@ -39,6 +43,7 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_1.tres"), 20, 24, 120, 40)
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_big.tres"), 1, 24, 120, 40)
+	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_god.tres"), 1, 24, 100, -40)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
 

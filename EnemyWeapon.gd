@@ -6,6 +6,7 @@ export(float) var att_spd
 export(float) var dmg_min
 export(float) var dmg_max
 export(float) var projectile_speed
+export(float) var projectile_acceleration
 export(float) var lifetime
 export(int) var shots
 export(float) var angle
