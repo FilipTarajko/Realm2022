@@ -9,15 +9,18 @@ var enemyName
 var enemyAttackName
 var slowDuration = 0
 var paralyzeDuration = 0
+var timeLeft
 
 func _ready():
+	timeLeft = lifetime
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
 	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
-	yield(get_tree().create_timer(lifetime), "timeout")
-	queue_free()
 
 func _physics_process(delta):
 	handleMovement(delta)
+	timeLeft -= delta
+	if timeLeft <= 0:
+		queue_free()
 
 func handleMovement(delta):
 	position = position+(movement)*delta

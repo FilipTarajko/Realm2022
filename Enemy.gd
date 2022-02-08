@@ -11,7 +11,7 @@ var maxHp
 var hp
 var enemyName
 var hpRegen
-var can_fire = []
+var remaining_weapon_cooldown = []
 var floatingDamages = []
 var floatingDamagesWeakrefs = []
 
@@ -50,7 +50,7 @@ func _ready():
 	maxHp = defaultMaxHp
 	setStartingHealth()
 	for weapon in weapons:
-		can_fire.append(true)
+		remaining_weapon_cooldown.append(0)
 	moveTimer.set_one_shot(true)
 	moveTimer.set_wait_time((0.2))
 	moveTimer.connect("timeout",self,"move_timeout")
@@ -129,39 +129,45 @@ func move_timeout():
 
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 
-func basicEnemyShooting(_delta, usedWeapon, i):
-	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and can_fire[i] == true:
-		can_fire[i] = false
-		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
-		for i in range(usedWeapon.shots):
-			var new_arrow = arrowPrefab.instance()
-			new_arrow.position = get_global_position()
-			new_arrow.enemyName = enemyName
-			new_arrow.enemyAttackName = usedWeapon.enemyWeaponName
+
+func generateBullets(shootingWeapon, position, isSpawnedByEnemy, randomShootingAngle):
+	for i in range(shootingWeapon.shots):
+		var new_arrow = arrowPrefab.instance()
+		new_arrow.position = position
+		if isSpawnedByEnemy:
 			new_arrow.collision_mask -= 12
-			new_arrow.projectile_speed = usedWeapon.projectile_speed
-			new_arrow.lifetime = usedWeapon.lifetime
-			new_arrow.damage = rand_range(usedWeapon.dmg_min, usedWeapon.dmg_max)
-			new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((usedWeapon.shots-1)/2))*((usedWeapon.angle)/(usedWeapon.shots))))+(rotation)+deg2rad(randomShootingAngle)
-			new_arrow.get_child(1).texture = usedWeapon["sprite"]
-			new_arrow.modulate = usedWeapon.modulate
-			new_arrow.scale.x = usedWeapon.scalex
-			new_arrow.scale.y = usedWeapon.scaley
-			new_arrow.multihit = usedWeapon.multihit
-			new_arrow.slowDuration = usedWeapon.slowDuration
-			new_arrow.paralyzeDuration = usedWeapon.paralyzeDuration
-			new_arrow.get_node("Sprite").z_index+=1
-			if usedWeapon.ignoreWalls:
-				new_arrow.collision_mask-=2
-				new_arrow.get_node("Sprite").z_index+=2
-			new_arrow.get_child(0).shape.radius = usedWeapon.collisionShapeRadius
-			new_arrow.get_child(0).shape.height = usedWeapon.collisionShapeHeight
-			new_arrow.get_child(1).rotation_degrees = usedWeapon.spriteRotation
-			new_arrow.get_child(1).position.x = usedWeapon.spriteOffsetX
-			new_arrow.get_child(1).position.y = usedWeapon.spriteOffsetY
-			get_parent().add_child(new_arrow)
-		yield(get_tree().create_timer(1/usedWeapon.att_spd), "timeout")
-		can_fire[i] = true
+			new_arrow.enemyName = enemyName
+			new_arrow.enemyAttackName = shootingWeapon.enemyWeaponName
+		new_arrow.projectile_speed = shootingWeapon.projectile_speed
+		new_arrow.lifetime = shootingWeapon.lifetime
+		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)
+		new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)+deg2rad(randomShootingAngle)
+		new_arrow.get_child(1).texture = shootingWeapon["sprite"]
+		new_arrow.modulate = shootingWeapon.modulate
+		new_arrow.scale.x = shootingWeapon.scalex
+		new_arrow.scale.y = shootingWeapon.scaley
+		if shootingWeapon.ignoreWalls:
+			new_arrow.collision_mask-=2
+			new_arrow.get_node("Sprite").z_index+=2
+		new_arrow.multihit = shootingWeapon.multihit
+		if "slowDuration" in shootingWeapon:
+			new_arrow.slowDuration = shootingWeapon.slowDuration
+		if "paralyzeDuration" in shootingWeapon:
+			new_arrow.paralyzeDuration = shootingWeapon.paralyzeDuration
+		new_arrow.get_child(0).shape.radius = shootingWeapon.collisionShapeRadius
+		new_arrow.get_child(0).shape.height = shootingWeapon.collisionShapeHeight
+		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
+		new_arrow.get_child(1).position.x = shootingWeapon.spriteOffsetX
+		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
+		get_parent().add_child(new_arrow)
+
+func basicEnemyShooting(delta, usedWeapon, i):
+	if remaining_weapon_cooldown[i]>0:
+		remaining_weapon_cooldown[i] = max(remaining_weapon_cooldown[i]-delta, 0)
+	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and remaining_weapon_cooldown[i] <= 0:
+		remaining_weapon_cooldown[i] = 1/usedWeapon.att_spd
+		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
+		generateBullets(usedWeapon, get_global_position(), true, randomShootingAngle)
 
 func setSpriteSide(x):
 	if(x>0):

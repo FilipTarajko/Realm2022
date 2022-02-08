@@ -7,7 +7,7 @@ var inventory = preload("res://Inventory.tres")
 onready var Container = get_node("NinePatchRect/MarginContainer/VBoxContainer")
 
 func _process(_delta):
-	rect_position = get_global_mouse_position() - Vector2(250, 350)
+	rect_position = get_global_mouse_position() - Vector2(250, 370)
 
 func showNameAndTier(itemData):
 	var tier = itemData.tier
