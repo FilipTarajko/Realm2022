@@ -18,6 +18,7 @@ var rotateSpriteAndHitboxToMatchDirection = false
 var defaultSpriteRotation = 0
 var indexOfEnemysWeaponsBullet = 0
 var startingSinusoidPoint = 0
+var armorPierce = false
 
 func calculateMovement():
 	if not bulletWaveAmplitude:
@@ -65,7 +66,7 @@ func _on_Arrow_body_entered(body):
 	if("hp" in body):
 		if damage:
 			if enemyName:
-				body.takeDamage(damage, enemyName, enemyAttackName)
+				body.takeDamage(damage, armorPierce, enemyName, enemyAttackName)
 				if slowDuration:
 					body.applySlow(slowDuration)
 				if paralyzeDuration:

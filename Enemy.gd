@@ -168,6 +168,7 @@ func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, ta
 		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
 		new_arrow.get_child(1).position.x = shootingWeapon.spriteOffsetX
 		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
+		new_arrow.armorPierce = shootingWeapon.armorPierce
 		new_arrow.bulletWaveFrequency = shootingWeapon.bulletWaveFrequency
 		new_arrow.bulletWaveAmplitude = shootingWeapon.bulletWaveAmplitude
 		new_arrow.rotateSpriteAndHitboxToMatchDirection = shootingWeapon.rotateSpriteAndHitboxToMatchDirection
@@ -188,7 +189,7 @@ func shootNextTentacleShotAfterDelay(usedWeapon, weaponIndex, angle, shotsLeft, 
 	t.set_one_shot(true)
 	self.add_child(t)
 	if shotsLeft > 1:
-		t.connect("timeout", self, "shootNextTentacleShotAfterDelay", [usedWeapon, angle+deg2rad(usedWeapon.burstsAngleDiff), shotsLeft-1, seconds])
+		t.connect("timeout", self, "shootNextTentacleShotAfterDelay", [usedWeapon, weaponIndex, angle+deg2rad(usedWeapon.burstsAngleDiff), shotsLeft-1, seconds])
 		t.start()
 	generateBullets(usedWeapon, weaponIndex, get_global_position(), true, angle)
 

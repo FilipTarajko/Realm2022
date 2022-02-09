@@ -227,10 +227,13 @@ func spawnFloatingTextMessage(message, startColor = Color(0.8, 0.7, 0.2, 1.0), a
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)
 
-func spawnDamageFloatingText2(damage):
+func spawnDamageFloatingText2(damage, ignoringArmor):
 	var newFloatingDamage = floatingDamage2.instance()
 	newFloatingDamage.get_node("DamageLabel").text=str(round(damage))
-	newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.0, 0.2), 1)
+	if ignoringArmor:
+		newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.6, 0.8), 1)
+	else:
+		newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.0, 0.2), 1)
 	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-5, 3))
 	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
@@ -246,11 +249,17 @@ func spawnDamageFloatingText(damage):
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)
 
-func takeDamage(damage, enemyName, enemyAttackName):
-	var damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
-	print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
+func takeDamage(damage, ignoringArmor, enemyName, enemyAttackName):
+	var damageToDeal
+	if ignoringArmor:
+		damageToDeal = damage
+		print(str("Took ",damageToDeal," armor-ignoring damage from ", enemyName, "'s ",enemyAttackName,"!"))
+		spawnDamageFloatingText2(damageToDeal, true)
+	else:
+		damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
+		print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
+		spawnDamageFloatingText2(damageToDeal, false)
 	hp-=damageToDeal
-	spawnDamageFloatingText2(damage)
 
 func handleRestarting():
 	if Input.is_key_pressed(KEY_R):
@@ -310,6 +319,7 @@ func generateBullets(shootingWeapon, position):
 		new_arrow.modulate = shootingWeapon.modulate
 		new_arrow.scale.x = shootingWeapon.scalex
 		new_arrow.scale.y = shootingWeapon.scaley
+		new_arrow.armorPierce = shootingWeapon.armorPierce
 		if shootingWeapon.ignoreWalls:
 			new_arrow.collision_mask-=2
 			new_arrow.get_node("Sprite").z_index+=2

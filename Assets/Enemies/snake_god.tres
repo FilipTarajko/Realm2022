@@ -8,7 +8,7 @@
 script = ExtResource( 1 )
 enemyName = "snake god"
 sprite = ExtResource( 2 )
-moveSpeed = 0.0
+moveSpeed = 2.0
 escapeRange = 2.0
 visionRange = 13.0
 followRange = 3.0
