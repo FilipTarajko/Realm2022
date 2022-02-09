@@ -134,7 +134,7 @@ func move_timeout():
 var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
 
 
-func generateBullets(shootingWeapon, position, isSpawnedByEnemy, randomShootingAngle):
+func generateBullets(shootingWeapon, position, isSpawnedByEnemy, targetAngle):
 	for i in range(shootingWeapon.shots):
 		var new_arrow = arrowPrefab.instance()
 		new_arrow.position = position
@@ -146,7 +146,7 @@ func generateBullets(shootingWeapon, position, isSpawnedByEnemy, randomShootingA
 		new_arrow.projectile_acceleration = shootingWeapon.projectile_acceleration
 		new_arrow.lifetime = shootingWeapon.lifetime
 		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)
-		new_arrow.rotation = (get_angle_to(player.global_position)+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)+deg2rad(randomShootingAngle)
+		new_arrow.rotation = targetAngle + deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots)))
 		new_arrow.get_child(1).texture = shootingWeapon["sprite"]
 		new_arrow.modulate = shootingWeapon.modulate
 		new_arrow.scale.x = shootingWeapon.scalex
@@ -166,19 +166,42 @@ func generateBullets(shootingWeapon, position, isSpawnedByEnemy, randomShootingA
 		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
 		get_parent().add_child(new_arrow)
 
+
+func shootNextTentacleShotAfterDelay(usedWeapon, angle, shotsLeft, seconds):
+	var t = Timer.new()
+	t.set_wait_time(seconds)
+	t.set_one_shot(true)
+	self.add_child(t)
+	if shotsLeft > 1:
+		t.connect("timeout", self, "shootNextTentacleShotAfterDelay", [usedWeapon, angle+deg2rad(usedWeapon.burstShotsAngleDiff), shotsLeft-1, seconds])
+		t.start()
+	generateBullets(usedWeapon, get_global_position(), true, angle)
+
+
+func TimerTimeout():
+	print("timeout!")
+
+
 func basicEnemyShooting(delta, usedWeapon, i):
 	if remaining_weapon_cooldown[i]>0:
 		remaining_weapon_cooldown[i] = max(remaining_weapon_cooldown[i]-delta, 0)
 	if global_position.distance_to(player.global_position)<usedWeapon.targetingRange*8.0 and remaining_weapon_cooldown[i] <= 0:
 		remaining_weapon_cooldown[i] = 1/usedWeapon.att_spd
 		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
-		generateBullets(usedWeapon, get_global_position(), true, randomShootingAngle)
+		var playerAngle = (get_angle_to(player.global_position)+PI/2)+(rotation)
+		var targetAngle = playerAngle+deg2rad(randomShootingAngle)
+		if usedWeapon.shotsInBurst == 1:
+			generateBullets(usedWeapon, get_global_position(), true, targetAngle)
+		else:
+			shootNextTentacleShotAfterDelay(usedWeapon, targetAngle, usedWeapon.shotsInBurst, 0.1)
+
 
 func setSpriteSide(x):
 	if(x>0):
 		$Sprite.flip_h = false;
 	elif(x<0):
 		$Sprite.flip_h = true;
+
 
 func basicEnemyMovement(delta):
 	var vec_to_player = player.global_position - global_position

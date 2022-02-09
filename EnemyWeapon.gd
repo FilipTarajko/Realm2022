@@ -26,3 +26,6 @@ export(Texture) var sprite
 export(Color) var modulate = Color(1, 1, 1)
 export(float) var slowDuration = 0
 export(float) var paralyzeDuration = 0
+export(float) var shotsInBurst = 1
+export(float) var burstShotsAngleDiff = 0
+export(float) var burstShotsDelay = 0

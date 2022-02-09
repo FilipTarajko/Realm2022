@@ -30,3 +30,6 @@ sprite = ExtResource( 2 )
 modulate = Color( 0.137255, 0.145098, 0, 1 )
 slowDuration = 1.0
 paralyzeDuration = 0.0
+shotsInBurst = 1.0
+burstShotsAngleDiff = 0.0
+burstShotsDelay = 0.0
