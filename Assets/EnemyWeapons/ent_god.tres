@@ -1,23 +1,23 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
-[ext_resource path="res://Assets/bulletSprites/enemyBullets/demonBullet.png" type="Texture" id=2]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/ent_god.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
 enemyWeaponName = "shot"
 att_spd = 0.4
-dmg_min = 45.0
-dmg_max = 50.0
-projectile_speed = 6.0
+dmg_min = 20.0
+dmg_max = 30.0
+projectile_speed = 8.0
 projectile_acceleration = 0.0
-lifetime = 3.0
-shots = 3
-angle = 60.0
-targetingRange = 15.0
-randomAngle = 10.0
-scalex = 0.9
-scaley = 0.9
+lifetime = 1.0
+shots = 4
+angle = 120.0
+targetingRange = 10.0
+randomAngle = 0.0
+scalex = 0.6
+scaley = 0.6
 collisionShapeRadius = 2.5
 collisionShapeHeight = 14.0
 spriteRotation = 0.0
@@ -27,10 +27,10 @@ multihit = false
 armorPierce = false
 ignoreWalls = false
 sprite = ExtResource( 2 )
-modulate = Color( 1, 0.301961, 0, 1 )
+modulate = Color( 1, 1, 1, 1 )
 slowDuration = 0.0
 paralyzeDuration = 0.0
-bursts = 1.0
+bursts = 3.0
 burstsAngleDiff = 0.0
-burstsDelay = 0.0
-eachBulletRandomAngleDiff = 0.0
+burstsDelay = 0.5
+eachBulletRandomAngleDiff = 15.0

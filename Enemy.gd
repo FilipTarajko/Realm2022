@@ -147,6 +147,7 @@ func generateBullets(shootingWeapon, position, isSpawnedByEnemy, targetAngle):
 		new_arrow.lifetime = shootingWeapon.lifetime
 		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)
 		new_arrow.rotation = targetAngle + deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots)))
+		new_arrow.rotation += deg2rad(rand_range(-shootingWeapon.eachBulletRandomAngleDiff/2, shootingWeapon.eachBulletRandomAngleDiff/2))
 		new_arrow.get_child(1).texture = shootingWeapon["sprite"]
 		new_arrow.modulate = shootingWeapon.modulate
 		new_arrow.scale.x = shootingWeapon.scalex
@@ -173,7 +174,7 @@ func shootNextTentacleShotAfterDelay(usedWeapon, angle, shotsLeft, seconds):
 	t.set_one_shot(true)
 	self.add_child(t)
 	if shotsLeft > 1:
-		t.connect("timeout", self, "shootNextTentacleShotAfterDelay", [usedWeapon, angle+deg2rad(usedWeapon.burstShotsAngleDiff), shotsLeft-1, seconds])
+		t.connect("timeout", self, "shootNextTentacleShotAfterDelay", [usedWeapon, angle+deg2rad(usedWeapon.burstsAngleDiff), shotsLeft-1, seconds])
 		t.start()
 	generateBullets(usedWeapon, get_global_position(), true, angle)
 
@@ -190,10 +191,10 @@ func basicEnemyShooting(delta, usedWeapon, i):
 		var randomShootingAngle = rand_range(-usedWeapon.randomAngle, usedWeapon.randomAngle)/2.0
 		var playerAngle = (get_angle_to(player.global_position)+PI/2)+(rotation)
 		var targetAngle = playerAngle+deg2rad(randomShootingAngle)
-		if usedWeapon.shotsInBurst == 1:
+		if usedWeapon.bursts == 1:
 			generateBullets(usedWeapon, get_global_position(), true, targetAngle)
 		else:
-			shootNextTentacleShotAfterDelay(usedWeapon, targetAngle, usedWeapon.shotsInBurst, 0.1)
+			shootNextTentacleShotAfterDelay(usedWeapon, targetAngle, usedWeapon.bursts, usedWeapon.burstsDelay)
 
 
 func setSpriteSide(x):
