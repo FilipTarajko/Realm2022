@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 enemyWeaponName = "star"
-att_spd = 0.333
+attackPeriod = 3.0
 dmg_min = 40.0
 dmg_max = 70.0
 projectile_speed = 7.0
@@ -36,3 +36,6 @@ burstsDelay = 0.333
 eachBulletRandomAngleDiff = 30.0
 followsEnemy = false
 initialSpriteRotationSpeed = -1080.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0
+rotateSpriteAndHitboxToMatchDirection = false

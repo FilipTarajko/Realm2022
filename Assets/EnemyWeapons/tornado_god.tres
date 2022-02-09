@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 enemyWeaponName = "shot"
-att_spd = 0.2
+attackPeriod = 5.0
 dmg_min = 20.0
 dmg_max = 30.0
 projectile_speed = 15.0
@@ -34,3 +34,8 @@ bursts = 15.0
 burstsAngleDiff = 12.0
 burstsDelay = 0.15
 eachBulletRandomAngleDiff = 0.0
+followsEnemy = false
+initialSpriteRotationSpeed = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0
+rotateSpriteAndHitboxToMatchDirection = false

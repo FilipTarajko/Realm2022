@@ -5,7 +5,7 @@ export(String) var enemyName
 export(Texture) var sprite
 export(float) var moveSpeed
 export(float) var escapeRange = 0.2
-export(float) var visionRange = 12
+export(float) var visionRange = 13
 export(float) var followRange = 1
 export(bool) var doesDodge
 export(float) var chaseRandomMaxAngle

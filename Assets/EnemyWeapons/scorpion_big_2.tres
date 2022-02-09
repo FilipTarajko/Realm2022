@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 enemyWeaponName = "shot"
-att_spd = 0.3
+attackPeriod = 3.0
 dmg_min = 30.0
 dmg_max = 50.0
 projectile_speed = 2.0
@@ -30,3 +30,12 @@ sprite = ExtResource( 2 )
 modulate = Color( 0.74902, 1, 0, 1 )
 slowDuration = 1.0
 paralyzeDuration = 0.5
+bursts = 1.0
+burstsAngleDiff = 0.0
+burstsDelay = 0.0
+eachBulletRandomAngleDiff = 0.0
+followsEnemy = false
+initialSpriteRotationSpeed = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0
+rotateSpriteAndHitboxToMatchDirection = false

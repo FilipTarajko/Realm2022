@@ -46,7 +46,9 @@ func _ready():
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_god.tres"), 1, 0, 100, -80)
 	spawnEnemyCluster(load("res://Assets/Enemies/tornado_god.tres"), 1, 0, -120, -60)
 	spawnEnemyCluster(load("res://Assets/Enemies/ent_god.tres"), 1, 0, -120, 120)
-	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -60, 180)
+	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -120, 180)
+	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, -60, 150)
+	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, 104, 200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
 

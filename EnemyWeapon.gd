@@ -2,7 +2,7 @@ extends Resource
 class_name EnemyWeapon
 
 export(String) var enemyWeaponName = "shot"
-export(float) var att_spd
+export(float) var attackPeriod
 export(float) var dmg_min
 export(float) var dmg_max
 export(float) var projectile_speed
@@ -32,3 +32,6 @@ export(float) var burstsDelay = 0
 export(float) var eachBulletRandomAngleDiff = 0
 export(bool) var followsEnemy = false
 export(float) var initialSpriteRotationSpeed = 0
+export(float) var bulletWaveFrequency = 0
+export(float) var bulletWaveAmplitude = 0
+export(bool) var rotateSpriteAndHitboxToMatchDirection = 0

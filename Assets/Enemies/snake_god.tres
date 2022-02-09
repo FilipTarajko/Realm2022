@@ -1,24 +1,24 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
-[ext_resource path="res://Assets/enemySprites/samurai.png" type="Texture" id=2]
-[ext_resource path="res://Assets/EnemyWeapons/samurai_star.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/enemySprites/snake_god.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/snake_god.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
-enemyName = "samurai"
+enemyName = "snake god"
 sprite = ExtResource( 2 )
-moveSpeed = 3.0
-escapeRange = 3.0
+moveSpeed = 0.0
+escapeRange = 2.0
 visionRange = 13.0
-followRange = 4.0
+followRange = 3.0
 doesDodge = true
 chaseRandomMaxAngle = 120.0
 modulate = Color( 1, 1, 1, 1 )
 scalex = 1.0
 scaley = 1.0
-maxHp = 600.0
-shadowSizeMultiplier = 1.0
+maxHp = 800.0
+shadowSizeMultiplier = 0.8
 hpRegen = 0.0
 weapons = [ ExtResource( 3 ) ]
 isUsing16pxSprite = true

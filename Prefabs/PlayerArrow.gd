@@ -10,30 +10,49 @@ var enemyName
 var enemyAttackName
 var slowDuration = 0
 var paralyzeDuration = 0
-var timeLeft
+var time = 0
 var initialSpriteRotationSpeed = 0
+var bulletWaveFrequency = 0
+var bulletWaveAmplitude = 0
+var rotateSpriteAndHitboxToMatchDirection = false
+var defaultSpriteRotation = 0
+var indexOfEnemysWeaponsBullet = 0
+var startingSinusoidPoint = 0
 
 func calculateMovement():
-	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
+	if not bulletWaveAmplitude:
+		movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
+	else:
+		calculateSinusoidalMovement()
+func calculateSinusoidalMovement():
+	var xAxisMovement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)
+	var yAxis = xAxisMovement.normalized().rotated(deg2rad(90)) 
+	var yAxisMovement = yAxis*cos(time*bulletWaveFrequency*2*PI+startingSinusoidPoint)*(bulletWaveAmplitude*8.0)*(PI/4*bulletWaveFrequency)
+	#print(yAxisMovement)
+	movement = yAxisMovement+xAxisMovement
+	if rotateSpriteAndHitboxToMatchDirection:
+		$Sprite.rotation = deg2rad(defaultSpriteRotation)+movement.angle() - rotation + PI/2
+		$CollisionShape2D.rotation = deg2rad(defaultSpriteRotation)+movement.angle() - rotation + PI/2
 
 func _ready():
-	timeLeft = lifetime
 	calculateMovement()
+	if indexOfEnemysWeaponsBullet%2:
+		startingSinusoidPoint = PI
 	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
 
 func _physics_process(delta):
 	if initialSpriteRotationSpeed:
 		$Sprite.rotation+=delta*deg2rad(initialSpriteRotationSpeed)
 	handleMovement(delta)
-	if projectile_acceleration:
+	if projectile_acceleration or bulletWaveAmplitude:
 		projectile_speed += delta*projectile_acceleration
 		calculateMovement()
-	timeLeft -= delta
-	if timeLeft <= 0:
+	time += delta
+	if time > lifetime:
 		queue_free()
 
 func handleMovement(delta):
-	position = position+(movement)*delta
+	position = position+(movement*8.0)*delta
 	#move_and_slide(movement)
 	#for i in get_slide_count():
 	#	var collision = get_slide_collision(i)
