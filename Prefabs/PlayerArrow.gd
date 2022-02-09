@@ -11,6 +11,7 @@ var enemyAttackName
 var slowDuration = 0
 var paralyzeDuration = 0
 var timeLeft
+var initialSpriteRotationSpeed = 0
 
 func calculateMovement():
 	movement = Vector2(projectile_speed, 0).rotated(rotation-PI/2)*8.0
@@ -21,6 +22,8 @@ func _ready():
 	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
 
 func _physics_process(delta):
+	if initialSpriteRotationSpeed:
+		$Sprite.rotation+=delta*deg2rad(initialSpriteRotationSpeed)
 	handleMovement(delta)
 	if projectile_acceleration:
 		projectile_speed += delta*projectile_acceleration

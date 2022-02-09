@@ -1,0 +1,38 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/samurai_star.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "star"
+att_spd = 0.333
+dmg_min = 40.0
+dmg_max = 70.0
+projectile_speed = 7.0
+projectile_acceleration = 0.0
+lifetime = 2.0
+shots = 3
+angle = 180.0
+targetingRange = 10.0
+randomAngle = 0.0
+scalex = 1.0
+scaley = 1.0
+collisionShapeRadius = 4.0
+collisionShapeHeight = 0.0
+spriteRotation = -45.0
+spriteOffsetX = 0.0
+spriteOffsetY = 0.0
+multihit = false
+armorPierce = true
+ignoreWalls = false
+sprite = ExtResource( 2 )
+modulate = Color( 0.376471, 0.376471, 0.376471, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0
+bursts = 6.0
+burstsAngleDiff = 0.0
+burstsDelay = 0.333
+eachBulletRandomAngleDiff = 30.0
+followsEnemy = false
+initialSpriteRotationSpeed = -1080.0

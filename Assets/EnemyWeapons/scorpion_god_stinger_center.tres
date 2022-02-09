@@ -34,3 +34,5 @@ bursts = 1.0
 burstsAngleDiff = 0.0
 burstsDelay = 0.0
 eachBulletRandomAngleDiff = 0.0
+followsEnemy = true
+initialSpriteRotationSpeed = 0.0

@@ -30,3 +30,5 @@ export(float) var bursts = 1
 export(float) var burstsAngleDiff = 0
 export(float) var burstsDelay = 0
 export(float) var eachBulletRandomAngleDiff = 0
+export(bool) var followsEnemy = false
+export(float) var initialSpriteRotationSpeed = 0

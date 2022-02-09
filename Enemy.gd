@@ -161,11 +161,16 @@ func generateBullets(shootingWeapon, position, isSpawnedByEnemy, targetAngle):
 		if "paralyzeDuration" in shootingWeapon:
 			new_arrow.paralyzeDuration = shootingWeapon.paralyzeDuration
 		new_arrow.get_child(0).shape.radius = shootingWeapon.collisionShapeRadius
+		new_arrow.initialSpriteRotationSpeed = shootingWeapon.initialSpriteRotationSpeed
 		new_arrow.get_child(0).shape.height = shootingWeapon.collisionShapeHeight
 		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
 		new_arrow.get_child(1).position.x = shootingWeapon.spriteOffsetX
 		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
-		get_parent().add_child(new_arrow)
+		if shootingWeapon.followsEnemy:
+			new_arrow.position -= global_position
+			add_child(new_arrow)
+		else:
+			get_parent().add_child(new_arrow)
 
 
 func shootNextTentacleShotAfterDelay(usedWeapon, angle, shotsLeft, seconds):
