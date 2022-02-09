@@ -20,6 +20,7 @@ modulate = Color( 0.415686, 0.415686, 0.0235294, 1 )
 scalex = 1.0
 scaley = 1.0
 maxHp = 1000.0
+def = 0.0
 shadowSizeMultiplier = 0.8
 hpRegen = 1.0
 weapons = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]

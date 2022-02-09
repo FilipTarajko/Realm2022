@@ -13,6 +13,7 @@ export(Color) var modulate = Color(1, 1, 1)
 export(float) var scalex = 1.0
 export(float) var scaley = 1.0
 export(float) var maxHp
+export(float) var def = 0
 export(float) var shadowSizeMultiplier = 1.0
 export(float) var hpRegen = 0
 export(Array, Resource) var weapons = []

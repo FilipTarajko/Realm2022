@@ -8,6 +8,7 @@ var doesDodge = true
 var defaultMaxHp = 1
 var weapons = []
 var maxHp
+var def
 var hp
 var enemyName
 var hpRegen
@@ -25,6 +26,8 @@ var randomRunningAngle = rand_range(0,6.28)
 var chaseRunningAngle = rand_range(-1,1)
 var chaseRandomMaxAngle = 0
 var moveTimer = Timer.new()
+
+var minimalTakenDamageMultiplier = 0.15
 
 ### NEGATIVE EFFECTS ###
 
@@ -84,11 +87,19 @@ func moveFloatingDamagesToParent():
 
 var floatingDamage2 = load("res://FloatingText.tscn")
 
-func spawnFloatingText2(damage):
+func spawnDamageFloatingText2(damage, ignoringArmor):
 	var newFloatingDamage = floatingDamage2.instance()
 	newFloatingDamage.get_node("DamageLabel").text=str(round(damage))
-	newFloatingDamage.startColor = Color(1, rand_range(0.6, 1.0), rand_range(0.0, 0.6), 1)
-	newFloatingDamage.position = position + Vector2(rand_range(-3, 3), rand_range(-5, 5)) #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
+	if ignoringArmor:
+		newFloatingDamage.startColor = Color(1, rand_range(0.6, 1.0), rand_range(0.8, 1.0), 1)
+	else:
+		newFloatingDamage.startColor = Color(1, rand_range(0.6, 1.0), rand_range(0.0, 0.2), 1)
+	var startingY = -10
+	if isUsing16pxSprite:
+		startingY -= 8
+	startingY *= scale.y
+	startingY -= rand_range(0, 10)
+	newFloatingDamage.position = position + Vector2(rand_range(-3, 3), startingY) #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	get_parent().add_child(newFloatingDamage)
 	#floatingDamages.append(newFloatingDamage)
@@ -110,21 +121,22 @@ func spawnFloatingText(damage):
 	floatingDamages.append(newFloatingDamage)
 	floatingDamagesWeakrefs.append(weakref(newFloatingDamage))
 
-func takeDamageSuper(damage):
-	#print(str(enemyName, ": takeDamage"))
-	#print(str(enemyName, " was dealt ",damage," damage!"))
-	hp -= damage
+func takeDamage(damage, ignoringArmor):
+	var damageToDeal
+	if ignoringArmor:
+		damageToDeal = damage
+		spawnDamageFloatingText2(damageToDeal, true)
+	else:
+		damageToDeal = max(damage-def, damage*minimalTakenDamageMultiplier)
+		spawnDamageFloatingText2(damageToDeal, false)
+	hp -= damageToDeal
 	if hp<=0:
 		print(str(enemyName, " defeated!"))
-		#moveFloatingDamagesToParent()
 		collision_layer = 0
 		collision_mask = 0
 		queue_free()
-	spawnFloatingText2(damage)
 
-func takeDamage(damage):
-	print(str(enemyName, "took ",damage," damage!"))
-	takeDamageSuper(damage)
+
 
 func move_timeout():
 #	print("movetimeout")

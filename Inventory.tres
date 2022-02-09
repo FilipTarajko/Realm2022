@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Abilities/Quiver/quiver_t5.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/Items/Weapons/bow_skeleton.tres" type="Resource" id=3]
 [ext_resource path="res://Assets/Items/Weapons/bow_heavy.tres" type="Resource" id=5]
 [ext_resource path="res://Assets/Items/Weapons/bow_t0.tres" type="Resource" id=6]
 [ext_resource path="res://Assets/Abilities/Scrolls/scroll_t3.tres" type="Resource" id=7]
@@ -12,4 +13,4 @@
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 11 ), null, null, ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ) ]
+items = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 11 ), null, null, ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ) ]

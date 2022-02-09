@@ -19,6 +19,7 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 	new_enemy.scale.x = enemyData.scalex
 	new_enemy.scale.y = enemyData.scaley
 	new_enemy.defaultMaxHp = enemyData.maxHp
+	new_enemy.def = enemyData.def
 	new_enemy.hpRegen = enemyData.hpRegen
 	new_enemy.isUsing16pxSprite = enemyData.isUsing16pxSprite
 	new_enemy.get_node("Shadow").scale.x *= enemyData.shadowSizeMultiplier

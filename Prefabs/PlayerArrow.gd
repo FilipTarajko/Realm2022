@@ -72,7 +72,7 @@ func _on_Arrow_body_entered(body):
 				if paralyzeDuration:
 					body.applyParalyze(paralyzeDuration)
 			else:
-				body.takeDamage(damage)
+				body.takeDamage(damage, armorPierce)
 				if slowDuration:
 					body.applySlow(slowDuration)
 				if paralyzeDuration:

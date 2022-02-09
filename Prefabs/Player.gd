@@ -110,7 +110,7 @@ func readItemStatBonuses():
 		if mana>totalMaxMana:
 			mana = totalMaxMana
 
-var minimalTakenDamageMultiplier = 0.1
+var minimalTakenDamageMultiplier = 0.15
 
 var usedWeapon
 var usedAbility
@@ -217,7 +217,7 @@ func handleItemUse():
 var floatingDamage = load("res://PlayerFloatingDamage.tscn")
 var floatingDamage2 = load("res://FloatingText.tscn")
 
-func spawnFloatingTextMessage(message, startColor = Color(0.8, 0.7, 0.2, 1.0), addedPosition = Vector2(0, -3)):
+func spawnFloatingTextMessage(message, startColor = Color(0.8, 0.7, 0.2, 1.0), addedPosition = Vector2(0, -15)):
 	var newFloatingDamage = floatingDamage2.instance()
 	newFloatingDamage.get_node("DamageLabel").text = message
 	newFloatingDamage.startColor = startColor
@@ -234,7 +234,7 @@ func spawnDamageFloatingText2(damage, ignoringArmor):
 		newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.6, 0.8), 1)
 	else:
 		newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.0, 0.2), 1)
-	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-5, 3))
+	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-20, -10))
 	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)
