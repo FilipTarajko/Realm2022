@@ -58,7 +58,7 @@ func _ready():
 	add_child(moveTimer)
 	if isUsing16pxSprite:
 		$Sprite.position.y -= 4
-		print("przesunalem o 4")
+	#	print("przesunalem o 4")
 
 func setStartingHealth():
 	hp = maxHp
