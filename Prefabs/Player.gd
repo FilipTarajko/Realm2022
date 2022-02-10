@@ -41,38 +41,46 @@ func updateExperienceBar():
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
+var characterClass = load("res://Assets/Classes/archer.tres")
+
 var statsPerLevel = {
-	'hp': 25,
-	'mp': 25,
-	'att': 5,
-	'dex': 5,
-	'spd': 5,
-	'vit': 5,
-	'wis': 5,
-	'def': 5,
+#	'hp': 25,
+#	'mp': 25,
+#	'att': 5,
+#	'dex': 5,
+#	'spd': 5,
+#	'vit': 5,
+#	'wis': 5,
+#	'def': 5,
 }
 
 var statsLimit = {
-	'hp': 700,
-	'mp': 300,
-	'att': 150,
-	'dex': 150,
-	'spd': 150,
-	'vit': 150,
-	'wis': 150,
-	'def': 150,
+#	'hp': 700,
+#	'mp': 300,
+#	'att': 150,
+#	'dex': 150,
+#	'spd': 150,
+#	'vit': 150,
+#	'wis': 150,
+#	'def': 150,
 }
 
 var statsStarting = {
-	'hp': 200,
-	'mp': 250,
-	'att': 100,
-	'dex': 50,
-	'spd': 75,
-	'vit': 50,
-	'wis': 50,
-	'def': 0,
+#	'hp': 200,
+#	'mp': 250,
+#	'att': 100,
+#	'dex': 50,
+#	'spd': 75,
+#	'vit': 50,
+#	'wis': 50,
+#	'def': 0,
 }
+
+func readStatsFromCharacterClass():
+	for stat in stats:
+		statsPerLevel[stat] = characterClass.statsPerLevel[stat]
+		statsLimit[stat] = characterClass.statsLimit[stat]
+		statsStarting[stat] = characterClass.statsStarting[stat]
 
 var statsBase = {}
 var statsTotal = {}
@@ -150,6 +158,7 @@ func setRing(ring):
 	usedRing = ring
 
 func _ready():
+	readStatsFromCharacterClass()
 	for stat in stats:
 		statsBase[stat] = statsStarting[stat]
 	read_data_from_inventory()

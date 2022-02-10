@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Assets/Healthbars/depletedMana160.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Healthbars/noExperience.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Healthbars/experience.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Fonts/fps font.tres" type="DynamicFont" id=16]
+[ext_resource path="res://Prefabs/fpsDisplay.gd" type="Script" id=17]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -214,3 +216,16 @@ scale = Vector2( 8, 8 )
 z_index = 333
 z_as_relative = false
 script = ExtResource( 11 )
+
+[node name="fpsDisplay" type="Label" parent="CanvasLayer"]
+margin_right = 70.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 70, 30 )
+custom_fonts/font = ExtResource( 16 )
+text = "144 fps"
+align = 2
+valign = 2
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

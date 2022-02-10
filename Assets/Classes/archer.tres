@@ -1,0 +1,36 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://characterClass.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+statsPerLevel = {
+"att": 5,
+"def": 5,
+"dex": 5,
+"hp": 25,
+"mp": 25,
+"spd": 5,
+"vit": 5,
+"wis": 5
+}
+statsLimit = {
+"att": 150,
+"def": 150,
+"dex": 150,
+"hp": 700,
+"mp": 300,
+"spd": 150,
+"vit": 150,
+"wis": 150
+}
+statsStarting = {
+"att": 100,
+"def": 0,
+"dex": 50,
+"hp": 200,
+"mp": 250,
+"spd": 75,
+"vit": 50,
+"wis": 50
+}
