@@ -91,14 +91,15 @@ func levelUp():
 
 func gainExperience(experienceGained):
 	experience += experienceGained
-	if experience >= experienceToNextLevel:
-		while experience >= experienceToNextLevel:
+	if level<levelLimit and experience >= experienceToNextLevel:
+		while level<levelLimit and experience >= experienceToNextLevel:
 			levelUp()
 			experience -= experienceToNextLevel
 			calculateExperienceToNextLevel()
 		spawnFloatingTextMessage(str("Level ",level," achieved!"), Color(0.0, 0.8, 0.4, 1.0))
 	updateExperienceBar()
 
+var levelLimit = 50
 var level = 1
 var experience = 0
 var experienceToNextLevel
@@ -157,6 +158,7 @@ func _ready():
 	hp = statsTotal["hp"]
 	mp = statsTotal["mp"]
 	randomize()
+	checkIfDead()
 	calculateExperienceToNextLevel()
 	updateExperienceBar()
 
@@ -166,20 +168,24 @@ func _physics_process(delta):
 	handleNegativeEffects(delta)
 
 func update_bars():
-	# hp
-	$Healthbar.value = 100*hp/statsTotal["hp"]
-	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
-	# mp
-	$Manabar.value = 100*mp/statsTotal["mp"]
-	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
+	if not checkIfDead():
+		# hp
+		$Healthbar.value = 100*hp/statsTotal["hp"]
+		$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
+		# mp
+		$Manabar.value = 100*mp/statsTotal["mp"]
+		$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
 
-func _process(delta):
-	if hp<=0:
+func checkIfDead():
+	if hp<=0 or statsTotal['hp']<=0:
 		print("\nYou were defeated! Game restarted!")
 		var _ignore = get_tree().reload_current_scene()
-	else:
-		hp=min(statsTotal["hp"], hp+(statsTotal["vit"]/10)*delta)
-		mp=min(statsTotal["mp"], mp+(statsTotal["wis"]/10)*delta)
+		return true
+
+func _process(delta):
+	checkIfDead()
+	hp=min(statsTotal["hp"], hp+(statsTotal["vit"]/10)*delta)
+	mp=min(statsTotal["mp"], mp+(statsTotal["wis"]/10)*delta)
 	handleRestarting()
 	handleItemUse()
 	handleAnimation()

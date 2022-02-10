@@ -16,7 +16,7 @@ func showNameAndTier(itemData):
 	Container.get_node("ItemName").set_text(str(itemData.name, " (", tier,")"))
 
 func showBonusStats(itemData, i):
-	for j in ["def", "maxHp", "maxMana", "att", "dex", "spd", "vit", "wis" ]:
+	for j in ["def", "hp", "mp", "att", "dex", "spd", "vit", "wis" ]:
 		if itemData[j]:
 			Container.get_node(str("Stat",i,"/Stat")).set_text(str(j,": ", itemData[j]))
 			i+=1
