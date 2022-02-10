@@ -7,8 +7,8 @@ export(String) var itemType = "ability"
 export(float) var manaCost
 export(float) var def = 0
 export(float) var dex = 0
-export(float) var maxHp = 0
-export(float) var maxMana = 0
+export(float) var hp = 0
+export(float) var mp = 0
 export(float) var spd = 0
 export(float) var vit = 0
 export(float) var wis = 0

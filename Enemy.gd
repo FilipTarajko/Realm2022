@@ -17,6 +17,7 @@ var weapon_bullets_shot = []
 var floatingDamages = []
 var floatingDamagesWeakrefs = []
 var isUsing16pxSprite = false
+var experienceReward
 
 onready var player = get_parent().get_node("Player")
 var floatingDamage = load("res://EnemyFloatingDamage.tscn")
@@ -64,6 +65,8 @@ func _ready():
 	if isUsing16pxSprite:
 		$Sprite.position.y -= 4
 	#	print("przesunalem o 4")
+	if not experienceReward:
+		experienceReward = maxHp
 
 func setStartingHealth():
 	hp = maxHp
@@ -134,6 +137,7 @@ func takeDamage(damage, ignoringArmor):
 		print(str(enemyName, " defeated!"))
 		collision_layer = 0
 		collision_mask = 0
+		player.gainExperience(experienceReward)
 		queue_free()
 
 
@@ -192,7 +196,7 @@ func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, ta
 		else:
 			get_parent().add_child(new_arrow)
 		weapon_bullets_shot[weaponIndex]+=1
-		print(weapon_bullets_shot[weaponIndex])
+		#print(weapon_bullets_shot[weaponIndex])
 
 
 func shootNextTentacleShotAfterDelay(usedWeapon, weaponIndex, angle, shotsLeft, seconds):

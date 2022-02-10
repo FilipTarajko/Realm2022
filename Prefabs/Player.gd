@@ -8,7 +8,7 @@ var invisibility = 0
 var rotationSpeed = 90
 
 var hp
-var mana
+var mp
 
 ### SETTINGS ? ###
 var autofire = false
@@ -33,82 +33,101 @@ func handleNegativeEffects(delta):
 
 ### STATS ###
 
-# maxHp sets maxHp to maxHp
-var baseMaxHp = 200.0
-var itemMaxHp = 0.0
-var totalMaxHp
-# maxMana sets maxMana to maxMana
-# NOT IMPLEMENTED
-var baseMaxMana = 250.0
-var itemMaxMana = 0.0
-var totalMaxMana
-# att multiplies damage by att/100
-var baseAtt = 100.0
-var itemAtt = 0.0
-var totalAtt
-# dex multiplies RoF by dex/10
-var baseDex = 50.0
-var itemDex = 0.0
-var totalDex
-# spd moves spd/10 tiles/s
-var baseSpd = 75.0
-var itemSpd = 0.0
-var totalSpd
-# vit regenerates vit/10 hp/s
-var baseVit = 0.0
-var itemVit = 0.0
-var totalVit
-# wis regenerates wis/10 mana/s
-# NOT IMPLEMENTED
-var baseWis = 50.0
-var itemWis = 0.0
-var totalWis
-# def reduces damage from hit by def
-var baseDef = 0.0
-var itemDef = 0.0
-var totalDef
+func calculateExperienceToNextLevel():
+	experienceToNextLevel = 50+100*level
 
-func readItemStatBonuses():
-	var calculatedItemMaxHp = 0
-	var calculatedItemMaxMana = 0
-	var calculatedItemAtt = 0
-	var calculatedItemDex = 0
-	var calculatedItemSpd = 0
-	var calculatedItemVit = 0
-	var calculatedItemWis = 0
-	var calculatedItemDef = 0
-	for i in range(4,8):
-		if inventory.items[i]:
-			calculatedItemMaxHp+=inventory.items[i].maxHp
-			calculatedItemMaxMana+=inventory.items[i].maxMana
-			calculatedItemAtt+=inventory.items[i].att
-			calculatedItemDex+=inventory.items[i].dex
-			calculatedItemSpd+=inventory.items[i].spd
-			calculatedItemVit+=inventory.items[i].vit
-			calculatedItemWis+=inventory.items[i].wis
-			calculatedItemDef+=inventory.items[i].def
-	itemMaxHp = calculatedItemMaxHp
-	itemMaxMana = calculatedItemMaxMana
-	itemAtt = calculatedItemAtt
-	itemDex = calculatedItemDex
-	itemSpd = calculatedItemSpd
-	itemVit = calculatedItemVit
-	itemWis = calculatedItemWis
-	itemDef = calculatedItemDef
-	totalMaxHp = baseMaxHp + itemMaxHp
-	totalMaxMana = baseMaxMana + itemMaxMana
-	totalAtt = baseAtt + itemAtt
-	totalDex = baseDex + itemDex
-	totalSpd = baseSpd + itemSpd
-	totalVit = baseVit + itemVit
-	totalWis = baseWis + itemWis
-	totalDef = baseDef + itemDef
+func updateExperienceBar():
+	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
+
+var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
+
+var statsPerLevel = {
+	'hp': 25,
+	'mp': 25,
+	'att': 5,
+	'dex': 5,
+	'spd': 5,
+	'vit': 5,
+	'wis': 5,
+	'def': 5,
+}
+
+var statsLimit = {
+	'hp': 700,
+	'mp': 300,
+	'att': 150,
+	'dex': 150,
+	'spd': 150,
+	'vit': 150,
+	'wis': 150,
+	'def': 150,
+}
+
+var statsStarting = {
+	'hp': 200,
+	'mp': 250,
+	'att': 100,
+	'dex': 50,
+	'spd': 75,
+	'vit': 50,
+	'wis': 50,
+	'def': 0,
+}
+
+var statsBase = {}
+var statsTotal = {}
+var statsFromItems = {}
+
+func addBaseStats():
+	for stat in stats:
+		statsBase[stat] = min(statsBase[stat]+statsPerLevel[stat], statsLimit[stat])
+
+func levelUp():
+	level+=1
+	addBaseStats()
+	recalculateTotalStats()
+	hp = statsTotal["hp"]
+	mp = statsTotal["mp"]
+
+func gainExperience(experienceGained):
+	experience += experienceGained
+	if experience >= experienceToNextLevel:
+		while experience >= experienceToNextLevel:
+			levelUp()
+			experience -= experienceToNextLevel
+			calculateExperienceToNextLevel()
+		spawnFloatingTextMessage(str("Level ",level," achieved!"), Color(0.0, 0.8, 0.4, 1.0))
+	updateExperienceBar()
+
+var level = 1
+var experience = 0
+var experienceToNextLevel
+
+# att multiplies damage by att/100
+# dex multiplies RoF by dex/10
+# spd moves spd/10 tiles/s
+# vit regenerates vit/10 hp/s
+# wis regenerates wis/10 mana/s
+# def reduces damage from hit by def
+
+func recalculateItemStatBonuses():
+	var statsCalculated = {}
+	for stat in stats:
+		statsCalculated[stat] = 0
+		for i in range(4, 8):
+			if inventory.items[i]:
+				statsCalculated[stat]+=inventory.items[i][stat]
+		statsFromItems[stat] = statsCalculated[stat]
+
+func recalculateTotalStats():
+	for stat in stats:
+		statsTotal[stat] = statsBase[stat]+statsFromItems[stat]
 	if hp:
-		if hp>totalMaxHp:
-			hp = totalMaxHp
-	if mana:
-		if mana>totalMaxMana:
-			mana = totalMaxMana
+		if hp>statsTotal["hp"]:
+			hp = statsTotal["hp"]
+	if mp:
+		if mp>statsTotal["mp"]:
+			mp = statsTotal["mp"]
 
 var minimalTakenDamageMultiplier = 0.15
 
@@ -130,11 +149,16 @@ func setRing(ring):
 	usedRing = ring
 
 func _ready():
+	for stat in stats:
+		statsBase[stat] = statsStarting[stat]
 	read_data_from_inventory()
-	readItemStatBonuses()
-	hp = totalMaxHp
-	mana = totalMaxMana
+	recalculateItemStatBonuses()
+	recalculateTotalStats()
+	hp = statsTotal["hp"]
+	mp = statsTotal["mp"]
 	randomize()
+	calculateExperienceToNextLevel()
+	updateExperienceBar()
 
 func _physics_process(delta):
 	handleMovement()
@@ -143,19 +167,19 @@ func _physics_process(delta):
 
 func update_bars():
 	# hp
-	$Healthbar.value = 100*hp/totalMaxHp
-	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/totalMaxHp
-	# mana
-	$Manabar.value = 100*mana/totalMaxMana
-	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mana/totalMaxMana
+	$Healthbar.value = 100*hp/statsTotal["hp"]
+	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
+	# mp
+	$Manabar.value = 100*mp/statsTotal["mp"]
+	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
 
 func _process(delta):
 	if hp<=0:
 		print("\nYou were defeated! Game restarted!")
 		var _ignore = get_tree().reload_current_scene()
 	else:
-		hp=min(totalMaxHp, hp+(totalVit/10)*delta)
-		mana=min(totalMaxMana, mana+(totalWis/10)*delta)
+		hp=min(statsTotal["hp"], hp+(statsTotal["vit"]/10)*delta)
+		mp=min(statsTotal["mp"], mp+(statsTotal["wis"]/10)*delta)
 	handleRestarting()
 	handleItemUse()
 	handleAnimation()
@@ -181,7 +205,9 @@ func read_data_from_inventory():
 	setArmor(inventory.items[6])
 	setRing(inventory.items[7])
 	cursor.texture = null
-	readItemStatBonuses()
+	recalculateItemStatBonuses()
+	recalculateTotalStats()
+	
 
 func handleItemUse():
 	for i in range(1, 9):
@@ -256,7 +282,7 @@ func takeDamage(damage, ignoringArmor, enemyName, enemyAttackName):
 		print(str("Took ",damageToDeal," armor-ignoring damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, true)
 	else:
-		damageToDeal = max(damage-totalDef, damage*minimalTakenDamageMultiplier)
+		damageToDeal = max(damage-statsTotal["def"], damage*minimalTakenDamageMultiplier)
 		print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, false)
 	hp-=damageToDeal
@@ -280,7 +306,7 @@ func handleMovement():
 	if not paralyzed:
 		move_directon.x = int(Input.is_action_pressed("Right")) - int (Input.is_action_pressed("Left"))
 		move_directon.y = int(Input.is_action_pressed("Down")) - int (Input.is_action_pressed("Up"))
-		var movement = move_directon.normalized()*totalSpd*0.8
+		var movement = move_directon.normalized()*statsTotal["spd"]*0.8
 		if slowed:
 			movement/=slowMultiplier
 		# move_and_slide has delta built-in
@@ -313,7 +339,7 @@ func generateBullets(shootingWeapon, position):
 		new_arrow.projectile_speed = shootingWeapon.projectile_speed
 		new_arrow.projectile_acceleration = shootingWeapon.projectile_acceleration
 		new_arrow.lifetime = shootingWeapon.lifetime
-		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)*totalAtt/100.0
+		new_arrow.damage = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)*statsTotal["att"]/100.0
 		new_arrow.rotation = (get_angle_to(get_global_mouse_position())+PI/2+deg2rad((i-((shootingWeapon.shots-1)/2))*((shootingWeapon.angle)/(shootingWeapon.shots))))+(rotation)
 		new_arrow.get_child(1).texture = shootingWeapon["bulletSprite"]
 		new_arrow.modulate = shootingWeapon.modulate
@@ -344,11 +370,11 @@ func handleAbilityUse(delta):
 	if not inventory.items[5]:
 		spawnFloatingTextMessage("no ability equipped!")
 		return
-	if mana < usedAbility.manaCost:
+	if mp < usedAbility.manaCost:
 		spawnFloatingTextMessage("no mana!", Color(0.5, 0.6, 0.9, 1.0))
 		return
 	remaining_ability_cooldown = usedAbility.cooldown
-	mana -= usedAbility.manaCost
+	mp -= usedAbility.manaCost
 	if usedAbility.abilityType == "scroll":
 		generateBullets(usedAbility, get_global_mouse_position())
 	if usedAbility.abilityType == "quiver":
@@ -365,5 +391,5 @@ func handleWeaponShooting(delta):
 	if not inventory.items[4]:
 		spawnFloatingTextMessage("no weapon equipped!")
 		return
-	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/totalDex
+	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/statsTotal["dex"]
 	generateBullets(usedWeapon, get_global_position())

@@ -6,8 +6,8 @@ export(String) var tier
 export(String) var armorType
 export(String) var itemType = "armor"
 export(float) var dex = 0
-export(float) var maxHp = 0
-export(float) var maxMana = 0
+export(float) var hp = 0
+export(float) var mp = 0
 export(float) var spd = 0
 export(float) var vit = 0
 export(float) var wis = 0
