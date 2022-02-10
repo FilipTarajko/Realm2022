@@ -15,7 +15,7 @@ onready var Cursor = get_parent().get_parent().get_parent().get_parent().get_par
 onready var player = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 
 func get_drag_data(_position):
-	var item_index = get_index()
+	var item_index = int(name)
 	var item = inventory.items[item_index]
 	if item is Item:
 		var data = {}
@@ -33,37 +33,39 @@ func can_drop_data(_position, data):
 	#return canBeDropped
 	return data is Dictionary and data.has("item")
 
-func _ready():
-	player.setWeapon(inventory.items[4])
+# what was it for?
+#func _ready():
+#	player.setWeapon(inventory.items[4])
 
 func drop_data(_position, data):
-	var item_index = get_index()
+	print(name)
+	var item_index = int(name)
 	var canBePutThere = true
-	if name=="4":
+	if name=="0":
 		#print("This is the weapon slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="weapon"
-	elif name=="5":
+	elif name=="1":
 		#print("This is the ability slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="ability"
-	elif name=="6":
+	elif name=="2":
 		#print("This is the armor slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="armor"
-	elif name=="7":
+	elif name=="3":
 		#print("This is the ring slot!")
 		canBePutThere = inventory.items[data.item_index].itemType=="ring"
 	#print(str("Taking item from slot ",item_index))
 	if not canBePutThere:
 		print(str("You cannot put ",inventory.items[data.item_index].itemType," in this slot!"))
-	if canBePutThere and data.item_index>3 and data.item_index<8:
+	if canBePutThere and data.item_index<4:
 		print("Taking item from equipment slot!")
 		if inventory.items[item_index]:
-			if data.item_index == 4:
+			if data.item_index == 0:
 				canBePutThere = inventory.items[item_index].itemType=="weapon"
-			elif data.item_index == 5:
+			elif data.item_index == 1:
 				canBePutThere = inventory.items[item_index].itemType=="ability"
-			elif data.item_index == 6:
+			elif data.item_index == 2:
 				canBePutThere = inventory.items[item_index].itemType=="armor"
-			elif data.item_index == 7:
+			elif data.item_index == 3:
 				canBePutThere = inventory.items[item_index].itemType=="ring"
 		if not canBePutThere:
 			print(str("That would put a ",inventory.items[item_index].itemType," in incorrect item slot!"))

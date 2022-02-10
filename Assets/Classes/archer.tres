@@ -9,7 +9,7 @@ statsPerLevel = {
 "def": 5,
 "dex": 5,
 "hp": 25,
-"mp": 25,
+"mp": 10,
 "spd": 5,
 "vit": 5,
 "wis": 5
@@ -19,7 +19,7 @@ statsLimit = {
 "def": 150,
 "dex": 150,
 "hp": 700,
-"mp": 300,
+"mp": 400,
 "spd": 150,
 "vit": 150,
 "wis": 150
