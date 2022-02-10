@@ -145,7 +145,7 @@ func move_timeout():
 	moveTimer.set_wait_time(rand_range(0.1,0.8))
 	moveReset = true
 
-var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
+var arrowPrefab = preload("res://Prefabs/PlayerArrow.tscn")
 
 
 func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, targetAngle):

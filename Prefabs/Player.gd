@@ -267,12 +267,12 @@ func handleRestarting():
 		var _ignore = get_tree().reload_current_scene()
 
 
-var arrowPrefab = preload("res://prefabs/PlayerArrow.tscn")
+var arrowPrefab = preload("res://Prefabs/PlayerArrow.tscn")
 
-var textureDown = preload("res://assets/playerSprites/archerGreen.png")
-var textureUp = preload("res://assets/playerSprites/archerGreenBack.png")
-var textureLeft = preload("res://assets/playerSprites/archerGreenLeft.png")
-var textureRight = preload("res://assets/playerSprites/archerGreenRight.png")
+var textureDown = preload("res://Assets/playerSprites/archerGreen.png")
+var textureUp = preload("res://Assets/playerSprites/archerGreenBack.png")
+var textureLeft = preload("res://Assets/playerSprites/archerGreenLeft.png")
+var textureRight = preload("res://Assets/playerSprites/archerGreenRight.png")
 
 onready var sprite_node = get_node("Sprite")
 

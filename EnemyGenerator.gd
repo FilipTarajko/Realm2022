@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemyPrefab = preload("res://prefabs/basicEnemy.tscn")
+var enemyPrefab = preload("res://Prefabs/basicEnemy.tscn")
 
 var enemiesSpawned = 0
 
