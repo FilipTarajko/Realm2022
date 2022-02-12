@@ -6,7 +6,7 @@ var enemiesSpawned = 0
 
 func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y):
 	var new_enemy = enemyPrefab.instance()
-	new_enemy.get_node("Sprite").texture = enemyData.sprite
+	new_enemy.get_node("Graphical").get_node("Sprite").texture = enemyData.sprite
 	new_enemy.rotation = get_parent().get_node("Player").rotation
 	new_enemy.position = Vector2(x, y)
 	new_enemy.enemyName = enemyData.enemyName
@@ -22,16 +22,17 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 	new_enemy.def = enemyData.def
 	new_enemy.hpRegen = enemyData.hpRegen
 	new_enemy.isUsing16pxSprite = enemyData.isUsing16pxSprite
-	new_enemy.get_node("Shadow").scale.x *= enemyData.shadowSizeMultiplier
-	new_enemy.get_node("Shadow").scale.y *= enemyData.shadowSizeMultiplier
+	new_enemy.get_node("Graphical").get_node("Shadow").scale.x *= enemyData.shadowSizeMultiplier
+	new_enemy.get_node("Graphical").get_node("Shadow").scale.y *= enemyData.shadowSizeMultiplier
 	if enemyData.isUsing16pxSprite:
-		new_enemy.get_node("Shadow").scale.x *= 2
-		new_enemy.get_node("Shadow").scale.y *= 2
+		new_enemy.get_node("Graphical").get_node("Shadow").scale.x *= 2
+		new_enemy.get_node("Graphical").get_node("Shadow").scale.y *= 2
 	new_enemy.get_node("CollisionShape2D").scale.x *= enemyData.shadowSizeMultiplier
 	new_enemy.get_node("CollisionShape2D").scale.y *= enemyData.shadowSizeMultiplier
-	new_enemy.get_node("Sprite").material.set_shader_param("width", 0.15/sqrt(enemyData.scalex*enemyData.scaley))
+	new_enemy.get_node("Graphical").get_node("Sprite").material.set_shader_param("width", 0.15/sqrt(enemyData.scalex*enemyData.scaley))
 	new_enemy.weapons = enemyData.weapons.duplicate(true)
-	new_enemy.get_node("Sprite").modulate = enemyData.modulate
+	new_enemy.bombs = enemyData.bombs.duplicate(true)
+	new_enemy.get_node("Graphical").get_node("Sprite").modulate = enemyData.modulate
 	get_parent().add_child(new_enemy)
 	enemiesSpawned+=1
 
@@ -46,9 +47,10 @@ func _ready():
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_big.tres"), 1, 8, 120, 40)
 	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_god.tres"), 1, 0, 100, -80)
 	spawnEnemyCluster(load("res://Assets/Enemies/tornado_god.tres"), 1, 0, -120, -60)
-	spawnEnemyCluster(load("res://Assets/Enemies/ent_god.tres"), 1, 0, -120, 120)
-	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -120, 180)
-	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, 120, 200)
+	spawnEnemyCluster(load("res://Assets/Enemies/ent_god.tres"), 1, 0, -160, 120)
+	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -160, 180)
+	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, -160, 240)
+	spawnEnemyCluster(load("res://Assets/Enemies/shaman.tres"), 1, 0, 100, 140)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
 	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
 

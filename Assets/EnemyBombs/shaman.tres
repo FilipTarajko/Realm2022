@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://EnemyBomb.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "bomb"
+fallsFromAbove = true
+attackPeriod = 3.0
+dmg = 50.0
+flightTimePerTile = 0.0
+flightTimeBase = 2.0
+targetingRange = 10.0
+impactRadius = 2.5
+armorPierce = false
+modulate = Color( 1, 0, 0, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0
+bursts = 1.0
+burstsAngleDiff = 0.0
+burstsDelay = 0.0

@@ -123,7 +123,7 @@ func recalculateItemStatBonuses():
 	var statsCalculated = {}
 	for stat in stats:
 		statsCalculated[stat] = 0
-		for i in range(4, 8):
+		for i in range(0, 4):
 			if inventory.items[i]:
 				statsCalculated[stat]+=inventory.items[i][stat]
 		statsFromItems[stat] = statsCalculated[stat]
@@ -206,8 +206,8 @@ var inventory = preload("res://Inventory.tres")
 onready var cursor = get_node("CanvasLayer/Cursor")
 
 func show_equipment_in_console():
-	var stuff = {4: "weapon", 5: "ability", 6: "armor", 7: "ring"}
-	for i in range(4,8):
+	var stuff = {0: "weapon", 1: "ability", 2: "armor", 3: "ring"}
+	for i in range(0,4):
 		var napis = "empty"
 		if inventory.items[i]:
 			napis = inventory.items[i].name
@@ -215,10 +215,10 @@ func show_equipment_in_console():
 
 func read_data_from_inventory():
 	#show_equipment_in_console()
-	setWeapon(inventory.items[4])
-	setAbility(inventory.items[5])
-	setArmor(inventory.items[6])
-	setRing(inventory.items[7])
+	setWeapon(inventory.items[0])
+	setAbility(inventory.items[1])
+	setArmor(inventory.items[2])
+	setRing(inventory.items[3])
 	cursor.texture = null
 	recalculateItemStatBonuses()
 	recalculateTotalStats()
@@ -297,6 +297,9 @@ func takeDamage(damage, ignoringArmor, enemyName, enemyAttackName):
 		print(str("Took ",damageToDeal," armor-ignoring damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, true)
 	else:
+#		print(str("statsBase def:", statsBase["def"]))
+#		print(str("statsFromItems def:", statsFromItems["def"]))
+#		print(str("statsTtdef:", statsTotal["def"]))
 		damageToDeal = max(damage-statsTotal["def"], damage*minimalTakenDamageMultiplier)
 		print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, false)

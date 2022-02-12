@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/lootbags/lootbag.png" type="Texture" id=1]
+[ext_resource path="res://outline.shader" type="Shader" id=2]
+[ext_resource path="res://Prefabs/lootbag.gd" type="Script" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/width = 0.24
+shader_param/outline_color = null
+
+[node name="Lootbag" type="Node2D"]
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -4 )
+texture = ExtResource( 1 )

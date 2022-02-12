@@ -7,12 +7,14 @@ var followRange = 50
 var doesDodge = true
 var defaultMaxHp = 1
 var weapons = []
+var bombs = []
 var maxHp
 var def
 var hp
 var enemyName
 var hpRegen
 var remaining_weapon_cooldown = []
+var remaining_bomb_cooldown = []
 var weapon_bullets_shot = []
 var floatingDamages = []
 var floatingDamagesWeakrefs = []
@@ -52,18 +54,23 @@ func handleNegativeEffects(delta):
 
 ###
 
+onready var SpriteNode = get_node("Graphical").get_node("Sprite")
+onready var HealthbarNode = get_node("Graphical").get_node("EnemyHealthbar")
+
 func _ready():
 	maxHp = defaultMaxHp
 	setStartingHealth()
 	for weapon in weapons:
 		remaining_weapon_cooldown.append(0)
 		weapon_bullets_shot.append(0)
+	for bomb in bombs:
+		remaining_bomb_cooldown.append(0)
 	moveTimer.set_one_shot(true)
 	moveTimer.set_wait_time((0.2))
 	moveTimer.connect("timeout",self,"move_timeout")
 	add_child(moveTimer)
 	if isUsing16pxSprite:
-		$Sprite.position.y -= 4
+		SpriteNode.position.y -= 4
 	#	print("przesunalem o 4")
 	if not experienceReward:
 		experienceReward = maxHp
@@ -74,7 +81,7 @@ func setStartingHealth():
 func enemyProcess(delta):
 	if hp<maxHp:
 		hp=min(maxHp, hp+hpRegen*delta)
-	$EnemyHealthbar.value = 100*hp/maxHp
+	HealthbarNode.value = 100*hp/maxHp
 	handleNegativeEffects(delta)
 
 func moveFloatingDamagesToParent():
@@ -130,16 +137,25 @@ func takeDamage(damage, ignoringArmor):
 		damageToDeal = damage
 		spawnDamageFloatingText2(damageToDeal, true)
 	else:
+#		damageToDeal = max(damage-def, damage*(1.0-minimalTakenDamageMultiplier))
 		damageToDeal = max(damage-def, damage*minimalTakenDamageMultiplier)
 		spawnDamageFloatingText2(damageToDeal, false)
 	hp -= damageToDeal
 	if hp<=0:
-		print(str(enemyName, " defeated!"))
-		collision_layer = 0
-		collision_mask = 0
-		player.gainExperience(experienceReward)
-		queue_free()
+		die()
 
+
+var lootbag = preload("res://Prefabs/lootbag.tscn")
+
+func die():
+	print(str(enemyName, " defeated!"))
+	collision_layer = 0
+	collision_mask = 0
+	player.gainExperience(experienceReward)
+	var newLootbag = lootbag.instance()
+	newLootbag.global_position = global_position
+	get_parent().add_child(newLootbag)
+	queue_free()
 
 
 func move_timeout():
@@ -150,7 +166,24 @@ func move_timeout():
 	moveReset = true
 
 var arrowPrefab = preload("res://Prefabs/PlayerArrow.tscn")
+var bombPrefab = preload("res://Prefabs/bombPrefab.tscn")
 
+
+func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = true, targetPosition = player.position):
+	var new_bomb = bombPrefab.instance()
+	new_bomb.position = targetPosition
+	new_bomb.rotation = get_parent().get_node("Player").rotation
+	new_bomb.enemyAttackName = shootingWeapon.enemyWeaponName
+	new_bomb.dmg = shootingWeapon.dmg
+	new_bomb.armorPierce = shootingWeapon.armorPierce
+	new_bomb.slowDuration = shootingWeapon.slowDuration
+	new_bomb.paralyzeDuration = shootingWeapon.paralyzeDuration
+	new_bomb.fallingTime = shootingWeapon.flightTimeBase
+	new_bomb.impactRadius = shootingWeapon.impactRadius
+	new_bomb.enemyName = enemyName
+	if shootingWeapon.flightTimePerTile:
+		new_bomb.fallingTime += shootingWeapon.flightTimePerTile * global_position.distance_to(player.global_position)
+	get_parent().add_child(new_bomb)
 
 func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, targetAngle):
 	for i in range(shootingWeapon.shots):
@@ -213,6 +246,16 @@ func shootNextTentacleShotAfterDelay(usedWeapon, weaponIndex, angle, shotsLeft, 
 func TimerTimeout():
 	print("timeout!")
 
+func basicEnemyBombing(delta, usedBomb, i):
+	if remaining_bomb_cooldown[i]>0:
+		remaining_bomb_cooldown[i] = max(remaining_bomb_cooldown[i]-delta, 0)
+	if global_position.distance_to(player.global_position)<usedBomb.targetingRange*8.0 and remaining_bomb_cooldown[i] <= 0:
+		remaining_bomb_cooldown[i] = usedBomb.attackPeriod
+		if usedBomb.bursts == 1:
+			generateBombs(usedBomb, i, get_global_position(), true, player.global_position)
+		else:
+			pass
+#			shootNextTentacleShotAfterDelay(usedBomb, i, targetAngle, usedBomb.bursts, usedBomb.burstsDelay)
 
 func basicEnemyShooting(delta, usedWeapon, i):
 	if remaining_weapon_cooldown[i]>0:
@@ -230,9 +273,9 @@ func basicEnemyShooting(delta, usedWeapon, i):
 
 func setSpriteSide(x):
 	if(x>0):
-		$Sprite.flip_h = false;
+		SpriteNode.flip_h = false;
 	elif(x<0):
-		$Sprite.flip_h = true;
+		SpriteNode.flip_h = true;
 
 
 func basicEnemyMovement(delta):
@@ -264,8 +307,9 @@ func basicEnemyMovement(delta):
 			moveReset=false
 			moveTimer.start()
 	if Input.is_action_pressed("rotateLeft"):
-		rotation_degrees-=player.rotationSpeed*delta
+		$Graphical.rotation_degrees-=player.rotationSpeed*delta
 	if Input.is_action_pressed("rotateRight"):
-		rotation_degrees+=player.rotationSpeed*delta
+		$Graphical.rotation_degrees+=player.rotationSpeed*delta
 	if Input.is_action_just_pressed("resetRotation"):
-		rotation_degrees=0
+		$Graphical.rotation_degrees=0
+		

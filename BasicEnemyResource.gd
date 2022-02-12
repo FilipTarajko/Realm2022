@@ -17,4 +17,5 @@ export(float) var def = 0
 export(float) var shadowSizeMultiplier = 1.0
 export(float) var hpRegen = 0
 export(Array, Resource) var weapons = []
+export(Array, Resource) var bombs = []
 export(bool) var isUsing16pxSprite = false
