@@ -135,7 +135,7 @@ func spawnFloatingText(damage):
 func takeDamage(damage, ignoringArmor):
 	var damageToDeal
 	if ignoringArmor:
-		damageToDeal = damage
+		damageToDeal = damage 
 		spawnDamageFloatingText2(damageToDeal, true)
 	else:
 #		damageToDeal = max(damage-def, damage*(1.0-minimalTakenDamageMultiplier))
@@ -153,15 +153,22 @@ func die():
 	collision_layer = 0
 	collision_mask = 0
 	player.gainExperience(experienceReward)
-	var newLootbag = lootbag.instance()
+	var itemsToPutInLootbag = []
 	for item in drops:
 		if(drops[item] > rand_range(0, 1)):
 			print(str("Enemy dropped ",item.name))
-			newLootbag.items.append(item)
-	newLootbag.global_position = global_position
-	get_parent().add_child(newLootbag)
+			itemsToPutInLootbag.append(item)
+	if len(itemsToPutInLootbag) > 0:
+		create_lootbag(itemsToPutInLootbag)
 	queue_free()
 
+func create_lootbag(itemsToPutInLootbag):
+	var newLootbag = lootbag.instance()
+	newLootbag.items = itemsToPutInLootbag
+	for _i in range(len(itemsToPutInLootbag), 8):
+		newLootbag.items.append(null)
+	newLootbag.global_position = global_position
+	get_parent().add_child(newLootbag)
 
 func move_timeout():
 #	print("movetimeout")

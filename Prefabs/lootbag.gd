@@ -7,7 +7,14 @@ func _ready():
 
 onready var player = get_parent().get_node("Player")
 
-
+func check_for_deletion():
+	var isEmpty = true
+	for i in range(8):
+		if items[i]:
+			#print(str("contains ",items[i]))
+			isEmpty = false
+	if isEmpty:
+		queue_free()
 
 func _physics_process(delta):
 	if Input.is_action_pressed("rotateLeft"):

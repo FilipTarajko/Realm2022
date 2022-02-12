@@ -37,7 +37,7 @@ func calculateExperienceToNextLevel():
 	experienceToNextLevel = 50+100*level
 
 func updateExperienceBar():
-	$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
+	$CanvasLayer/InventoryParent/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
@@ -180,10 +180,10 @@ func update_bars():
 	if not checkIfDead():
 		# hp
 		$Healthbar.value = 100*hp/statsTotal["hp"]
-		$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
+		$CanvasLayer/InventoryParent/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
 		# mp
 		$Manabar.value = 100*mp/statsTotal["mp"]
-		$CanvasLayer/InventoryParent/InventoryContainer/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
+		$CanvasLayer/InventoryParent/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
 
 func checkIfDead():
 	if hp<=0 or statsTotal['hp']<=0:
@@ -202,9 +202,7 @@ func _process(delta):
 	handleWeaponShooting(delta)
 	update_bars()
 	check_for_nearby_bags()
-	frameCount += 1
 
-var frameCount = 0
 
 func check_for_nearby_bags():
 	var lootbags = []
@@ -219,9 +217,32 @@ func check_for_nearby_bags():
 			if distance < minDistance:
 				closestBagIndex = i
 				minDistance = distance
-		if not frameCount%50:
-			print(str("Closest bag is ",minDistance, " tiles away."))
-			print(str("It contains ",lootbags[closestBagIndex].items, "."))
+		if minDistance < 1:
+			for i in range(12, 20):
+				if lootbags[closestBagIndex].items[i-12]:
+					inventory.set_item(i, lootbags[closestBagIndex].items[i-12])
+				else:
+					inventory.set_item(i, null)
+				setVisibilityOfBagSlots(true)
+			return lootbags[closestBagIndex]
+		else:
+			for i in range(12, 20):
+				inventory.remove_item(i)
+				setVisibilityOfBagSlots(false)
+			return false
+	else:
+		for i in range(12, 20):
+			inventory.remove_item(i)
+			setVisibilityOfBagSlots(false)
+	return false
+
+func setVisibilityOfBagSlots(value):
+#	print(get_node(str("CanvasLayer/InventoryParent/InventoryContainer/CenterContainer/InventoryDisplay/")))
+	var color = Color(1, 1, 1, 0)
+	if value:
+		color = Color(1, 1, 1, 1)
+	for i in range(12, 20):
+		get_node(str("CanvasLayer/InventoryParent/InventoryContainer/CenterContainer/InventoryDisplay/",i)).modulate = color
 
 var inventory = preload("res://Inventory.tres")
 onready var cursor = get_node("CanvasLayer/Cursor")
@@ -249,32 +270,28 @@ func handleItemUse():
 	for i in range(1, 9):
 		if Input.is_action_just_pressed(str(i)):
 			var slot
-			if i<=4:
-				slot = i-1
-				#print(slot)
-			if i>4 and i<12:
+			if i<=8:
 				slot = i+3
-				#print(slot)
-			if inventory.items[slot]:
-				#print(str("Trying to use item: ", inventory.items[slot].name))
-				if inventory.items[slot].itemType == "weapon":
-					print("That's a weapon!")
-					inventory.swap_items(slot, 4)
-					read_data_from_inventory()
-				elif inventory.items[slot].itemType == "ability":
-					print("That's an ability!")
-					inventory.swap_items(slot, 5)
-					read_data_from_inventory()
-				elif inventory.items[slot].itemType == "armor":
-					print("That's an armor!")
-					inventory.swap_items(slot, 6)
-					read_data_from_inventory()
-				elif inventory.items[slot].itemType == "ring":
-					print("That's a ring!")
-					inventory.swap_items(slot, 7)
-					read_data_from_inventory()
-			else:
-				print("You are trying to use empty inventory slot!")
+				if inventory.items[slot]:
+					#print(str("Trying to use item: ", inventory.items[slot].name))
+					if inventory.items[slot].itemType == "weapon":
+						print("That's a weapon!")
+						inventory.swap_items(slot, 0)
+						read_data_from_inventory()
+					elif inventory.items[slot].itemType == "ability":
+						print("That's an ability!")
+						inventory.swap_items(slot, 1)
+						read_data_from_inventory()
+					elif inventory.items[slot].itemType == "armor":
+						print("That's an armor!")
+						inventory.swap_items(slot, 2)
+						read_data_from_inventory()
+					elif inventory.items[slot].itemType == "ring":
+						print("That's a ring!")
+						inventory.swap_items(slot, 3)
+						read_data_from_inventory()
+				else:
+					print("You are trying to use empty inventory slot!")
 
 var floatingDamage = load("res://PlayerFloatingDamage.tscn")
 var floatingDamage2 = load("res://FloatingText.tscn")
@@ -406,7 +423,7 @@ func handleAbilityUse(delta):
 		return
 	if not Input.is_action_just_pressed("Ability"):
 		return
-	if not inventory.items[5]:
+	if not inventory.items[1]:
 		spawnFloatingTextMessage("no ability equipped!")
 		return
 	if mp < usedAbility.manaCost:
@@ -427,7 +444,7 @@ func handleWeaponShooting(delta):
 		return
 	if (not autofire and not Input.is_action_pressed("Shoot")):
 		return
-	if not inventory.items[4]:
+	if not inventory.items[0]:
 		spawnFloatingTextMessage("no weapon equipped!")
 		return
 	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/statsTotal["dex"]

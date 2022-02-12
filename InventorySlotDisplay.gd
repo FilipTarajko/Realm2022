@@ -38,7 +38,7 @@ func can_drop_data(_position, data):
 #	player.setWeapon(inventory.items[4])
 
 func drop_data(_position, data):
-	print(name)
+	#print(name)
 	var item_index = int(name)
 	var canBePutThere = true
 	if name=="0":
@@ -74,11 +74,36 @@ func drop_data(_position, data):
 		Cursor.texture = null
 		return
 	#var item = inventory.items[item_index]
+	var lootbag = player.check_for_nearby_bags()
+	if lootbag:
+		if item_index>=12:
+			#print("putting into lootbag!")
+			lootbag.items[item_index-12] = inventory.items[data.item_index]
+		if data.item_index>=12:
+			#print("taking out of lootbag!")
+			lootbag.items[data.item_index-12] = inventory.items[item_index]
+			lootbag.check_for_deletion()
+	if not lootbag:
+		if item_index>=12:
+			#print("creating lootbag!")
+			var itemsToPutInLootbag = [null, null, null, null, null, null, null, null]
+			itemsToPutInLootbag[item_index-12] = inventory.items[data.item_index]
+			create_lootbag(itemsToPutInLootbag)
 	inventory.swap_items(item_index, data.item_index)
 	inventory.set_item(item_index, data.item)
 	player.read_data_from_inventory()
 
 
+var lootbagPrefab = preload("res://Prefabs/lootbag.tscn")
+
+
+func create_lootbag(itemsToPutInLootbag):
+	var newLootbag = lootbagPrefab.instance()
+	newLootbag.items = itemsToPutInLootbag
+	for _i in range(len(itemsToPutInLootbag), 8):
+		newLootbag.items.append(null)
+	newLootbag.global_position = player.global_position
+	player.get_parent().add_child(newLootbag)
 
 func _on_ItemTextureRect_mouse_entered():
 	var newToolTip = toolTip.instance()

@@ -107,35 +107,105 @@ __meta__ = {
 }
 
 [node name="InventoryContainer" type="ColorRect" parent="CanvasLayer/InventoryParent"]
-anchor_left = 0.5
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -565.0
-margin_top = -100.0
-margin_right = -395.0
-margin_bottom = -88.0
-rect_scale = Vector2( 6.666, 6.666 )
+margin_left = -500.0
+margin_top = -600.0
+margin_right = -440.0
+margin_bottom = -528.0
+rect_scale = Vector2( 8, 8 )
 mouse_filter = 2
-color = Color( 0.352941, 0.352941, 0.352941, 1 )
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UIBars" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 57.0
-margin_top = -13.0
-margin_right = -57.0
-margin_bottom = -14.0
+mouse_filter = 2
+color = Color( 0.392157, 0.392157, 0.392157, 0.666667 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 4.0
+margin_right = -3.0
+margin_bottom = -56.0
+mouse_filter = 2
+color = Color( 0.27451, 0.27451, 0.27451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 19.0
+margin_right = -3.0
+margin_bottom = -29.0
+mouse_filter = 2
+color = Color( 0.27451, 0.27451, 0.27451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 46.0
+margin_right = -3.0
+margin_bottom = -2.0
+mouse_filter = 2
+color = Color( 0.27451, 0.27451, 0.27451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InventoryParent/InventoryContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.00012207
+mouse_filter = 2
+size_flags_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryDisplay" parent="CanvasLayer/InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 56.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 8, 56 )
+
+[node name="UIBars" type="ColorRect" parent="CanvasLayer/InventoryParent"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -224.0
+margin_top = -100.0
+margin_right = -168.0
+margin_bottom = -89.0
+rect_scale = Vector2( 8, 8 )
 mouse_filter = 2
 color = Color( 0.164706, 0.164706, 0.164706, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UIHealthbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/InventoryContainer/UIBars"]
+[node name="UIHealthbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 104.0
@@ -149,13 +219,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UIManabar" type="TextureProgress" parent="CanvasLayer/InventoryParent/InventoryContainer/UIBars"]
-anchor_top = 1.0
+[node name="UIManabar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -6.0
-margin_right = 104.0
-margin_bottom = 14.0
+margin_top = 5.0
+margin_right = 160.0
+margin_bottom = 25.0
 rect_scale = Vector2( 0.35, 0.14 )
 step = 0.1
 value = 100.0
@@ -165,13 +234,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UIExpbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/InventoryContainer/UIBars"]
-anchor_top = 1.0
+[node name="UIExpbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -3.0
-margin_right = 104.0
-margin_bottom = 17.0
+margin_top = 8.0
+margin_right = 160.0
+margin_bottom = -31.0
 rect_scale = Vector2( 0.35, 0.14 )
 step = 0.1
 value = 100.0
@@ -180,35 +248,6 @@ texture_progress = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/InventoryParent/InventoryContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 57.0
-margin_top = -2.0
-margin_right = -57.0
-margin_bottom = 2.0
-mouse_filter = 2
-color = Color( 0.392157, 0.392157, 0.392157, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/InventoryParent/InventoryContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="InventoryDisplay" parent="CanvasLayer/InventoryParent/InventoryContainer/CenterContainer" instance=ExtResource( 9 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 3.0
-margin_top = 1.0
-margin_right = 167.0
-margin_bottom = 11.0
 
 [node name="Cursor" type="Sprite" parent="CanvasLayer"]
 material = SubResource( 4 )
