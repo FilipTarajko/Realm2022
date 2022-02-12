@@ -39,3 +39,5 @@ spd = -10.0
 vit = 0.0
 wis = 0.0
 att = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0

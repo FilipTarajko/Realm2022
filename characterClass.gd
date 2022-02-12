@@ -1,6 +1,12 @@
 extends Resource
 class_name CharacterClass
 
+export(Resource) var startingWeapon
+export(Resource) var startingAbility
+export(Resource) var startingArmor
+export(Resource) var startingRing
+export(Array, Resource) var startingAdditionalItems
+
 export(Dictionary) var statsPerLevel = {
 	"hp": 25,
 	"mp": 25,

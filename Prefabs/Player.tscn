@@ -184,9 +184,9 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 4.0
-margin_top = 3.0
+margin_top = 5.0
 margin_right = 56.0
-margin_bottom = 69.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 8, 56 )
 
 [node name="UIBars" type="ColorRect" parent="CanvasLayer/InventoryParent"]

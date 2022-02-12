@@ -157,8 +157,17 @@ func setArmor(armor):
 func setRing(ring):
 	usedRing = ring
 
+func loadStartingCharacterClassItemToInventory():
+	inventory.set_item(0, characterClass.startingWeapon)
+	inventory.set_item(1, characterClass.startingAbility)
+	inventory.set_item(2, characterClass.startingArmor)
+	inventory.set_item(3, characterClass.startingRing)
+	for i in range(4, min(len(characterClass.startingAdditionalItems), 12)+4):
+		inventory.set_item(i, characterClass.startingAdditionalItems[i-4])
+
 func _ready():
 	readStatsFromCharacterClass()
+	loadStartingCharacterClassItemToInventory()
 	for stat in stats:
 		statsBase[stat] = statsStarting[stat]
 	read_data_from_inventory()
@@ -264,7 +273,28 @@ func read_data_from_inventory():
 	cursor.texture = null
 	recalculateItemStatBonuses()
 	recalculateTotalStats()
-	
+
+
+func heal(hpHealed):
+	hp = min(hp+hpHealed, statsTotal["hp"])
+	spawnFloatingTextMessage(str("+",hpHealed,"hp!"), Color(1.0, 0.8, 0.8, 1.0))
+
+
+func restoreMana(mpRestored):
+	mp = min(mp+mpRestored, statsTotal["mp"])
+	spawnFloatingTextMessage(str("+",mpRestored,"mp!"), Color(0.8, 0.8, 1.0, 1.0))
+
+
+func useConsumableItem(item, slot):
+	print(item.name)
+	if item.hpHealed:
+		heal(item.hpHealed)
+	if item.mpRestored:
+		restoreMana(item.mpRestored)
+	if item.usesTotal:
+		item.usesLeft -= 1
+		if item.usesLeft <= 0:
+			inventory.remove_item(slot)
 
 func handleItemUse():
 	for i in range(1, 9):
@@ -273,8 +303,11 @@ func handleItemUse():
 			if i<=8:
 				slot = i+3
 				if inventory.items[slot]:
-					#print(str("Trying to use item: ", inventory.items[slot].name))
-					if inventory.items[slot].itemType == "weapon":
+					#print(str("Trying to use item: ", inventory.items[slot].name)
+					if inventory.items[slot].itemType == "consumable":
+						print("That's a consumable!")
+						useConsumableItem(inventory.items[slot], slot)
+					elif inventory.items[slot].itemType == "weapon":
 						print("That's a weapon!")
 						inventory.swap_items(slot, 0)
 						read_data_from_inventory()
@@ -402,6 +435,8 @@ func generateBullets(shootingWeapon, position):
 		new_arrow.scale.x = shootingWeapon.scalex
 		new_arrow.scale.y = shootingWeapon.scaley
 		new_arrow.armorPierce = shootingWeapon.armorPierce
+		new_arrow.bulletWaveFrequency = shootingWeapon.bulletWaveFrequency
+		new_arrow.bulletWaveAmplitude = shootingWeapon.bulletWaveAmplitude
 		if shootingWeapon.ignoreWalls:
 			new_arrow.collision_mask-=2
 			new_arrow.get_node("Sprite").z_index+=2

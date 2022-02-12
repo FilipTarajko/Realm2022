@@ -32,3 +32,5 @@ export(float) var spd = 0
 export(float) var vit = 0
 export(float) var wis = 0
 export(float) var att = 0
+export(float) var bulletWaveFrequency = 0
+export(float) var bulletWaveAmplitude = 0

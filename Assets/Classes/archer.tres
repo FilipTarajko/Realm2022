@@ -1,15 +1,26 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
 [ext_resource path="res://characterClass.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Items/Weapons/bows/bow_t0.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/Items/Consumables/mana_potion.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/Items/Rings/maxHpRing_t0.tres" type="Resource" id=4]
+[ext_resource path="res://Assets/Items/Consumables/healing_potion.tres" type="Resource" id=5]
+[ext_resource path="res://Assets/Items/Armors/light_t0.tres" type="Resource" id=6]
+[ext_resource path="res://Assets/Items/Abilities/Quiver/quiver_t0.tres" type="Resource" id=7]
 
 [resource]
 script = ExtResource( 1 )
+startingWeapon = ExtResource( 2 )
+startingAbility = ExtResource( 7 )
+startingArmor = ExtResource( 6 )
+startingRing = ExtResource( 4 )
+startingAdditionalItems = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 3 ) ]
 statsPerLevel = {
 "att": 5,
 "def": 5,
 "dex": 5,
 "hp": 25,
-"mp": 10,
+"mp": 5,
 "spd": 5,
 "vit": 5,
 "wis": 5
@@ -19,7 +30,7 @@ statsLimit = {
 "def": 150,
 "dex": 150,
 "hp": 700,
-"mp": 400,
+"mp": 200,
 "spd": 150,
 "vit": 150,
 "wis": 150
@@ -29,7 +40,7 @@ statsStarting = {
 "def": 0,
 "dex": 50,
 "hp": 200,
-"mp": 250,
+"mp": 100,
 "spd": 75,
 "vit": 50,
 "wis": 50

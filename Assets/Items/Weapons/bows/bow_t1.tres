@@ -1,17 +1,17 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://Assets/bulletSprites/bows/0.png" type="Texture" id=1]
-[ext_resource path="res://Assets/ItemSprites/Weapons/bow_t0.png" type="Texture" id=2]
-[ext_resource path="res://Weapon.gd" type="Script" id=3]
+[ext_resource path="res://Weapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/bows/1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Weapons/bow_t1.png" type="Texture" id=3]
 
 [resource]
-script = ExtResource( 3 )
-name = "Wooden bow"
-itemSprite = ExtResource( 2 )
-dmg_min = 20.0
-dmg_max = 30.0
-tier = "0"
-bulletSprite = ExtResource( 1 )
+script = ExtResource( 1 )
+name = "Reinforces bow"
+itemSprite = ExtResource( 3 )
+dmg_min = 30.0
+dmg_max = 45.0
+tier = "1"
+bulletSprite = ExtResource( 2 )
 rateOfFire = 1.0
 projectile_speed = 12.5
 projectile_acceleration = 0.0
@@ -39,3 +39,5 @@ spd = 0.0
 vit = 0.0
 wis = 0.0
 att = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0

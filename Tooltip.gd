@@ -52,15 +52,15 @@ func _ready():
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
 				i+=1
 			showBonusStats(itemData, i)
-		if itemData.itemType == "armor":
+		elif itemData.itemType == "armor":
 			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(str(itemData.itemType," - ", itemData.armorType))
 			showBonusStats(itemData, 1)
-		if itemData.itemType == "ring":
+		elif itemData.itemType == "ring":
 			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(itemData.itemType)
 			showBonusStats(itemData, 1)
-		if itemData.itemType == "ability":
+		elif itemData.itemType == "ability":
 			showNameAndTier(itemData)
 			Container.get_node("ItemType").set_text(itemData.itemType)
 			var i = 1
@@ -97,3 +97,18 @@ func _ready():
 				Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
 				i+=1
 			showBonusStats(itemData, i)
+		
+		elif itemData.itemType == "consumable":
+			Container.get_node("ItemName").set_text(itemData.name)
+			Container.get_node("ItemType").set_text(itemData.itemType)
+			var i = 1
+			if itemData.hpHealed:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("heals ", itemData.hpHealed, " damage"))
+				i+=1
+			if itemData.usesLeft:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("uses (left): ", itemData.usesLeft))
+				i+=1
+			if itemData.usesTotal:
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("uses (total): ", itemData.usesTotal))
+				i+=1
+				

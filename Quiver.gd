@@ -23,3 +23,5 @@ export(bool) var armorPierce
 export(bool) var ignoreWalls
 export(float) var slowDuration = 0.0
 export(float) var paralyzeDuration = 0.0
+export(float) var bulletWaveFrequency = 0
+export(float) var bulletWaveAmplitude = 0

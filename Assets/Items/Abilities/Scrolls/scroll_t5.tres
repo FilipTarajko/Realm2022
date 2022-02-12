@@ -43,3 +43,5 @@ ignoreWalls = false
 additionalUsageInfo = "bullets appear on mouse"
 slowDuration = 0.0
 paralyzeDuration = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0

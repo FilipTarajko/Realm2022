@@ -1,17 +1,7 @@
-[gd_resource type="Resource" load_steps=12 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://Inventory.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Items/Abilities/Scrolls/scroll_t5.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/Items/Weapons/bow_skeleton.tres" type="Resource" id=3]
-[ext_resource path="res://Assets/Items/Abilities/Quiver/quiver_t4.tres" type="Resource" id=4]
-[ext_resource path="res://Assets/Items/Armors/light_t4.tres" type="Resource" id=5]
-[ext_resource path="res://Assets/Items/Weapons/bow_t0.tres" type="Resource" id=6]
-[ext_resource path="res://Assets/Items/Rings/defRing_t5.tres" type="Resource" id=7]
-[ext_resource path="res://Assets/Items/Abilities/Quiver/quiver_t5.tres" type="Resource" id=8]
-[ext_resource path="res://Assets/Items/Rings/maxHpRing_t5.tres" type="Resource" id=9]
-[ext_resource path="res://Assets/Items/Armors/light_t5.tres" type="Resource" id=10]
-[ext_resource path="res://Assets/Items/Armors/heavy_t5.tres" type="Resource" id=11]
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 7 ), null, ExtResource( 2 ), ExtResource( 10 ), ExtResource( 9 ), null, null, null, null, null, null, null, null ]
+items = [ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ]

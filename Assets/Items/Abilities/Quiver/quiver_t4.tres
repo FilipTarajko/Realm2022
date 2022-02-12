@@ -42,3 +42,5 @@ armorPierce = false
 ignoreWalls = false
 slowDuration = 1.2
 paralyzeDuration = 1.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0
