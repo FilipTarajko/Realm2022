@@ -20,6 +20,7 @@ var floatingDamages = []
 var floatingDamagesWeakrefs = []
 var isUsing16pxSprite = false
 var experienceReward
+var drops
 
 onready var player = get_parent().get_node("Player")
 var floatingDamage = load("res://EnemyFloatingDamage.tscn")
@@ -153,6 +154,10 @@ func die():
 	collision_mask = 0
 	player.gainExperience(experienceReward)
 	var newLootbag = lootbag.instance()
+	for item in drops:
+		if(drops[item] > rand_range(0, 1)):
+			print(str("Enemy dropped ",item.name))
+			newLootbag.items.append(item)
 	newLootbag.global_position = global_position
 	get_parent().add_child(newLootbag)
 	queue_free()

@@ -201,6 +201,27 @@ func _process(delta):
 	handleAbilityUse(delta)
 	handleWeaponShooting(delta)
 	update_bars()
+	check_for_nearby_bags()
+	frameCount += 1
+
+var frameCount = 0
+
+func check_for_nearby_bags():
+	var lootbags = []
+	for i in get_parent().get_children():
+		if "Lootbag" in i.name:
+			lootbags.append(i)
+	if lootbags:
+		var closestBagIndex = 0
+		var minDistance = lootbags[0].global_position.distance_to(global_position)/8
+		for i in len(lootbags):
+			var distance = lootbags[i].global_position.distance_to(global_position)/8
+			if distance < minDistance:
+				closestBagIndex = i
+				minDistance = distance
+		if not frameCount%50:
+			print(str("Closest bag is ",minDistance, " tiles away."))
+			print(str("It contains ",lootbags[closestBagIndex].items, "."))
 
 var inventory = preload("res://Inventory.tres")
 onready var cursor = get_node("CanvasLayer/Cursor")

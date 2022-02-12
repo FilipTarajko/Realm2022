@@ -1,5 +1,6 @@
 extends Node2D
 
+var items = []
 
 func _ready():
 	self.rotation = get_parent().get_node("Player").rotation

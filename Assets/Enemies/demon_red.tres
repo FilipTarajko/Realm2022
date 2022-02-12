@@ -18,6 +18,12 @@ modulate = Color( 1, 0, 0, 1 )
 scalex = 1.0
 scaley = 1.0
 maxHp = 500.0
+def = 0.0
 shadowSizeMultiplier = 0.7
 hpRegen = 1.0
 weapons = [ ExtResource( 3 ) ]
+bombs = [  ]
+isUsing16pxSprite = false
+drops = {
+Resource( "res://Assets/Items/Abilities/Quiver/quiver_t0.tres" ): 0.5
+}

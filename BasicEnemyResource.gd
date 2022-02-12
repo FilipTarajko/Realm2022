@@ -19,3 +19,4 @@ export(float) var hpRegen = 0
 export(Array, Resource) var weapons = []
 export(Array, Resource) var bombs = []
 export(bool) var isUsing16pxSprite = false
+export(Dictionary) var drops = {preload("res://Assets/Items/Abilities/Quiver/quiver_t0.tres") : 0.5}

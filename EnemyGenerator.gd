@@ -11,6 +11,7 @@ func spawnEnemy(enemyData, x=get_global_position().x, y=get_global_position().y)
 	new_enemy.position = Vector2(x, y)
 	new_enemy.enemyName = enemyData.enemyName
 	new_enemy.moveSpeed = enemyData.moveSpeed
+	new_enemy.drops = enemyData.drops
 	new_enemy.escapeRange = enemyData.escapeRange
 	new_enemy.visionRange = enemyData.visionRange
 	new_enemy.followRange = enemyData.followRange

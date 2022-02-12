@@ -22,4 +22,8 @@ def = 0.0
 shadowSizeMultiplier = 1.0
 hpRegen = 1.0
 weapons = [ ExtResource( 3 ) ]
+bombs = [  ]
 isUsing16pxSprite = false
+drops = {
+Resource( "res://Assets/Items/Abilities/Quiver/quiver_t0.tres" ): 0.5
+}
