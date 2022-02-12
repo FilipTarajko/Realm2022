@@ -11,8 +11,8 @@ export(float) var projectile_acceleration = 0.0
 export(float) var lifetime
 export(int) var shots
 export(float) var angle 
-export(float) var scalex
-export(float) var scaley
+export(float) var scalex = 1
+export(float) var scaley = 1
 export(float) var collisionShapeRadius
 export(float) var collisionShapeHeight
 export(Color) var modulate = Color(1.0, 1.0, 1.0, 1.0)

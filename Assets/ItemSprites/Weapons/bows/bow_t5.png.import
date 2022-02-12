@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sword_t1.png-0142d55d20d1a8ab68f5f9b7cc9c088c.stex"
+path="res://.import/bow_t5.png-ae64a43d13f96608097d764305726fa5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/ItemSprites/Weapons/sword_t1.png"
-dest_files=[ "res://.import/sword_t1.png-0142d55d20d1a8ab68f5f9b7cc9c088c.stex" ]
+source_file="res://Assets/ItemSprites/Weapons/bows/bow_t5.png"
+dest_files=[ "res://.import/bow_t5.png-ae64a43d13f96608097d764305726fa5.stex" ]
 
 [params]
 

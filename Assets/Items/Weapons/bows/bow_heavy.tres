@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Weapon.gd" type="Script" id=1]
-[ext_resource path="res://Assets/ItemSprites/Weapons/bow_heavy.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Weapons/bows/bow_heavy.png" type="Texture" id=2]
 [ext_resource path="res://Assets/bulletSprites/bows/heavy.png" type="Texture" id=3]
 
 [resource]
@@ -39,3 +39,5 @@ spd = -25.0
 vit = 0.0
 wis = 0.0
 att = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0

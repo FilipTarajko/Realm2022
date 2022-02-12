@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Weapon.gd" type="Script" id=1]
 [ext_resource path="res://Assets/bulletSprites/bows/0.png" type="Texture" id=2]
-[ext_resource path="res://Assets/ItemSprites/Weapons/bow_t0.png" type="Texture" id=3]
+[ext_resource path="res://Assets/ItemSprites/Weapons/bows/bow_t0.png" type="Texture" id=3]
 
 [resource]
 script = ExtResource( 1 )

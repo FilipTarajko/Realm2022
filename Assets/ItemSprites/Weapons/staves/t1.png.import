@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bow_t4.png-4c6631ac3da37fad94f74be5e45864c2.stex"
+path="res://.import/t1.png-5e13aa715a95b11156adab9d81b154a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/ItemSprites/Weapons/bow_t4.png"
-dest_files=[ "res://.import/bow_t4.png-4c6631ac3da37fad94f74be5e45864c2.stex" ]
+source_file="res://Assets/ItemSprites/Weapons/staves/t1.png"
+dest_files=[ "res://.import/t1.png-5e13aa715a95b11156adab9d81b154a8.stex" ]
 
 [params]
 

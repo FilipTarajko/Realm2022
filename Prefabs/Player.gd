@@ -41,7 +41,7 @@ func updateExperienceBar():
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
-var characterClass = load("res://Assets/Classes/archer.tres")
+var characterClass = load("res://Assets/Classes/wizard.tres")
 
 var statsPerLevel = {
 #	'hp': 25,
@@ -421,6 +421,8 @@ func handleAnimation():
 	elif Input.is_action_pressed("Left"):
 		sprite_node.texture = textureLeft
 
+var weapon_bullets_shot = 0
+
 func generateBullets(shootingWeapon, position):
 	for i in range(shootingWeapon.shots):
 		var new_arrow = arrowPrefab.instance()
@@ -450,6 +452,8 @@ func generateBullets(shootingWeapon, position):
 		new_arrow.get_child(1).rotation_degrees = shootingWeapon.spriteRotation
 		new_arrow.get_child(1).position.x = shootingWeapon.spriteOffsetX
 		new_arrow.get_child(1).position.y = shootingWeapon.spriteOffsetY
+		new_arrow.indexOfWeaponsBullet = weapon_bullets_shot
+		weapon_bullets_shot += 1
 		get_parent().add_child(new_arrow)
 
 func handleAbilityUse(delta):

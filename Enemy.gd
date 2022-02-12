@@ -234,7 +234,7 @@ func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, ta
 		new_arrow.bulletWaveAmplitude = shootingWeapon.bulletWaveAmplitude
 		new_arrow.rotateSpriteAndHitboxToMatchDirection = shootingWeapon.rotateSpriteAndHitboxToMatchDirection
 		new_arrow.defaultSpriteRotation = shootingWeapon.spriteRotation
-		new_arrow.indexOfEnemysWeaponsBullet = weapon_bullets_shot[weaponIndex]
+		new_arrow.indexOfWeaponsBullet = weapon_bullets_shot[weaponIndex]
 		if shootingWeapon.followsEnemy:
 			new_arrow.position -= global_position
 			add_child(new_arrow)

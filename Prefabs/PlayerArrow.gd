@@ -16,7 +16,7 @@ var bulletWaveFrequency = 0
 var bulletWaveAmplitude = 0
 var rotateSpriteAndHitboxToMatchDirection = false
 var defaultSpriteRotation = 0
-var indexOfEnemysWeaponsBullet = 0
+var indexOfWeaponsBullet = 0
 var startingSinusoidPoint = 0
 var armorPierce = false
 
@@ -37,7 +37,7 @@ func calculateSinusoidalMovement():
 
 func _ready():
 	calculateMovement()
-	if indexOfEnemysWeaponsBullet%2:
+	if indexOfWeaponsBullet%2:
 		startingSinusoidPoint = PI
 	position += movement.normalized()*($CollisionShape2D.shape.radius+$CollisionShape2D.shape.height/2)*scale.y
 

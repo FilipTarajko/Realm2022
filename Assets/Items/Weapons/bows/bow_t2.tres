@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://Assets/ItemSprites/Weapons/bow_t2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/ItemSprites/Weapons/bows/bow_t2.png" type="Texture" id=1]
 [ext_resource path="res://Assets/bulletSprites/bows/2.png" type="Texture" id=2]
 [ext_resource path="res://Weapon.gd" type="Script" id=3]
 
@@ -33,9 +33,11 @@ weaponType = "bow"
 itemType = "weapon"
 def = 0.0
 dex = 0.0
-maxHp = 0.0
-maxMana = 0.0
+hp = 0.0
+mp = 0.0
 spd = 0.0
 vit = 0.0
 wis = 0.0
 att = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0

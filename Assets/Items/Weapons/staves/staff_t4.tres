@@ -1,27 +1,27 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Weapon.gd" type="Script" id=1]
-[ext_resource path="res://Assets/ItemSprites/Weapons/swords/sword_t0.png" type="Texture" id=2]
-[ext_resource path="res://Assets/bulletSprites/swords/0.png" type="Texture" id=3]
+[ext_resource path="res://Assets/bulletSprites/staves/t4.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Weapons/staves/t4.png" type="Texture" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Wooden sword"
-itemSprite = ExtResource( 2 )
-dmg_min = 30.0
-dmg_max = 55.0
-tier = "0"
-bulletSprite = ExtResource( 3 )
+name = "demon staff"
+itemSprite = ExtResource( 3 )
+dmg_min = 80.0
+dmg_max = 90.0
+tier = "4"
+bulletSprite = ExtResource( 2 )
 rateOfFire = 1.0
-projectile_speed = 12.5
+projectile_speed = 16.0
 projectile_acceleration = 0.0
-lifetime = 0.3
-shots = 1
+lifetime = 0.5
+shots = 2
 angle = 0.0
 scalex = 0.8
 scaley = 0.8
-collisionShapeRadius = 1.5
-collisionShapeHeight = 16.0
+collisionShapeRadius = 2.2
+collisionShapeHeight = 4.0
 modulate = Color( 1, 1, 1, 1 )
 spriteRotation = -45.0
 spriteOffsetX = 0.0
@@ -29,7 +29,7 @@ spriteOffsetY = 0.0
 multihit = false
 armorPierce = false
 ignoreWalls = false
-weaponType = "sword"
+weaponType = "staff"
 itemType = "weapon"
 def = 0.0
 dex = 0.0
@@ -39,5 +39,5 @@ spd = 0.0
 vit = 0.0
 wis = 0.0
 att = 0.0
-bulletWaveFrequency = 0.0
-bulletWaveAmplitude = 0.0
+bulletWaveFrequency = 3.0
+bulletWaveAmplitude = 0.35

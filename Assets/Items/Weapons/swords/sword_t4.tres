@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Assets/bulletSprites/swords/4.png" type="Texture" id=1]
-[ext_resource path="res://Assets/ItemSprites/Weapons/sword_t4.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Weapons/swords/sword_t4.png" type="Texture" id=2]
 [ext_resource path="res://Weapon.gd" type="Script" id=3]
 
 [resource]

@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Items/Consumables/mana_potion.tres" type="Resource" id=3]
 [ext_resource path="res://Assets/Items/Consumables/healing_potion.tres" type="Resource" id=4]
 [ext_resource path="res://Assets/Items/Armors/heavy_t0.tres" type="Resource" id=5]
-[ext_resource path="res://Assets/Items/Weapons/swords/sword_t0.tres" type="Resource" id=6]
+[ext_resource path="res://Assets/Items/Weapons/staves/staff_t0.tres" type="Resource" id=6]
 [ext_resource path="res://Assets/Items/Rings/defRing_t0.tres" type="Resource" id=7]
 
 [resource]
