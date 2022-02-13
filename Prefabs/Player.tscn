@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Assets/Healthbars/experience.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Fonts/fps font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://Prefabs/fpsDisplay.gd" type="Script" id=17]
+[ext_resource path="res://Assets/Fonts/hp-bar-font.tres" type="DynamicFont" id=18]
+[ext_resource path="res://Assets/Fonts/bar-font.tres" type="DynamicFont" id=19]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -219,6 +221,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIHealthbar"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -80.0
+margin_right = 120.0
+margin_bottom = 20.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 18 )
+text = "100/200"
+align = 1
+valign = 1
+
 [node name="UIManabar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -234,6 +248,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label2" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIManabar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -16.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 19 )
+text = "100/200"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="UIExpbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -245,6 +273,19 @@ step = 0.1
 value = 100.0
 texture_under = ExtResource( 14 )
 texture_progress = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIExpbar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -16.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 19 )
+text = "100/200"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

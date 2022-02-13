@@ -37,6 +37,7 @@ func calculateExperienceToNextLevel():
 	experienceToNextLevel = 50+100*level
 
 func updateExperienceBar():
+	$CanvasLayer/InventoryParent/UIBars/UIExpbar/Label3.text = str(experience,"/",experienceToNextLevel)
 	$CanvasLayer/InventoryParent/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
@@ -190,9 +191,11 @@ func update_bars():
 	if not checkIfDead():
 		# hp
 		$Healthbar.value = 100*hp/statsTotal["hp"]
+		$CanvasLayer/InventoryParent/UIBars/UIHealthbar/Label.text = str(round(hp),"/",statsTotal["hp"])
 		$CanvasLayer/InventoryParent/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
 		# mp
 		$Manabar.value = 100*mp/statsTotal["mp"]
+		$CanvasLayer/InventoryParent/UIBars/UIManabar/Label2.text = str(round(mp),"/",statsTotal["mp"])
 		$CanvasLayer/InventoryParent/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
 
 func checkIfDead():
