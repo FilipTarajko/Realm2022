@@ -218,10 +218,10 @@ __meta__ = {
 [node name="statsPanel" parent="CanvasLayer" instance=ExtResource( 20 )]
 anchor_top = 1.0
 anchor_right = 0.0
-margin_left = 20.0
-margin_top = -295.0
-margin_right = 420.0
-margin_bottom = -20.0
+margin_left = 15.0
+margin_top = -250.0
+margin_right = 515.0
+margin_bottom = -15.0
 mouse_filter = 2
 
 [node name="UIBars" type="ColorRect" parent="CanvasLayer"]

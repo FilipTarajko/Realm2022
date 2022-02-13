@@ -5,9 +5,9 @@
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1520.0
-margin_bottom = -805.0
-rect_min_size = Vector2( 500, 275 )
+margin_right = -1420.0
+margin_bottom = -855.0
+rect_min_size = Vector2( 500, 235 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -33,22 +33,22 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
 margin_right = 470.0
-margin_bottom = 245.0
-alignment = 2
+margin_bottom = 205.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="headers" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 42.0
+margin_top = 1.0
 margin_right = 470.0
-margin_bottom = 61.0
+margin_bottom = 20.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/headers"]
 margin_right = 74.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
-text = "stat"
+text = "stats"
 align = 1
 valign = 1
 
@@ -98,9 +98,9 @@ align = 1
 valign = 1
 
 [node name="hp" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 65.0
+margin_top = 24.0
 margin_right = 470.0
-margin_bottom = 84.0
+margin_bottom = 43.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/hp"]
 margin_right = 75.0
@@ -155,9 +155,9 @@ align = 1
 valign = 1
 
 [node name="mp" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 88.0
+margin_top = 47.0
 margin_right = 470.0
-margin_bottom = 107.0
+margin_bottom = 66.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/mp"]
 margin_right = 75.0
@@ -212,9 +212,9 @@ align = 1
 valign = 1
 
 [node name="def" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 111.0
+margin_top = 70.0
 margin_right = 470.0
-margin_bottom = 130.0
+margin_bottom = 89.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/def"]
 margin_right = 75.0
@@ -269,9 +269,9 @@ align = 1
 valign = 1
 
 [node name="spd" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 134.0
+margin_top = 93.0
 margin_right = 470.0
-margin_bottom = 153.0
+margin_bottom = 112.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/spd"]
 margin_right = 75.0
@@ -326,9 +326,9 @@ align = 1
 valign = 1
 
 [node name="att" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 157.0
+margin_top = 116.0
 margin_right = 470.0
-margin_bottom = 176.0
+margin_bottom = 135.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/att"]
 margin_right = 75.0
@@ -383,9 +383,9 @@ align = 1
 valign = 1
 
 [node name="dex" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 180.0
+margin_top = 139.0
 margin_right = 470.0
-margin_bottom = 199.0
+margin_bottom = 158.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/dex"]
 margin_right = 75.0
@@ -440,9 +440,9 @@ align = 1
 valign = 1
 
 [node name="vit" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 203.0
+margin_top = 162.0
 margin_right = 470.0
-margin_bottom = 222.0
+margin_bottom = 181.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/vit"]
 margin_right = 75.0
@@ -497,9 +497,9 @@ align = 1
 valign = 1
 
 [node name="wis" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
-margin_top = 226.0
+margin_top = 185.0
 margin_right = 470.0
-margin_bottom = 245.0
+margin_bottom = 204.0
 
 [node name="statName" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/wis"]
 margin_right = 75.0
@@ -552,15 +552,3 @@ size_flags_horizontal = 3
 text = "123"
 align = 1
 valign = 1
-
-[node name="Label" type="Label" parent="NinePatchRect"]
-anchor_right = 1.0
-margin_top = 15.0
-margin_right = -250.0
-margin_bottom = 34.0
-rect_scale = Vector2( 2, 2 )
-text = "stats"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
