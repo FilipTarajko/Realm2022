@@ -6,8 +6,8 @@
 
 [node name="Tooltip" type="Popup"]
 margin_right = 225.0
-margin_bottom = 350.0
-rect_min_size = Vector2( 225, 350 )
+margin_bottom = 375.0
+rect_min_size = Vector2( 225, 375 )
 mouse_filter = 2
 script = ExtResource( 2 )
 __meta__ = {
@@ -38,7 +38,7 @@ __meta__ = {
 margin_left = 15.0
 margin_top = 15.0
 margin_right = 210.0
-margin_bottom = 358.0
+margin_bottom = 360.0
 mouse_filter = 2
 custom_constants/separation = 8
 

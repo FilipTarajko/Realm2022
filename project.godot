@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://Item.gd"
 }, {
 "base": "Ability",
+"class": "Poison",
+"language": "GDScript",
+"path": "res://Poison.gd"
+}, {
+"base": "Ability",
 "class": "Quiver",
 "language": "GDScript",
 "path": "res://Quiver.gd"
@@ -84,6 +89,7 @@ _global_script_class_icons={
 "EnemyWeapon": "",
 "Inventory": "",
 "Item": "",
+"Poison": "",
 "Quiver": "",
 "Ring": "",
 "Scroll": "",

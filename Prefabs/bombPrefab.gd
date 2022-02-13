@@ -18,7 +18,7 @@ var maxRotationSpeed = 3
 var target_position
 var throwerPosition
 var targetsPlayer = true
-
+var framesAfterImpact
 
 
 var impacted = false
@@ -39,18 +39,23 @@ func _ready():
 	modulate = color
 	scale.x *= impactRadius*2
 	scale.y *= impactRadius*2
+	$Area2D/CollisionShape2D.scale.x *= impactRadius
+	$Area2D/CollisionShape2D.scale.y *= impactRadius
 
 
 func boom():
 	if targetsPlayer:
-		if (global_position.distance_to(player.global_position))<impactRadius*8+player.get_node("CollisionShape2D").shape.radius:
-			if dmg:
-				if enemyName:
-					player.takeDamage(dmg, armorPierce, enemyName, enemyAttackName)
-			if slowDuration:
-				player.applySlow(slowDuration)
-			if paralyzeDuration:
-				player.applyParalyze(paralyzeDuration)
+		$Area2D.collision_mask = 4
+#		if (global_position.distance_to(player.global_position))<impactRadius*8+player.get_node("CollisionShape2D").shape.radius:
+#			if dmg:
+#				if enemyName:
+#					player.takeDamage(dmg, armorPierce, enemyName, enemyAttackName)
+#			if slowDuration:
+#				player.applySlow(slowDuration)
+#			if paralyzeDuration:
+#				player.applyParalyze(paralyzeDuration)
+	else:
+		$Area2D.collision_mask = 16
 
 
 func _physics_process(delta):
@@ -65,6 +70,11 @@ func _physics_process(delta):
 
 func _process(delta):
 	time += delta
+	if impacted:
+		if framesAfterImpact == 1:
+			$Area2D.collision_mask = 0
+		if framesAfterImpact == 0:
+			framesAfterImpact = 1
 	if not impacted:
 		var rotationSpeed = (minRotationSpeed+(maxRotationSpeed-minRotationSpeed)*(time/fallingTime))
 		$FallingBombMarker.rotation+= rotationSpeed *delta
@@ -74,6 +84,7 @@ func _process(delta):
 			if time>fallingTime:
 				boom()
 				impacted = true
+				framesAfterImpact = 0
 				remove_child($FallingBomb)
 	#			remove_child($Sprite)
 				remove_child($FallingBombMarker)
@@ -91,6 +102,7 @@ func _process(delta):
 			if time>fallingTime:
 				boom()
 				impacted = true
+				framesAfterImpact = 0
 				remove_child($FallingBomb)
 				remove_child($FallingBombMarker)
 				$FallenBombParticles.emitting = true
@@ -113,3 +125,20 @@ func _process(delta):
 #export(float) var bursts = 1
 #export(float) var burstsAngleDiff = 0
 #export(float) var burstsDelay = 0
+
+
+func _on_Area2D_body_entered(body):
+	if("hp" in body):
+		if dmg:
+			if enemyName:
+				body.takeDamage(dmg, armorPierce, enemyName, enemyAttackName)
+				if slowDuration:
+					body.applySlow(slowDuration)
+				if paralyzeDuration:
+					body.applyParalyze(paralyzeDuration)
+			else:
+				body.takeDamage(dmg, armorPierce)
+				if slowDuration:
+					body.applySlow(slowDuration)
+				if paralyzeDuration:
+					body.applyParalyze(paralyzeDuration)

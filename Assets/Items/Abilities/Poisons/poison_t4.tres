@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Assets/ItemSprites/Abilities/Poisons/4.png" type="Texture" id=1]
+[ext_resource path="res://Poison.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "demon's poison"
+itemSprite = ExtResource( 1 )
+tier = "4"
+cooldown = 0.5
+itemType = "ability"
+manaCost = 90.0
+def = 0.0
+dex = 0.0
+hp = 0.0
+mp = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+att = 0.0
+abilityType = "poison"
+dmg_min = 350.0
+dmg_max = 400.0
+fallsFromAbove = false
+flightTimePerTile = 0.1
+flightTimeBase = 0.5
+impactRadius = 2.8
+armorPierce = true
+modulate = Color( 0.933333, 0.282353, 0.215686, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0
+additionalUsageInfo = "throws poison at mouse"

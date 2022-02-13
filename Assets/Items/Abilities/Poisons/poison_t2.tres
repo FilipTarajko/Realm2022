@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Assets/ItemSprites/Abilities/Poisons/2.png" type="Texture" id=1]
+[ext_resource path="res://Poison.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "strong poison"
+itemSprite = ExtResource( 1 )
+tier = "2"
+cooldown = 0.5
+itemType = "ability"
+manaCost = 70.0
+def = 0.0
+dex = 0.0
+hp = 0.0
+mp = 0.0
+spd = 0.0
+vit = 0.0
+wis = 0.0
+att = 0.0
+abilityType = "poison"
+dmg_min = 200.0
+dmg_max = 250.0
+fallsFromAbove = false
+flightTimePerTile = 0.1
+flightTimeBase = 0.5
+impactRadius = 2.4
+armorPierce = true
+modulate = Color( 0.301961, 0.301961, 0.301961, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0
+additionalUsageInfo = "throws poison at mouse"

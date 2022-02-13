@@ -61,42 +61,68 @@ func _ready():
 			Container.get_node("ItemType").set_text(itemData.itemType)
 			showBonusStats(itemData, 1)
 		elif itemData.itemType == "ability":
-			showNameAndTier(itemData)
-			Container.get_node("ItemType").set_text(itemData.itemType)
-			var i = 1
-			Container.get_node(str("Stat",i,"/Stat")).set_text(str("mana cost: ",itemData.manaCost))
-			i+=1
-			Container.get_node(str("Stat",i,"/Stat")).set_text(str("damage: ",itemData.dmg_min," - ",itemData.dmg_max))
-			i+=1
-			Container.get_node(str("Stat",i,"/Stat")).set_text(str("bullet's range: ", itemData.lifetime*itemData.projectile_speed))
-			i+=1
-			Container.get_node(str("Stat",i,"/Stat")).set_text(str("cooldown: ", itemData.cooldown, "s"))
-			i+=1
-			if itemData.shots != 1:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("shots: ", itemData.shots))
+			if itemData.abilityType == "quiver" or itemData.abilityType == "scroll":
+				showNameAndTier(itemData)
+				Container.get_node("ItemType").set_text(itemData.itemType)
+				var i = 1
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("mana cost: ",itemData.manaCost))
 				i+=1
-			if itemData.angle:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("angle: ", itemData.angle))
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("damage: ",itemData.dmg_min," - ",itemData.dmg_max))
 				i+=1
-			if itemData.multihit:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces enemies"))
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("bullet's range: ", itemData.lifetime*itemData.projectile_speed))
 				i+=1
-			if itemData.armorPierce:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces armor"))
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("cooldown: ", itemData.cooldown, "s"))
 				i+=1
-			if itemData.ignoreWalls:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
+				if itemData.shots != 1:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("shots: ", itemData.shots))
+					i+=1
+				if itemData.angle:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("angle: ", itemData.angle))
+					i+=1
+				if itemData.multihit:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces enemies"))
+					i+=1
+				if itemData.armorPierce:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces armor"))
+					i+=1
+				if itemData.ignoreWalls:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces walls"))
+					i+=1
+				if itemData.paralyzeDuration:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("paralyzes enemies for ", itemData.paralyzeDuration, "s"))
+					i+=1
+				if itemData.slowDuration:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("slows enemies for ", itemData.slowDuration, "s"))
+					i+=1
+				if "additionalUsageInfo" in itemData:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
+					i+=1
+				showBonusStats(itemData, i)
+			if itemData.abilityType == "poison":
+				showNameAndTier(itemData)
+				Container.get_node("ItemType").set_text(itemData.itemType)
+				var i = 1
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("mana cost: ",itemData.manaCost))
 				i+=1
-			if itemData.paralyzeDuration:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("paralyzes enemies for ", itemData.paralyzeDuration, "s"))
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("damage: ",itemData.dmg_min," - ",itemData.dmg_max))
 				i+=1
-			if itemData.slowDuration:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(str("slows enemies for ", itemData.slowDuration, "s"))
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("cooldown: ", itemData.cooldown, "s"))
 				i+=1
-			if "additionalUsageInfo" in itemData:
-				Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
+				Container.get_node(str("Stat",i,"/Stat")).set_text(str("impact radius: ", itemData.impactRadius))
 				i+=1
-			showBonusStats(itemData, i)
+				if itemData.armorPierce:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("pierces armor"))
+					i+=1
+				if itemData.paralyzeDuration:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("paralyzes enemies for ", itemData.paralyzeDuration, "s"))
+					i+=1
+				if itemData.slowDuration:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("slows enemies for ", itemData.slowDuration, "s"))
+					i+=1
+				if "additionalUsageInfo" in itemData:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(itemData.additionalUsageInfo)
+					i+=1
+				showBonusStats(itemData, i)
 		
 		elif itemData.itemType == "consumable":
 			Container.get_node("ItemName").set_text(itemData.name)

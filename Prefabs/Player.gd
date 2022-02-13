@@ -54,7 +54,7 @@ func updateExperienceBar():
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
-var characterClass = load("res://Assets/Classes/archer.tres")
+var characterClass = load("res://Assets/Classes/tester.tres")
 
 var statsPerLevel = {
 #	'hp': 25,
@@ -452,6 +452,32 @@ func handleAnimation():
 	elif Input.is_action_pressed("Left"):
 		sprite_node.texture = textureLeft
 
+
+var bombPrefab = preload("res://Prefabs/bombPrefab.tscn")
+
+func generateBombs(shootingWeapon, targetPosition):
+	var new_bomb = bombPrefab.instance()
+	new_bomb.target_position = targetPosition
+	if shootingWeapon.fallsFromAbove:
+		new_bomb.get_node("FallingBomb").process_material = preload("res://Prefabs/bombFromAboveMaterial.tres")
+	else:
+		new_bomb.get_node("FallingBomb").process_material = preload("res://Prefabs/bombParabolicMaterial.tres")
+	new_bomb.rotation = get_parent().get_node("Player").rotation
+	new_bomb.dmg = rand_range(shootingWeapon.dmg_min, shootingWeapon.dmg_max)*statsTotal["att"]/100.0
+	new_bomb.armorPierce = shootingWeapon.armorPierce
+	new_bomb.slowDuration = shootingWeapon.slowDuration
+	new_bomb.paralyzeDuration = shootingWeapon.paralyzeDuration
+	new_bomb.fallingTime = shootingWeapon.flightTimeBase
+	new_bomb.impactRadius = shootingWeapon.impactRadius
+	new_bomb.fallsFromAbove = shootingWeapon.fallsFromAbove
+	new_bomb.throwerPosition = global_position
+	new_bomb.color = shootingWeapon.modulate
+	new_bomb.targetsPlayer = false
+	if shootingWeapon.flightTimePerTile:
+		new_bomb.fallingTime += shootingWeapon.flightTimePerTile * global_position.distance_to(targetPosition)/8.0
+	get_parent().add_child(new_bomb)
+
+
 var weapon_bullets_shot = 0
 
 func generateBullets(shootingWeapon, position):
@@ -505,6 +531,8 @@ func handleAbilityUse(delta):
 		generateBullets(usedAbility, get_global_mouse_position())
 	if usedAbility.abilityType == "quiver":
 		generateBullets(usedAbility, get_global_position())
+	if usedAbility.abilityType == "poison":
+		generateBombs(usedAbility, get_global_mouse_position())
 
 func handleWeaponShooting(delta):
 	if Input.is_action_just_pressed("i"):
