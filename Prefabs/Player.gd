@@ -31,11 +31,15 @@ func handleNegativeEffects(delta):
 	if slowed:
 		slowed = max(slowed-delta, 0)
 		effectsHUDContainer.get_node("slowed").visible = true
+		if slowed < 1:
+			effectsHUDContainer.get_node("slowed").modulate = Color(1, 1, 1, slowed)
 	else:
 		effectsHUDContainer.get_node("slowed").visible = false
 	if paralyzed:
 		paralyzed = max(paralyzed-delta, 0)
 		effectsHUDContainer.get_node("paralyzed").visible = true
+		if paralyzed < 1:
+			effectsHUDContainer.get_node("paralyzed").modulate = Color(1, 1, 1, paralyzed)
 	else:
 		effectsHUDContainer.get_node("paralyzed").visible = false
 
@@ -392,14 +396,14 @@ func takeDamage(damage, ignoringArmor, enemyName, enemyAttackName):
 	var damageToDeal
 	if ignoringArmor:
 		damageToDeal = damage
-		print(str("Took ",damageToDeal," armor-ignoring damage from ", enemyName, "'s ",enemyAttackName,"!"))
+#		print(str("Took ",damageToDeal," armor-ignoring damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, true)
 	else:
 #		print(str("statsBase def:", statsBase["def"]))
 #		print(str("statsFromItems def:", statsFromItems["def"]))
 #		print(str("statsTtdef:", statsTotal["def"]))
 		damageToDeal = max(damage-statsTotal["def"], damage*minimalTakenDamageMultiplier)
-		print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
+#		print(str("Took ",damageToDeal," (",damage,") damage from ", enemyName, "'s ",enemyAttackName,"!"))
 		spawnDamageFloatingText2(damageToDeal, false)
 	hp-=damageToDeal
 

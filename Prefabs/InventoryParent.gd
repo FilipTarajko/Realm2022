@@ -31,7 +31,6 @@ func drop_data(_position, data):
 		var nearestReachableBag = player.check_for_nearby_bags()
 		if nearestReachableBag and (null in nearestReachableBag.items):
 			for i in range(8):
-				print(i)
 				if nearestReachableBag.items[i]:
 					print(str("Nearest reachable bag [",i,"] = ",nearestReachableBag.items[i]))
 				if not nearestReachableBag.items[i]:

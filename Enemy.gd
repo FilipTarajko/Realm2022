@@ -40,11 +40,11 @@ var slowMultiplier = 2.0
 var paralyzed = 0.0
 
 func applySlow(slowDuration):
-	print("enemy slowed!")
+#	print("enemy slowed!")
 	slowed = max(slowed, slowDuration)
 	
 func applyParalyze(paralyzeDuration):
-	print("enemy paralyzed!")
+#	print("enemy paralyzed!")
 	paralyzed = max(paralyzed, paralyzeDuration)
 
 onready var effectsHUDContainer = get_node("Graphical/TemporaryEffectsDisplay/HBoxContainer")
@@ -53,11 +53,15 @@ func handleNegativeEffects(delta):
 	if slowed:
 		slowed = max(slowed-delta, 0)
 		effectsHUDContainer.get_node("slowed").visible = true
+		if slowed < 1:
+			effectsHUDContainer.get_node("slowed").modulate = Color(1, 1, 1, slowed)
 	else:
 		effectsHUDContainer.get_node("slowed").visible = false
 	if paralyzed:
 		paralyzed = max(paralyzed-delta, 0)
 		effectsHUDContainer.get_node("paralyzed").visible = true
+		if paralyzed < 1:
+			effectsHUDContainer.get_node("paralyzed").modulate = Color(1, 1, 1, paralyzed)
 	else:
 		effectsHUDContainer.get_node("paralyzed").visible = false
 
@@ -164,14 +168,14 @@ func takeDamage(damage, ignoringArmor):
 var lootbag = preload("res://Prefabs/lootbag.tscn")
 
 func die():
-	print(str(enemyName, " defeated!"))
+#	print(str(enemyName, " defeated!"))
 	collision_layer = 0
 	collision_mask = 0
 	player.gainExperience(experienceReward)
 	var itemsToPutInLootbag = []
 	for item in drops:
 		if(drops[item] > rand_range(0, 1)):
-			print(str("Enemy dropped ",item.name))
+#			print(str("Enemy dropped ",item.name))
 			itemsToPutInLootbag.append(item)
 	if len(itemsToPutInLootbag) > 0:
 		create_lootbag(itemsToPutInLootbag)
