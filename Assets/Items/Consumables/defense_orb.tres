@@ -1,19 +1,19 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Consumable.gd" type="Script" id=1]
-[ext_resource path="res://Assets/ItemSprites/Consumables/healingPotion.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ItemSprites/Consumables/defenseOrb.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "health potion"
+name = "Orb of defense"
 itemSprite = ExtResource( 2 )
-hpHealed = 100.0
+hpHealed = 0.0
 mpRestored = 0.0
 usesTotal = 1.0
 usesLeft = 1.0
 statsIncrease = {
 "att": 0,
-"def": 0,
+"def": 1,
 "dex": 0,
 "hp": 0,
 "mp": 0,

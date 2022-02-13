@@ -111,4 +111,8 @@ func _ready():
 			if itemData.usesTotal:
 				Container.get_node(str("Stat",i,"/Stat")).set_text(str("uses (total): ", itemData.usesTotal))
 				i+=1
+			for key in itemData.statsIncrease:
+				if itemData.statsIncrease[key]:
+					Container.get_node(str("Stat",i,"/Stat")).set_text(str("permament +",itemData.statsIncrease[key]," ",key))
+					i+=1
 				

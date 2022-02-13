@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 enemyWeaponName = "shot"
 attackPeriod = 3.0
-dmg_min = 3.0
+dmg_min = 5.0
 dmg_max = 5.0
 projectile_speed = 6.0
 projectile_acceleration = 0.0

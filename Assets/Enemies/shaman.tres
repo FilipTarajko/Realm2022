@@ -24,3 +24,8 @@ hpRegen = 0.0
 weapons = [  ]
 bombs = [ ExtResource( 2 ) ]
 isUsing16pxSprite = false
+drops = {
+Resource( "res://Assets/Items/Consumables/healing_potion.tres" ): 0.25,
+Resource( "res://Assets/Items/Consumables/mana_potion.tres" ): 0.15,
+Resource( "res://Assets/Items/Consumables/fullStats_orb.tres" ): 1.0
+}

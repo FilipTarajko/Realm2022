@@ -41,7 +41,7 @@ func updateExperienceBar():
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
-var characterClass = load("res://Assets/Classes/wizard.tres")
+var characterClass = load("res://Assets/Classes/archer.tres")
 
 var statsPerLevel = {
 #	'hp': 25,
@@ -86,13 +86,14 @@ var statsBase = {}
 var statsTotal = {}
 var statsFromItems = {}
 
-func addBaseStats():
+func addBaseStats(statsGained):
 	for stat in stats:
-		statsBase[stat] = min(statsBase[stat]+statsPerLevel[stat], statsLimit[stat])
+		if stat in statsGained:
+			statsBase[stat] = min(statsBase[stat]+statsGained[stat], statsLimit[stat])
 
 func levelUp():
 	level+=1
-	addBaseStats()
+	addBaseStats(statsPerLevel)
 	recalculateTotalStats()
 	hp = statsTotal["hp"]
 	mp = statsTotal["mp"]
@@ -291,6 +292,11 @@ func useConsumableItem(item, slot):
 		heal(item.hpHealed)
 	if item.mpRestored:
 		restoreMana(item.mpRestored)
+	addBaseStats(item.statsIncrease)
+	recalculateTotalStats()
+	for key in item.statsIncrease:
+		if item.statsIncrease[key]!=0:
+			spawnFloatingTextMessage(str(key," +",item.statsIncrease[key],"!"), Color(1.0, 1.0, 1.0, 1.0))
 	if item.usesTotal:
 		item.usesLeft -= 1
 		if item.usesLeft <= 0:

@@ -25,6 +25,10 @@ weapons = [ ExtResource( 3 ) ]
 bombs = [  ]
 isUsing16pxSprite = false
 drops = {
+Resource( "res://Assets/Items/Consumables/healing_potion.tres" ): 0.25,
 Resource( "res://Assets/Items/Consumables/mana_potion.tres" ): 0.15,
-Resource( "res://Assets/Items/Consumables/healing_potion.tres" ): 0.25
+Resource( "res://Assets/Items/Weapons/swords/sword_t4.tres" ): 0.2,
+Resource( "res://Assets/Items/Rings/maxHpRing_t4.tres" ): 0.2,
+Resource( "res://Assets/Items/Rings/defRing_t4.tres" ): 0.2,
+Resource( "res://Assets/Items/Armors/heavy_t4.tres" ): 0.2
 }

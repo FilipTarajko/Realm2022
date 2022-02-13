@@ -24,4 +24,10 @@ def = 0.0
 shadowSizeMultiplier = 0.8
 hpRegen = 1.0
 weapons = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+bombs = [  ]
 isUsing16pxSprite = true
+drops = {
+Resource( "res://Assets/Items/Consumables/healing_potion.tres" ): 0.25,
+Resource( "res://Assets/Items/Consumables/mana_potion.tres" ): 0.15,
+Resource( "res://Assets/Items/Consumables/defense_orb.tres" ): 1.0
+}

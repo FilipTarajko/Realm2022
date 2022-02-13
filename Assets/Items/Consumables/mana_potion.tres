@@ -11,4 +11,14 @@ hpHealed = 0.0
 mpRestored = 100.0
 usesTotal = 1.0
 usesLeft = 1.0
+statsIncrease = {
+"att": 0,
+"def": 0,
+"dex": 0,
+"hp": 0,
+"mp": 0,
+"spd": 0,
+"vit": 0,
+"wis": 0
+}
 itemType = "consumable"
