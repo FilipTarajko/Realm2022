@@ -16,12 +16,9 @@ var fallingSpeed = 3
 var minRotationSpeed = 0.5
 var maxRotationSpeed = 3
 var target_position
-
 var throwerPosition
-var parabolicAmplitude = 4
-var parabolicFrequency
-var averageVelocity
-var currentParabolicY = 0.0
+var targetsPlayer = true
+
 
 
 var impacted = false
@@ -34,9 +31,7 @@ func _ready():
 		$FallingBomb.position.y = fallingSpeed * -8.0 * fallingTime
 		$FallingBomb.process_material.gravity.y = fallingSpeed * -8.0 * 10
 	if not fallsFromAbove:
-		parabolicFrequency = fallingTime*2
-		$FallingBomb.position = ((throwerPosition-global_position)/5.0).rotated(-player.rotation)
-		averageVelocity = Vector2(((target_position.x - throwerPosition.x)/fallingTime/5.0),(target_position.y - throwerPosition.y)/fallingTime/5.0).rotated(-player.rotation)
+		$FallingBomb.position = ((throwerPosition-global_position)/5.0)
 		$FallingBomb.process_material.spread = 15
 	# 0.97 TEMPORARY TEST
 	$FallingBombMarker.process_material.emission_ring_radius = impactRadius*8*2*0.97
@@ -47,31 +42,34 @@ func _ready():
 
 
 func boom():
-	if (global_position.distance_to(player.global_position))<impactRadius*8+player.get_node("CollisionShape2D").shape.radius:
-		if dmg:
-			if enemyName:
-				player.takeDamage(dmg, armorPierce, enemyName, enemyAttackName)
-		if slowDuration:
-			player.applySlow(slowDuration)
-		if paralyzeDuration:
-			player.applyParalyze(paralyzeDuration)
+	if targetsPlayer:
+		if (global_position.distance_to(player.global_position))<impactRadius*8+player.get_node("CollisionShape2D").shape.radius:
+			if dmg:
+				if enemyName:
+					player.takeDamage(dmg, armorPierce, enemyName, enemyAttackName)
+			if slowDuration:
+				player.applySlow(slowDuration)
+			if paralyzeDuration:
+				player.applyParalyze(paralyzeDuration)
 
 
 func _physics_process(delta):
-	if Input.is_action_pressed("rotateLeft"):
-		rotation_degrees-=player.rotationSpeed*delta
-	if Input.is_action_pressed("rotateRight"):
-		rotation_degrees+=player.rotationSpeed*delta
-	if Input.is_action_just_pressed("resetRotation"):
-		rotation_degrees=0
+	if fallsFromAbove:
+		if Input.is_action_pressed("rotateLeft"):
+			rotation_degrees-=player.rotationSpeed*delta
+		if Input.is_action_pressed("rotateRight"):
+			rotation_degrees+=player.rotationSpeed*delta
+		if Input.is_action_just_pressed("resetRotation"):
+			rotation_degrees=0
 
 
 func _process(delta):
 	time += delta
+	if not impacted:
+		var rotationSpeed = (minRotationSpeed+(maxRotationSpeed-minRotationSpeed)*(time/fallingTime))
+		$FallingBombMarker.rotation+= rotationSpeed *delta
 	if fallsFromAbove:
 		if not impacted:
-			var rotationSpeed = (minRotationSpeed+(maxRotationSpeed-minRotationSpeed)*(time/fallingTime))
-			$FallingBombMarker.rotation+= rotationSpeed *delta
 			$FallingBomb.position.y += fallingSpeed * 8.0 * delta
 			if time>fallingTime:
 				boom()
@@ -84,34 +82,20 @@ func _process(delta):
 				$FallenBombParticles.restart()
 	if not fallsFromAbove:
 		if not impacted:
-			var rotationSpeed = (minRotationSpeed+(maxRotationSpeed-minRotationSpeed)*(time/fallingTime))
-			$FallingBombMarker.rotation+= rotationSpeed *delta
-			var constMovement = averageVelocity*delta
 			
-			# This looks bad and probably doesn't really work!
-			var sinusoidalYMovement = -cos(time/parabolicFrequency*2*PI)*delta*(parabolicAmplitude*5.0)*(PI/4)*8.0/10.0
-			currentParabolicY += sinusoidalYMovement
-			print(currentParabolicY)
-			var movement = Vector2(constMovement.x, constMovement.y+sinusoidalYMovement)
-			$FallingBomb.position += movement
-			$FallingBomb.process_material.gravity = Vector3(-movement.x/delta*10, -movement.y/delta*10, 0)
-			$FallingBomb.process_material.direction = Vector3(-movement.x, -movement.y, 0)
+			$FallingBomb.position = (((throwerPosition-global_position)/5.0)).rotated(-rotation)*(1.0-(time/fallingTime)) - Vector2(0, sin(time/fallingTime*PI)*8).rotated(player.rotation - rotation)
+			$FallingBomb.process_material.initial_velocity = 0
+#			$FallingBomb.process_material.gravity = Vector3(-movement.x*10, -movement.y*10, 0)
+#			$FallingBomb.process_material.direction = Vector3(-movement.x*delta, -movement.y*delta, 0)
+
 			if time>fallingTime:
 				boom()
 				impacted = true
 				remove_child($FallingBomb)
-	#			remove_child($Sprite)
 				remove_child($FallingBombMarker)
 				$FallenBombParticles.emitting = true
 				$FallenBombParticles.process_material.emission_ring_radius = impactRadius * 8 * 2
 				$FallenBombParticles.restart()
-		if not impacted:
-			if Input.is_action_pressed("rotateLeft"):
-				$FallingBomb.rotation_degrees-=player.rotationSpeed*delta
-			if Input.is_action_pressed("rotateRight"):
-				$FallingBomb.rotation_degrees+=player.rotationSpeed*delta
-			if Input.is_action_just_pressed("resetRotation"):
-				$FallingBomb.rotation_degrees=0
 	if time>fallingTime+1:
 		queue_free()
 

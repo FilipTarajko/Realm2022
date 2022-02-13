@@ -203,6 +203,10 @@ var bombPrefab = preload("res://Prefabs/bombPrefab.tscn")
 func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = true, targetPosition = player.global_position):
 	var new_bomb = bombPrefab.instance()
 	new_bomb.target_position = targetPosition
+	if shootingWeapon.fallsFromAbove:
+		new_bomb.get_node("FallingBomb").process_material = preload("res://Prefabs/bombFromAboveMaterial.tres")
+	else:
+		new_bomb.get_node("FallingBomb").process_material = preload("res://Prefabs/bombParabolicMaterial.tres")
 	new_bomb.rotation = get_parent().get_node("Player").rotation
 	new_bomb.enemyAttackName = shootingWeapon.enemyWeaponName
 	new_bomb.dmg = shootingWeapon.dmg
