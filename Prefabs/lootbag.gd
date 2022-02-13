@@ -16,7 +16,29 @@ func check_for_deletion():
 	if isEmpty:
 		queue_free()
 
+onready var textureRects = [
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer/TextureRect"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer/TextureRect2"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer/TextureRect3"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer/TextureRect4"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer2/TextureRect"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer2/TextureRect2"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer2/TextureRect3"),
+	get_node("NinePatchRect/VBoxContainer/HBoxContainer2/TextureRect4")
+]
+
 func _physics_process(delta):
+	if get_global_mouse_position().distance_to(global_position) < 5:
+		$NinePatchRect.visible = true
+		for i in range(8):
+			print(items[i])
+			if items[i]:
+				textureRects[i].visible = true
+				textureRects[i].texture = items[i].itemSprite
+			else:
+				textureRects[i].visible = false
+	else:
+		$NinePatchRect.visible = false
 	if Input.is_action_pressed("rotateLeft"):
 		rotation_degrees-=player.rotationSpeed*delta
 	if Input.is_action_pressed("rotateRight"):
