@@ -200,9 +200,9 @@ var arrowPrefab = preload("res://Prefabs/PlayerArrow.tscn")
 var bombPrefab = preload("res://Prefabs/bombPrefab.tscn")
 
 
-func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = true, targetPosition = player.position):
+func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = true, targetPosition = player.global_position):
 	var new_bomb = bombPrefab.instance()
-	new_bomb.position = targetPosition
+	new_bomb.target_position = targetPosition
 	new_bomb.rotation = get_parent().get_node("Player").rotation
 	new_bomb.enemyAttackName = shootingWeapon.enemyWeaponName
 	new_bomb.dmg = shootingWeapon.dmg
@@ -212,8 +212,10 @@ func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = tru
 	new_bomb.fallingTime = shootingWeapon.flightTimeBase
 	new_bomb.impactRadius = shootingWeapon.impactRadius
 	new_bomb.enemyName = enemyName
+	new_bomb.fallsFromAbove = shootingWeapon.fallsFromAbove
+	new_bomb.throwerPosition = global_position
 	if shootingWeapon.flightTimePerTile:
-		new_bomb.fallingTime += shootingWeapon.flightTimePerTile * global_position.distance_to(player.global_position)
+		new_bomb.fallingTime += shootingWeapon.flightTimePerTile * global_position.distance_to(player.global_position)/8.0
 	get_parent().add_child(new_bomb)
 
 func generateBullets(shootingWeapon, weaponIndex, position, isSpawnedByEnemy, targetAngle):
