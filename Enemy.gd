@@ -47,11 +47,19 @@ func applyParalyze(paralyzeDuration):
 	print("enemy paralyzed!")
 	paralyzed = max(paralyzed, paralyzeDuration)
 
+onready var effectsHUDContainer = get_node("Graphical/TemporaryEffectsDisplay/HBoxContainer")
+
 func handleNegativeEffects(delta):
 	if slowed:
 		slowed = max(slowed-delta, 0)
+		effectsHUDContainer.get_node("slowed").visible = true
+	else:
+		effectsHUDContainer.get_node("slowed").visible = false
 	if paralyzed:
 		paralyzed = max(paralyzed-delta, 0)
+		effectsHUDContainer.get_node("paralyzed").visible = true
+	else:
+		effectsHUDContainer.get_node("paralyzed").visible = false
 
 ###
 
@@ -75,6 +83,10 @@ func _ready():
 	#	print("przesunalem o 4")
 	if not experienceReward:
 		experienceReward = maxHp
+	if isUsing16pxSprite:
+		$Graphical/TemporaryEffectsDisplay.rect_scale.x*=1.5
+		$Graphical/TemporaryEffectsDisplay.rect_scale.y*=1.5
+		$Graphical/TemporaryEffectsDisplay.rect_position.y*=2
 
 func setStartingHealth():
 	hp = maxHp

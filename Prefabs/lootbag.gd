@@ -28,7 +28,7 @@ onready var textureRects = [
 ]
 
 func _physics_process(delta):
-	if get_global_mouse_position().distance_to(global_position) < 5:
+	if get_global_mouse_position().distance_to($Sprite.global_position) < 7:
 		$NinePatchRect.visible = true
 		for i in range(8):
 			print(items[i])

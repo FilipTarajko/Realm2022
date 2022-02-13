@@ -25,11 +25,19 @@ func applySlow(slowDuration):
 func applyParalyze(paralyzeDuration):
 	paralyzed = max(paralyzed, paralyzeDuration)
 
+onready var effectsHUDContainer = get_node("TemporaryEffectsDisplay/HBoxContainer")
+
 func handleNegativeEffects(delta):
 	if slowed:
 		slowed = max(slowed-delta, 0)
+		effectsHUDContainer.get_node("slowed").visible = true
+	else:
+		effectsHUDContainer.get_node("slowed").visible = false
 	if paralyzed:
 		paralyzed = max(paralyzed-delta, 0)
+		effectsHUDContainer.get_node("paralyzed").visible = true
+	else:
+		effectsHUDContainer.get_node("paralyzed").visible = false
 
 ### STATS ###
 

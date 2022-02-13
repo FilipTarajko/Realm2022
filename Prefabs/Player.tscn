@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://InterfaceToggleButton.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Assets/Icons/stats.png" type="Texture" id=22]
 [ext_resource path="res://Assets/Icons/backpack.png" type="Texture" id=23]
+[ext_resource path="res://TemporaryEffectsDisplay.tscn" type="PackedScene" id=24]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -44,6 +45,14 @@ shader_param/outline_color = null
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+
+[node name="TemporaryEffectsDisplay" parent="." instance=ExtResource( 24 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -15.0
+margin_bottom = -15.0
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 3 )
