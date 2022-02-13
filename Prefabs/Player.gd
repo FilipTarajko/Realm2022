@@ -295,11 +295,11 @@ func useConsumableItem(item, slot):
 		heal(item.hpHealed)
 	if item.mpRestored:
 		restoreMana(item.mpRestored)
-	addBaseStats(item.statsIncrease)
-	recalculateTotalStats()
 	for key in item.statsIncrease:
 		if item.statsIncrease[key]!=0:
-			spawnFloatingTextMessage(str(key," +",item.statsIncrease[key],"!"), Color(1.0, 1.0, 1.0, 1.0))
+			spawnFloatingTextMessage(str(key," +",min(statsBase[key]+item.statsIncrease[key], statsLimit[key])-statsBase[key],"!"), Color(1.0, 1.0, 1.0, 1.0))
+	addBaseStats(item.statsIncrease)
+	recalculateTotalStats()
 	if item.usesTotal:
 		item.usesLeft -= 1
 		if item.usesLeft <= 0:
@@ -344,6 +344,7 @@ func spawnFloatingTextMessage(message, startColor = Color(0.8, 0.7, 0.2, 1.0), a
 	newFloatingDamage.startColor = startColor
 	newFloatingDamage.position += addedPosition
 	newFloatingDamage.alphaStartTime = 0.8
+	newFloatingDamage.player = self
 	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)
@@ -356,6 +357,7 @@ func spawnDamageFloatingText2(damage, ignoringArmor):
 	else:
 		newFloatingDamage.startColor = Color(1, rand_range(0.0, 0.4), rand_range(0.0, 0.2), 1)
 	newFloatingDamage.position += Vector2(rand_range(-3, 3), rand_range(-20, -10))
+	newFloatingDamage.player = self
 	#newFloatingDamage.position = position #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	add_child(newFloatingDamage)

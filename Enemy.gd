@@ -110,7 +110,10 @@ func spawnDamageFloatingText2(damage, ignoringArmor):
 		startingY -= 8
 	startingY *= scale.y
 	startingY -= rand_range(0, 10)
-	newFloatingDamage.position = position + Vector2(rand_range(-3, 3), startingY) #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
+	newFloatingDamage.rotation = $Graphical.rotation
+	newFloatingDamage.player = player
+	newFloatingDamage.isOnPlayer = false
+	newFloatingDamage.position = position + Vector2(rand_range(-3, 3), startingY).rotated($Graphical.rotation) #global_position #- Vector2(20 + rand_range(-5, 5), 30 + rand_range(-2, 6))
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
 	get_parent().add_child(newFloatingDamage)
 	#floatingDamages.append(newFloatingDamage)
@@ -126,9 +129,9 @@ func spawnFloatingText(damage):
 	newFloatingDamage.targetModulateR = 1.0
 	newFloatingDamage.targetModulateG = 0.5
 	newFloatingDamage.targetModulateB = 0.0
+	newFloatingDamage.rotation = rotation
 	#newFloatingDamage.following = self
 	#newFloatingDamage.rect_scale = Vector2(0.2, 0.2)
-	add_child(newFloatingDamage)
 	floatingDamages.append(newFloatingDamage)
 	floatingDamagesWeakrefs.append(weakref(newFloatingDamage))
 
