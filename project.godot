@@ -101,6 +101,14 @@ config/icon="res://icon.png"
 window/size/width=1920
 window/size/height=1080
 
+[global]
+
+font=false
+
+[gui]
+
+theme/custom_font="res://Assets/Fonts/roboto-regular-16.tres"
+
 [importer_defaults]
 
 texture={

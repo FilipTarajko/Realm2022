@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/playerSprites/archerGreen.png" type="Texture" id=2]
@@ -19,6 +19,10 @@
 [ext_resource path="res://Prefabs/fpsDisplay.gd" type="Script" id=17]
 [ext_resource path="res://Assets/Fonts/hp-bar-font.tres" type="DynamicFont" id=18]
 [ext_resource path="res://Assets/Fonts/bar-font.tres" type="DynamicFont" id=19]
+[ext_resource path="res://StatsView.tscn" type="PackedScene" id=20]
+[ext_resource path="res://InterfaceToggleButton.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Assets/Icons/stats.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Icons/backpack.png" type="Texture" id=23]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -113,11 +117,11 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -500.0
-margin_top = -600.0
-margin_right = -440.0
-margin_bottom = -528.0
-rect_scale = Vector2( 8, 8 )
+margin_left = -380.0
+margin_top = -450.0
+margin_right = -320.0
+margin_bottom = -378.0
+rect_scale = Vector2( 6, 6 )
 mouse_filter = 2
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
@@ -191,105 +195,6 @@ margin_right = 56.0
 margin_bottom = 67.0
 rect_min_size = Vector2( 8, 56 )
 
-[node name="UIBars" type="ColorRect" parent="CanvasLayer/InventoryParent"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -224.0
-margin_top = -100.0
-margin_right = -168.0
-margin_bottom = -89.0
-rect_scale = Vector2( 8, 8 )
-mouse_filter = 2
-color = Color( 0.164706, 0.164706, 0.164706, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UIHealthbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 104.0
-margin_bottom = 12.0
-rect_scale = Vector2( 0.35, 0.25 )
-step = 0.1
-value = 100.0
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIHealthbar"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -80.0
-margin_right = 120.0
-margin_bottom = 20.0
-rect_scale = Vector2( 0.8, 1 )
-custom_fonts/font = ExtResource( 18 )
-text = "100/200"
-align = 1
-valign = 1
-
-[node name="UIManabar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = 160.0
-margin_bottom = 25.0
-rect_scale = Vector2( 0.35, 0.14 )
-step = 0.1
-value = 100.0
-texture_under = ExtResource( 13 )
-texture_progress = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIManabar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -16.0
-margin_bottom = -11.0
-rect_scale = Vector2( 0.8, 1 )
-custom_fonts/font = ExtResource( 19 )
-text = "100/200"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UIExpbar" type="TextureProgress" parent="CanvasLayer/InventoryParent/UIBars"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 160.0
-margin_bottom = -31.0
-rect_scale = Vector2( 0.35, 0.14 )
-step = 0.1
-value = 100.0
-texture_under = ExtResource( 14 )
-texture_progress = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="CanvasLayer/InventoryParent/UIBars/UIExpbar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -16.0
-rect_scale = Vector2( 0.8, 1 )
-custom_fonts/font = ExtResource( 19 )
-text = "100/200"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Cursor" type="Sprite" parent="CanvasLayer"]
 material = SubResource( 4 )
 scale = Vector2( 8, 8 )
@@ -309,3 +214,150 @@ script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="statsPanel" parent="CanvasLayer" instance=ExtResource( 20 )]
+anchor_top = 1.0
+anchor_right = 0.0
+margin_left = 20.0
+margin_top = -295.0
+margin_right = 420.0
+margin_bottom = -20.0
+mouse_filter = 2
+
+[node name="UIBars" type="ColorRect" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -224.0
+margin_top = -100.0
+margin_right = -168.0
+margin_bottom = -89.0
+rect_scale = Vector2( 8, 8 )
+mouse_filter = 2
+color = Color( 0.164706, 0.164706, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UIHealthbar" type="TextureProgress" parent="CanvasLayer/UIBars"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 104.0
+margin_bottom = 12.0
+rect_scale = Vector2( 0.35, 0.25 )
+mouse_filter = 2
+step = 0.1
+value = 100.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/UIBars/UIHealthbar"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -80.0
+margin_right = 120.0
+margin_bottom = 20.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 18 )
+text = "100/200"
+align = 1
+valign = 1
+
+[node name="UIManabar" type="TextureProgress" parent="CanvasLayer/UIBars"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = 160.0
+margin_bottom = 25.0
+rect_scale = Vector2( 0.35, 0.14 )
+mouse_filter = 2
+step = 0.1
+value = 100.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer/UIBars/UIManabar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -16.0
+margin_bottom = -11.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 19 )
+text = "100/200"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UIExpbar" type="TextureProgress" parent="CanvasLayer/UIBars"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 8.0
+margin_right = 160.0
+margin_bottom = -31.0
+rect_scale = Vector2( 0.35, 0.14 )
+mouse_filter = 2
+step = 0.1
+value = 100.0
+texture_under = ExtResource( 14 )
+texture_progress = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="CanvasLayer/UIBars/UIExpbar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -16.0
+rect_scale = Vector2( 0.8, 1 )
+custom_fonts/font = ExtResource( 19 )
+text = "100/200"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="statsToggle" parent="CanvasLayer" instance=ExtResource( 21 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -305.0
+margin_top = -80.0
+margin_right = -245.0
+margin_bottom = -20.0
+focus_mode = 0
+enabled_focus_mode = 0
+
+[node name="TextureRect" parent="CanvasLayer/statsToggle" index="0"]
+texture = ExtResource( 22 )
+
+[node name="inventoryToggle" parent="CanvasLayer" instance=ExtResource( 21 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 245.0
+margin_top = -80.0
+margin_right = 305.0
+margin_bottom = -20.0
+focus_mode = 0
+enabled_focus_mode = 0
+
+[node name="TextureRect" parent="CanvasLayer/inventoryToggle" index="0"]
+texture = ExtResource( 23 )
+
+[connection signal="pressed" from="CanvasLayer/statsToggle" to="." method="_on_statsToggle_pressed"]
+[connection signal="pressed" from="CanvasLayer/inventoryToggle" to="." method="_on_inventoryToggle_pressed"]
+
+[editable path="CanvasLayer/statsToggle"]
+[editable path="CanvasLayer/inventoryToggle"]

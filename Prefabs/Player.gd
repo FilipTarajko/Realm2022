@@ -37,8 +37,8 @@ func calculateExperienceToNextLevel():
 	experienceToNextLevel = 50+100*level
 
 func updateExperienceBar():
-	$CanvasLayer/InventoryParent/UIBars/UIExpbar/Label3.text = str(experience,"/",experienceToNextLevel)
-	$CanvasLayer/InventoryParent/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
+	$CanvasLayer/UIBars/UIExpbar/Label3.text = str(experience,"/",experienceToNextLevel)
+	$CanvasLayer/UIBars/UIExpbar.value = 100*experience/experienceToNextLevel
 
 var stats = ["hp", "mp", "att", "dex", "spd", "vit", "wis", "def"]
 
@@ -77,10 +77,13 @@ var statsStarting = {
 #	'def': 0,
 }
 
+onready var statsVBoxContainer = get_node("CanvasLayer/statsPanel/NinePatchRect/MarginContainer/VBoxContainer")
+
 func readStatsFromCharacterClass():
 	for stat in stats:
 		statsPerLevel[stat] = characterClass.statsPerLevel[stat]
 		statsLimit[stat] = characterClass.statsLimit[stat]
+		statsVBoxContainer.get_node(stat).get_node("statMax").text = str(characterClass.statsLimit[stat])
 		statsStarting[stat] = characterClass.statsStarting[stat]
 
 var statsBase = {}
@@ -91,6 +94,8 @@ func addBaseStats(statsGained):
 	for stat in stats:
 		if stat in statsGained:
 			statsBase[stat] = min(statsBase[stat]+statsGained[stat], statsLimit[stat])
+		statsVBoxContainer.get_node(stat).get_node("statBase").text = str(statsBase[stat])
+		statsVBoxContainer.get_node(stat).get_node("statLeftToMax").text = str(characterClass.statsLimit[stat]-statsBase[stat])
 
 func levelUp():
 	level+=1
@@ -129,10 +134,13 @@ func recalculateItemStatBonuses():
 			if inventory.items[i]:
 				statsCalculated[stat]+=inventory.items[i][stat]
 		statsFromItems[stat] = statsCalculated[stat]
+		statsVBoxContainer.get_node(stat).get_node("statItems").text = str(statsFromItems[stat])
+		
 
 func recalculateTotalStats():
 	for stat in stats:
 		statsTotal[stat] = statsBase[stat]+statsFromItems[stat]
+		statsVBoxContainer.get_node(stat).get_node("statTotal").text = str(statsTotal[stat])
 	if hp:
 		if hp>statsTotal["hp"]:
 			hp = statsTotal["hp"]
@@ -191,12 +199,12 @@ func update_bars():
 	if not checkIfDead():
 		# hp
 		$Healthbar.value = 100*hp/statsTotal["hp"]
-		$CanvasLayer/InventoryParent/UIBars/UIHealthbar/Label.text = str(round(hp),"/",statsTotal["hp"])
-		$CanvasLayer/InventoryParent/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
+		$CanvasLayer/UIBars/UIHealthbar/Label.text = str(round(hp),"/",statsTotal["hp"])
+		$CanvasLayer/UIBars/UIHealthbar.value = 100*hp/statsTotal["hp"]
 		# mp
 		$Manabar.value = 100*mp/statsTotal["mp"]
-		$CanvasLayer/InventoryParent/UIBars/UIManabar/Label2.text = str(round(mp),"/",statsTotal["mp"])
-		$CanvasLayer/InventoryParent/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
+		$CanvasLayer/UIBars/UIManabar/Label2.text = str(round(mp),"/",statsTotal["mp"])
+		$CanvasLayer/UIBars/UIManabar.value = 100*mp/statsTotal["mp"]
 
 func checkIfDead():
 	if hp<=0 or statsTotal['hp']<=0:
@@ -499,3 +507,11 @@ func handleWeaponShooting(delta):
 		return
 	remaining_weapon_cooldown = 1.0/usedWeapon.rateOfFire*10.0/statsTotal["dex"]
 	generateBullets(usedWeapon, get_global_position())
+
+
+func _on_statsToggle_pressed():
+	$CanvasLayer/statsPanel.visible = !$CanvasLayer/statsPanel.visible
+
+
+func _on_inventoryToggle_pressed():
+	$CanvasLayer/InventoryParent/InventoryContainer.visible = !$CanvasLayer/InventoryParent/InventoryContainer.visible
