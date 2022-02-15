@@ -44,17 +44,17 @@ func spawnEnemyCluster(enemyData, amount, spawnRange, x=get_global_position().x,
 
 func _ready():
 	yield(get_tree(), "idle_frame")
-#	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_1.tres"), 20, 24, 120, 40)
-#	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_big.tres"), 1, 8, 120, 40)
-#	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_god.tres"), 1, 0, 100, -80)
-#	spawnEnemyCluster(load("res://Assets/Enemies/tornado_god.tres"), 1, 0, -120, -60)
-#	spawnEnemyCluster(load("res://Assets/Enemies/ent_god.tres"), 1, 0, -160, 120)
-#	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -160, 180)
-#	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, -160, 240)
+	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_1.tres"), 20, 24, 120, 40)
+	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_big.tres"), 1, 8, 120, 40)
+	spawnEnemyCluster(load("res://Assets/Enemies/scorpion_god.tres"), 1, 0, 100, -80)
+	spawnEnemyCluster(load("res://Assets/Enemies/tornado_god.tres"), 1, 0, -120, -60)
+	spawnEnemyCluster(load("res://Assets/Enemies/ent_god.tres"), 1, 0, -160, 120)
+	spawnEnemyCluster(load("res://Assets/Enemies/samurai.tres"), 1, 0, -160, 180)
+	spawnEnemyCluster(load("res://Assets/Enemies/snake_god.tres"), 1, 0, -160, 240)
 	spawnEnemyCluster(load("res://Assets/Enemies/shaman.tres"), 1, 0, 100, 160)
 	spawnEnemyCluster(load("res://Assets/Enemies/alchemist.tres"), 1, 0, 60, 100)
-#	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
-#	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
+	spawnEnemyCluster(load("res://Assets/Enemies/demon_red.tres"), 4, 24, 20, -200)
+	spawnEnemyCluster(load("res://Assets/Enemies/demon_orange.tres"), 3, 24, -30, -220)
 
 var frames = 0
 
