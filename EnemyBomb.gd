@@ -24,6 +24,7 @@ export(bool) var armorPierce = false
 export(Color) var modulate = Color(1, 0, 0)
 export(float) var slowDuration = 0
 export(float) var paralyzeDuration = 0
+export(float) var darzaConfuseDuration = 0
 export(float) var bursts = 1
 export(float) var burstsAngleDiff = 0
 export(float) var burstsDelay = 0

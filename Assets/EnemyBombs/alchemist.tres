@@ -16,6 +16,7 @@ armorPierce = false
 modulate = Color( 1, 0.188235, 0, 1 )
 slowDuration = 0.0
 paralyzeDuration = 0.0
+darzaConfuseDuration = 0.0
 bursts = 1.0
 burstsAngleDiff = 0.0
 burstsDelay = 0.0

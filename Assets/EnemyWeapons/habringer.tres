@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://EnemyWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Assets/bulletSprites/enemyBullets/tornado_god.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+enemyWeaponName = "shot"
+attackPeriod = 10000.0
+dmg_min = 80.0
+dmg_max = 80.0
+projectile_speed = 10.0
+projectile_acceleration = 0.0
+lifetime = 2.0
+shots = 4
+angle = 360.0
+targetingRange = 11.0
+randomAngle = 0.0
+scalex = 1.0
+scaley = 1.0
+collisionShapeRadius = 2.5
+collisionShapeHeight = 14.0
+spriteRotation = -45.0
+spriteOffsetX = 0.0
+spriteOffsetY = 0.0
+multihit = false
+armorPierce = false
+ignoreWalls = false
+sprite = ExtResource( 2 )
+modulate = Color( 0.364706, 0.0862745, 0.192157, 1 )
+slowDuration = 0.0
+paralyzeDuration = 0.0
+bursts = 50000.0
+burstsAngleDiff = -6.0
+burstsDelay = 0.2
+eachBulletRandomAngleDiff = 0.0
+followsEnemy = false
+initialSpriteRotationSpeed = 0.0
+bulletWaveFrequency = 0.0
+bulletWaveAmplitude = 0.0
+rotateSpriteAndHitboxToMatchDirection = false

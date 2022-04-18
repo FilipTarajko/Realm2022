@@ -1,28 +1,29 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://BasicEnemyResource.gd" type="Script" id=1]
-[ext_resource path="res://Assets/enemySprites/tornado_god.png" type="Texture" id=2]
-[ext_resource path="res://Assets/EnemyWeapons/tornado_god.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/enemySprites/habringer.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnemyWeapons/habringer.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/EnemyBombs/harbinger.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
-enemyName = "tornado god"
+enemyName = "habringer"
 sprite = ExtResource( 2 )
-moveSpeed = 3.0
+moveSpeed = 0.5
 escapeRange = 0.2
 visionRange = 12.0
 followRange = 1.0
-doesDodge = true
+doesDodge = false
 chaseRandomMaxAngle = 0.0
-modulate = Color( 0, 0.784314, 0.901961, 1 )
+modulate = Color( 1, 1, 1, 1 )
 scalex = 1.0
 scaley = 1.0
-maxHp = 1000.0
+maxHp = 15000.0
 def = 0.0
 shadowSizeMultiplier = 0.6
 hpRegen = 0.0
 weapons = [ ExtResource( 3 ) ]
-bombs = [  ]
+bombs = [ ExtResource( 4 ) ]
 isUsing16pxSprite = true
 drops = {
 Resource( "res://Assets/Items/Consumables/healing_potion.tres" ): 0.25,

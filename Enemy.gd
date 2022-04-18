@@ -213,6 +213,7 @@ func generateBombs(shootingWeapon, weaponIndex, position, isSpawnedByEnemy = tru
 	new_bomb.armorPierce = shootingWeapon.armorPierce
 	new_bomb.slowDuration = shootingWeapon.slowDuration
 	new_bomb.paralyzeDuration = shootingWeapon.paralyzeDuration
+	new_bomb.darzaConfuseDuration = shootingWeapon.darzaConfuseDuration
 	new_bomb.fallingTime = shootingWeapon.flightTimeBase
 	new_bomb.impactRadius = shootingWeapon.impactRadius
 	new_bomb.enemyName = enemyName

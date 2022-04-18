@@ -18,12 +18,16 @@ var autofire = false
 var slowed = 0.0
 var slowMultiplier = 2.0
 var paralyzed = 0.0
+var darzaConfused = 0.0
 
 func applySlow(slowDuration):
 	slowed = max(slowed, slowDuration)
-	
+
 func applyParalyze(paralyzeDuration):
 	paralyzed = max(paralyzed, paralyzeDuration)
+
+func applyDarzaConfuse(darzaConfuseDuration):
+	darzaConfused = max(darzaConfused, darzaConfuseDuration)
 
 onready var effectsHUDContainer = get_node("TemporaryEffectsDisplay/HBoxContainer")
 
@@ -33,6 +37,8 @@ func handleNegativeEffects(delta):
 		effectsHUDContainer.get_node("slowed").visible = true
 		if slowed < 1:
 			effectsHUDContainer.get_node("slowed").modulate = Color(1, 1, 1, slowed)
+		else:
+			effectsHUDContainer.get_node("slowed").modulate = Color(1, 1, 1, 1)
 	else:
 		effectsHUDContainer.get_node("slowed").visible = false
 	if paralyzed:
@@ -40,8 +46,19 @@ func handleNegativeEffects(delta):
 		effectsHUDContainer.get_node("paralyzed").visible = true
 		if paralyzed < 1:
 			effectsHUDContainer.get_node("paralyzed").modulate = Color(1, 1, 1, paralyzed)
+		else:
+			effectsHUDContainer.get_node("paralyzed").modulate = Color(1, 1, 1, 1)
 	else:
 		effectsHUDContainer.get_node("paralyzed").visible = false
+	if darzaConfused:
+		darzaConfused = max(darzaConfused-delta, 0)
+		effectsHUDContainer.get_node("darzaConfused").visible = true
+		if darzaConfused < 1:
+			effectsHUDContainer.get_node("darzaConfused").modulate = Color(1, 1, 1, darzaConfused)
+		else:
+			effectsHUDContainer.get_node("darzaConfused").modulate = Color(1, 1, 1, 1)
+	else:
+		effectsHUDContainer.get_node("darzaConfused").visible = false
 
 ### STATS ###
 
@@ -430,7 +447,10 @@ func handleMovement():
 		if slowed:
 			movement/=slowMultiplier
 		# move_and_slide has delta built-in
-		var _ignore = move_and_slide(movement.rotated(rotation))
+		if darzaConfused:
+			var _ignore = move_and_slide(movement.rotated(rotation+deg2rad(90)))
+		else:
+			var _ignore = move_and_slide(movement.rotated(rotation))
 
 
 func handleRotation(delta):
@@ -443,14 +463,24 @@ func handleRotation(delta):
 
 
 func handleAnimation():
-	if Input.is_action_pressed("Down"):
-		sprite_node.texture=textureDown
-	elif Input.is_action_pressed("Up"):
-		sprite_node.texture = textureUp
-	elif Input.is_action_pressed("Right"):
-		sprite_node.texture = textureRight
-	elif Input.is_action_pressed("Left"):
-		sprite_node.texture = textureLeft
+	if darzaConfused:
+		if Input.is_action_pressed("Right"):
+			sprite_node.texture=textureDown
+		elif Input.is_action_pressed("Left"):
+			sprite_node.texture = textureUp
+		elif Input.is_action_pressed("Up"):
+			sprite_node.texture = textureRight
+		elif Input.is_action_pressed("Down"):
+			sprite_node.texture = textureLeft
+	else:
+		if Input.is_action_pressed("Down"):
+			sprite_node.texture=textureDown
+		elif Input.is_action_pressed("Up"):
+			sprite_node.texture = textureUp
+		elif Input.is_action_pressed("Right"):
+			sprite_node.texture = textureRight
+		elif Input.is_action_pressed("Left"):
+			sprite_node.texture = textureLeft
 
 
 var bombPrefab = preload("res://Prefabs/bombPrefab.tscn")

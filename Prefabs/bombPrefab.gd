@@ -10,6 +10,7 @@ var dmg
 var armorPierce
 var slowDuration
 var paralyzeDuration
+var darzaConfuseDuration
 var fallingTime
 var enemyName
 var fallingSpeed = 3
@@ -136,6 +137,8 @@ func _on_Area2D_body_entered(body):
 					body.applySlow(slowDuration)
 				if paralyzeDuration:
 					body.applyParalyze(paralyzeDuration)
+				if darzaConfuseDuration:
+					body.applyDarzaConfuse(darzaConfuseDuration)
 			else:
 				body.takeDamage(dmg, armorPierce)
 				if slowDuration:
